@@ -1,0 +1,121 @@
+<?php 
+// Incluir el archivo para la conexión a la base de datos
+include("connectDB.php");
+
+// Iniciar la sesión
+session_start();
+
+// Establecer la conexión a la base de datos
+$conn = connectDB();
+
+// Verificar si la conexión a la base de datos fue exitosa
+if($conn){
+    try {
+        // Consultar todos los productos ordenados por nombre
+        $query = "SELECT * FROM productos ORDER BY name";
+        $statement = $conn->prepare($query);
+        $statement->execute();
+        $productos = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        // En caso de error en la consulta, imprimir el mensaje de error
+        echo "Error en la consulta: " . $e->getMessage();
+        // Detener la ejecución del script
+        exit();
+    }
+} else {
+    // Si hubo un error en la conexión, mostrar un mensaje de error
+    echo "Error al conectar a la base de datos";
+    // Detener la ejecución del script
+    exit();
+}
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+function getCartProducts($pdo) {
+    if (empty($_SESSION['cart'])) {
+        return [];
+    }
+
+    $ids = implode(',', array_keys($_SESSION['cart']));
+    $stmt = $pdo->query("SELECT * FROM productos WHERE id IN ($ids)");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$cartProducts = getCartProducts($conn);
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="../styles/style.css"> <!-- Asegúrate de enlazar correctamente tu hoja de estilos -->
+    <link rel="stylesheet" href="../styles/shop.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<header class="index-header">
+    <div class="header-top-container"><a href="../index.html">
+        <div class="identity-container">
+            <div class="Logo-container">
+                <img src="../assets/img/Logo.png" alt="Logo">
+            </div>
+            <div class="identity-title-container">
+                <h1 class="identity-title">Ferretería Vegagrande</h1>
+                <h2 class="identity-subtitle">Donde comienza la mejora de tu hogar</h2>
+            </div>
+        </div></a>
+        <div class="menu-container"></div>
+        <!-- Botón hamburguesa para dispositivos móviles -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- Menú de usuario para dispositivos de escritorio -->
+        <nav class="user-menu hidden">
+            <ul>
+                <div class="cart-icon">
+                    <a href="shoppingCart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
+                </div>
+                <li class="menu-element"><a href="./api/login.php">LogIn</a></li>
+                <li class="menu-element"><a href="./api/register.php">Register</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Menú de navegación para dispositivos de escritorio -->
+    <div class="menu-container navigation-menu-container hidden">
+        <nav class="navigation-menu">
+            <ul>
+                <li class="menu-element"><a href="">Quiénes somos</a></li>
+                <li class="menu-element"><a href="">Dónde estamos</a></li>
+                <li class="menu-element"><a href="">Productos</a></li>
+                <li class="menu-element"><a href="">Tienda</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="products-container">
+    <?php if(isset($productos) && count($productos) > 0): ?>
+        <?php foreach($productos as $producto): ?>
+            <div class="product-card">
+                <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
+                <h3 class="product-title"><?= $producto['name'] ?></h3>
+                <h3 class="product-price"><?= $producto['price'] ?> €</h3>
+                <form action="shoppingCart.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $producto['id']; ?>">
+                    <button type="submit" name="add">Añadir al carrito</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="error">No se encontraron resultados</p>
+    <?php endif; ?>
+</div>
+<script src="shoppingCart.js"></script>
+</body>
+</html>

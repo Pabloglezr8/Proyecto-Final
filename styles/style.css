@@ -1,0 +1,84 @@
+@font-face {
+    font-family: Mulish;
+    src: url(../assets/fonts/Mulish.ttf);
+}
+
+body {
+    font-family: Mulish;
+    background-color: #f0f0f0;
+    width: 90%;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #f29400;
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+
+.parragraf {
+    color: #1c1c1c;
+    font-size: 1.3em;
+    text-align: justify;
+}
+
+img {
+    width: 100px;
+}
+
+ul {
+    list-style: none;
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+li {
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+a:visited {
+    color: inherit;
+}
+
+button {
+    font-size: 1.3em;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #0e3083;
+    color: #f49200;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #f49200;
+    color: #0e3083;
+    transform: scale(1.05);
+}
+
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.products-table td {
+    padding: 10px;
+}
