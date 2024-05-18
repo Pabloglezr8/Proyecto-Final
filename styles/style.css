@@ -6,7 +6,18 @@
 body {
     font-family: Mulish;
     background-color: #f0f0f0;
-    width: 90%;
+    width: 98%;
+    margin: 0 auto;
+    padding-top: 200px;
+
+}
+
+.page {
+    width: 97%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid transparent;
+    /* Para ocultar el shadow en el borde superior */
+    margin: 0 auto;
     margin: 0 auto;
 }
 

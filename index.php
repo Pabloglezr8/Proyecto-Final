@@ -14,7 +14,7 @@ include("./api/header.php");
 </head>
 
 <body>
-
+<div class="page">
     <section class="intro-section">
         <h1 class="intro-title section-title">Ferretería en Gijón</h1>
         <div class="intro-container section-container">
@@ -32,6 +32,7 @@ include("./api/header.php");
                     de soluciones para tus proyectos, desde el menaje más práctico hasta las herramientas de
                     bricolaje básico que necesitas para llevar a cabo cualquier tarea.
                 </p>
+                <a href="./api/ubication.php"><button>Localízanos</button></a>
             </div>
         </div>
     </section>
@@ -129,6 +130,7 @@ include("./api/header.php");
         </div>
     </section>
     <script src="./scripts/galeria.js"></script>
+</div>
 </body>
 
 </html>

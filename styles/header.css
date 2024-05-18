@@ -1,5 +1,16 @@
 @import url('./style.css');
 
+header{
+    background-color: #f0f0f0;
+    width: 98%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+
 /* Estilos para el header logo y titulo */
 .header-top-container {
     display: flex;
@@ -62,7 +73,8 @@
     width: 100%;
     text-align: center;
     background-color: #0e3083;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 
     font-size: larger;
     color: #f29400;

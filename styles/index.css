@@ -1,4 +1,5 @@
 /* Estilos sección intro */
+
 .gallery {
     position: relative;
     width: 70%;
@@ -19,7 +20,7 @@
 }
 
 .intro-section {
-    width: 90%;
+    width: 80%;
     margin: 80px auto;
 }
 
@@ -35,17 +36,32 @@
     text-align: center;
 }
 
-.section-left {
-    text-align: center;
+.section-left, .section-right {
+    padding: 20px;
+}
+
+.intro-right{
+    width: 80%;
+    margin: 0  auto;
+}
+
+.intro-right button{
+    width: 100%;
+    margin: 0  auto;
+}
+
+.quality-section {
+    width: 80%;
+    margin: 80px auto;
 }
 
 .quality-right {
     text-align: center;
 }
 
-.quality-section {
-    width: 90%;
-    margin: 80px auto;
+.quality-left {
+    width: 80%;
+    margin: 0 auto;
 }
 
 .quality-text strong {
@@ -66,13 +82,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 10px;
-    align-items: center;
 }
 
 .card {
+
     width: 350px;
     height: 300px;
-    margin: 20px;
+    margin: 20px auto;
     perspective: 1000px;
     float: left;
     cursor: pointer;
