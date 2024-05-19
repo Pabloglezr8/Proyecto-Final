@@ -59,10 +59,66 @@ include("header.php");
             <div class="aboutus-title">
                 <h1>Nuestras marcas</h1>
             </div>
-            <div class="aboutus-data">
-                <div class="aboutus-text">
+            <div class="brand-data">
+                <div class="brand-text">
+                    <p class="parragraf"> Nos enorgullecemos de trabajar con las marcas más prestigiosas y confiables 
+                        del mercado. Cada una de nuestras marcas ha sido seleccionada cuidadosamente para garantizar 
+                        que nuestros clientes reciban productos de la más alta calidad, diseño innovador y durabilidad 
+                        excepcional. Conoce las marcas que hacen posible que te ofrezcamos lo mejor en menaje de 
+                        cocina, bricolaje básico y cerrajería doméstica.</p>
                 </div>
-                <img src="" alt="">
+                <div class="brand-carousel">
+                    <div class="logos">
+                      <div class="logo">
+                        <img src="../assets/img/carousel/3claveles.jpg" alt="Logo 1" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/ceys.jpg" alt="Logo 2" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/fischer.png" alt="Logo 3" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/ibili.jpg" alt="Logo 4" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/imf.jpg" alt="Logo 5" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/inoxfix.jpg" alt="Logo 6" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/inoxibar.jpg" alt="Logo 7" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/iris.jpg" alt="Logo 8" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/lacor.jpg" alt="Logo 9" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/magefesa.jpg" alt="Logo 10" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/oroley.png" alt="Logo 11" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/paso.jpg" alt="Logo 12" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/rolser.jpg" alt="Logo 13" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/russellhobbs.jpg" alt="Logo 14" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/tescoma.jpg" alt="Logo 15" class="logoMarca" />
+                      </div>
+                      <div class="logo">
+                        <img src="../assets/img/carousel/valira.jpg" alt="Logo 16" class="logoMarca" />
+                      </div>
+                    </div>
+                </div>
             </div>
     </div>
 </div>

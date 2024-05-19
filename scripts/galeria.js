@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const galleries = document.querySelectorAll('.gallery');
-    const maxImages = 5;
+    const maxImages = 6;
   
     galleries.forEach(gallery => {
       const images = gallery.querySelectorAll('.gallery-img');
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
     card.style.transform = 'scale(0)';
     setTimeout(() => {
       window.location.href = url;
-    }, 300); // Este valor debe ser igual al tiempo de la transición en CSS
+    }, 1000); // Este valor debe ser igual al tiempo de la transición en CSS
   }
   
   

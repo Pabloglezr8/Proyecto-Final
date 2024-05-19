@@ -67,9 +67,12 @@ include("./api/header.php");
             </div>
             <div class="quality-right section-right">
                 <div class="gallery quality-right section-right">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 1">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 2">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 3">
+                    <img class="gallery-img" src="./assets/img/producto1.jpg" alt="Image 1">
+                    <img class="gallery-img" src="./assets/img/producto2.jpg" alt="Image 2">
+                    <img class="gallery-img" src="./assets/img/producto3.jpg" alt="Image 3">
+                    <img class="gallery-img" src="./assets/img/producto4.jpg" alt="Image 4">
+                    <img class="gallery-img" src="./assets/img/producto5.jpg" alt="Image 5">
+                    <img class="gallery-img" src="./assets/img/producto6.jpg" alt="Image 6">
                 </div>
             </div>
         </div>

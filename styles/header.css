@@ -1,5 +1,9 @@
 @import url('./style.css');
 
+.active{
+    color: white;
+}
+
 header{
     background-color: #f0f0f0;
     width: 98%;
@@ -214,5 +218,13 @@ header{
         opacity: 1;
         z-index: 1;
         /* Hacemos que el menú aparezca suavemente */
+    }
+
+.user-menu-burger{
+    display:block;
+}
+    
+    .user-menu-burger a{
+        color: #0e3083;
     }
 }

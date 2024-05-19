@@ -62,7 +62,6 @@ if (!isset($_SESSION['cart'])) {
                 <ul>
                     <li class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></li>
                     <li class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></li>
-                    <li class="menu-element"><a href="">Productos</a></li>
                     <li class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></li>
                 </ul>
             </nav>
@@ -79,14 +78,16 @@ if (!isset($_SESSION['cart'])) {
         <nav class="burger-menu">
             <div>
                 <ul class="navigation-menu">
-                    <li class="menu-element"><a href="">Quiénes somos</a></li>
-                    <li class="menu-element"><a href="">Dónde estamos</a></li>
-                    <li class="menu-element"><a href="">Productos</a></li>
-                    <li class="menu-element"><a href="">Tienda</a></li>
+                <li class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></li>
+                    <li class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></li>
+                    <li class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></li>
                 </ul>
             </div>
             <div>
-                <ul class="user-menu">
+                <ul class="user-menu user-menu-burger">
+                    <li class="menu-element cart-icon">
+                        <a href="/FerreteriaVegagrande/api/my_cart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
+                    </li>
                     <li class="menu-element user-element"><a href="">LogIn</a></li>
                     <li class="menu-element user-element"><a href="">Register</a></li>
                 </ul>
