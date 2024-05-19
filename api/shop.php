@@ -56,23 +56,25 @@ $cartProducts = getCartProducts($conn);
     
 </head>
 <body>
-<div class="products-container">
-    <?php if(isset($productos) && count($productos) > 0): ?>
-        <?php foreach($productos as $producto): ?>
-                    <div class="product-card">
-                        <a href="../api/product.php?product_id=<?=$producto['id']?>" target="blank">
-                            <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
-                            <h3 class="product-title"><?= $producto['name'] ?></h3>
-                            <h3 class="product-price"><?= $producto['price'] ?> €</h3>
-                        </a>
-                        <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
-                    </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p class="error">No se encontraron resultados</p>
-    <?php endif; ?>
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../scripts/add-to-cart.js"></script>
+    <div class="page">
+        <div class="products-container">
+            <?php if(isset($productos) && count($productos) > 0): ?>
+                <?php foreach($productos as $producto): ?>
+                            <div class="product-card">
+                                <a href="../api/product.php?product_id=<?=$producto['id']?>" target="blank">
+                                    <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
+                                    <h3 class="product-title"><?= $producto['name'] ?></h3>
+                                    <h3 class="product-price"><?= $producto['price'] ?> €</h3>
+                                </a>
+                                <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
+                            </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="error">No se encontraron resultados</p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../scripts/add-to-cart.js"></script>
 </body>
 </html>

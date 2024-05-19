@@ -42,41 +42,42 @@ foreach ($cartProducts as $producto) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="cart-container">
-    <h1>Carrito</h1>
-    <?php if(count($cartProducts) > 0): ?>
-        <?php foreach($cartProducts as $producto): ?>
-        <div class="product-container">
-            <div class="product-delete">
-                <button class="remove-all-from-cart-btn" data-product-id="<?= $producto['id'] ?>">X</button>
-            </div>
-            <div class="product-data">
-                <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
-                <div class="product-text">
-                    <div class="product-name"><?= $producto['name'] ?></div>
-                    <div class="product-price"><?= $producto['price'] ?> €</div>
+ <div class="page">
+    <div class="cart-container">
+        <h1>Carrito</h1>
+        <?php if(count($cartProducts) > 0): ?>
+            <?php foreach($cartProducts as $producto): ?>
+            <div class="product-container">
+                <div class="product-delete">
+                    <button class="remove-all-from-cart-btn" data-product-id="<?= $producto['id'] ?>">X</button>
                 </div>
-                <div class="product-actions">
-                    <div class="product-quantity">
-                        <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
-                        <span class="cart-quantity" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
-                        <button class="remove-from-cart-btn" id="delete-quantity" data-product-id="<?= $producto['id'] ?>">-</button>
+                <div class="product-data">
+                    <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
+                    <div class="product-text">
+                        <div class="product-name"><?= $producto['name'] ?></div>
+                        <div class="product-price"><?= $producto['price'] ?> €</div>
+                    </div>
+                    <div class="product-actions">
+                        <div class="product-quantity">
+                            <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
+                            <span class="cart-quantity" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
+                            <button class="remove-from-cart-btn" id="delete-quantity" data-product-id="<?= $producto['id'] ?>">-</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <?php endforeach; ?>
-        <div class="cart-total">
-            <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
-            <button id="checkout-btn">Realizar Pedido</button>
-        </div>
-        <button id="clear-cart-btn">Vaciar Cesta</button>
-    <?php else: ?>
-        <h2>No tienes productos añadidos a tu carrito</h2>
-        <a href="shop.php"><button>Comprar</button></a>
-    <?php endif; ?>
+            <?php endforeach; ?>
+            <div class="cart-total">
+                <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
+                <button id="checkout-btn">Realizar Pedido</button>
+            </div>
+            <button id="clear-cart-btn">Vaciar Cesta</button>
+                <?php else: ?>
+                    <h2>No tienes productos añadidos a tu carrito</h2>
+                    <a href="shop.php"><button>Comprar</button></a>
+        <?php endif; ?>
+    </div>
 </div>
-
 <script src="../scripts/cart-actions.js"></script>
 </body>
 </html>

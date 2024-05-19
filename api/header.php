@@ -60,8 +60,8 @@ if (!isset($_SESSION['cart'])) {
         <div class="menu-container navigation-menu-container hidden">
             <nav class="navigation-menu">
                 <ul>
-                    <li class="menu-element"><a href="">Quiénes somos</a></li>
-                    <li class="menu-element"><a href="">Dónde estamos</a></li>
+                    <li class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></li>
+                    <li class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></li>
                     <li class="menu-element"><a href="">Productos</a></li>
                     <li class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></li>
                 </ul>

@@ -1,4 +1,8 @@
 /* Estilos sección intro */
+button{
+    width: 100%;
+    margin: 0  auto;
+}
 
 .gallery {
     position: relative;
@@ -45,11 +49,6 @@
     margin: 0  auto;
 }
 
-.intro-right button{
-    width: 100%;
-    margin: 0  auto;
-}
-
 .quality-section {
     width: 80%;
     margin: 80px auto;
@@ -69,6 +68,7 @@
 }
 
 .quality-slogan {
+    text-align: center;
     font-size: 1.4em;
     color: #f29400;
 }

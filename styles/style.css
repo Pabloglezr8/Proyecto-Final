@@ -8,7 +8,7 @@ body {
     background-color: #f0f0f0;
     width: 98%;
     margin: 0 auto;
-    padding-top: 200px;
+    padding-top: 230px;
 
 }
 
@@ -16,7 +16,6 @@ body {
     width: 97%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     border-top: 1px solid transparent;
-    /* Para ocultar el shadow en el borde superior */
     margin: 0 auto;
     margin: 0 auto;
 }
@@ -32,6 +31,10 @@ h2 {
 
 h3 {
     font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.3em;
 }
 
 

@@ -1,0 +1,23 @@
+
+.container{
+    margin: 80px auto;
+    width: 80%;
+}
+
+.aboutus-data, .offer-data{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+.aboutus-text, .offer-text{
+    width: 90%;
+}
+
+.aboutus-data img, .offer-data img{
+    border-radius: 20px;
+    width: 90%;
+}
+
