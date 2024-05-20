@@ -66,7 +66,7 @@ foreach ($cartProducts as $producto) {
             <div class="cart-total">
                 <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
                 <div >
-                    <a href="order-confirmation.php">
+                    <a href="order.php">
                         <button id="checkout-btn">Realizar Pedido</button>
                     </a>
                     <button id="clear-cart-btn">Vaciar Cesta</button>

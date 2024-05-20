@@ -44,7 +44,7 @@
                 }else{
                     $message = "Inicio de sesión exitoso";
                     echo "<p class='message success'>" . $message . "</p>";
-                    header("Refresh: 3; url=./user.php");
+                    header("Refresh: 3; url=../index.php");
                 }
             } else {
                 // Si no se encontró el usuario o la contraseña es incorrecta, mostrar un mensaje de error
