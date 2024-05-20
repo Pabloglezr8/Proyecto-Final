@@ -16,16 +16,12 @@ function getCartProducts($pdo) {
 
 // Verificar si la conexión a la base de datos fue exitosa
 if(!$conn){
-    // Si hubo un error en la conexión, mostrar un mensaje de error
     echo "Error al conectar a la base de datos";
-    // Detener la ejecución del script
     exit();
 }
 
-// Obtener productos en la cesta
 $cartProducts = getCartProducts($conn);
 
-// Calcular el precio total del carrito
 $totalPrice = 0;
 foreach ($cartProducts as $producto) {
     $totalPrice += $producto['price'] * $_SESSION['cart'][$producto['id']];
@@ -69,12 +65,16 @@ foreach ($cartProducts as $producto) {
             <?php endforeach; ?>
             <div class="cart-total">
                 <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
-                <button id="checkout-btn">Realizar Pedido</button>
+                <div >
+                    <a href="order-confirmation.php">
+                        <button id="checkout-btn">Realizar Pedido</button>
+                    </a>
+                    <button id="clear-cart-btn">Vaciar Cesta</button>
+                </div>
             </div>
-            <button id="clear-cart-btn">Vaciar Cesta</button>
-                <?php else: ?>
-                    <h2>No tienes productos añadidos a tu carrito</h2>
-                    <a href="shop.php"><button>Comprar</button></a>
+        <?php else: ?>
+            <h2>No tienes productos añadidos a tu carrito</h2>
+            <a href="shop.php"><button>Comprar</button></a>
         <?php endif; ?>
     </div>
 </div>

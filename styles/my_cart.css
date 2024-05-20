@@ -84,6 +84,28 @@
     border-radius: 20px;
 }
 
+.cart-total{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        width: 70%;
+        background-color: white;
+        color: #0e3083;
+
+}
+
+.cart-total div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+
+
 #clear-cart-btn {
     margin: 20px;
 }
