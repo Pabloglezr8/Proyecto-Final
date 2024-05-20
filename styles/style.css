@@ -17,7 +17,6 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     border-top: 1px solid transparent;
     margin: 0 auto;
-    margin: 0 auto;
 }
 
 h1 {
@@ -45,18 +44,9 @@ h4 {
 }
 
 img {
-    width: 100px;
+    width: 200px;
 }
 
-ul {
-    list-style: none;
-    list-style-type: none;
-    padding-inline-start: 0;
-}
-
-li {
-    margin: 10px;
-}
 
 a {
     text-decoration: none;
@@ -95,4 +85,39 @@ button:hover {
 
 .products-table td {
     padding: 10px;
+}
+
+@media screen and (max-width: 900px) {
+     body {
+     padding-top: 150px;
+        
+    }
+/*
+    h1 {
+        color: #f29400;
+        font-size: 2em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1.3em;
+    }
+    
+    h4 {
+        font-size: 1em;
+    }
+
+    
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+        text-align: justify;
+    }
+
+    button {
+        font-size: 1em;
+    } */
 }

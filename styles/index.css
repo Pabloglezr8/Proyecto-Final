@@ -1,8 +1,10 @@
 /* Estilos sección intro */
-button{
+button {
     width: 100%;
-    margin: 0  auto;
+    margin: 0 auto;
 }
+
+/* Estilos de la galeria */
 
 .gallery {
     position: relative;
@@ -23,15 +25,17 @@ button{
     border-radius: 20px;
 }
 
-.intro-section {
-    width: 80%;
+/*Estilos Secciones  */
+
+.intro-section,
+.quality-section {
     margin: 80px auto;
 }
 
 .section-container {
     margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(650px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
     justify-content: center;
     align-items: center;
 }
@@ -40,19 +44,76 @@ button{
     text-align: center;
 }
 
-.section-left, .section-right {
+.section-left,
+.section-right {
     padding: 20px;
 }
 
-.intro-right{
-    width: 80%;
-    margin: 0  auto;
+/* Estilos Seccion Intro */
+
+.intro-left {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
-.quality-section {
-    width: 80%;
-    margin: 80px auto;
+.tenyears-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
 }
+
+.tenyears-num {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    font-size: 3em;
+
+    h1 {
+        color: #0e3083;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+    }
+}
+
+.counter {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 20%;
+}
+
+.tenyears-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #f29400;
+}
+
+.tenyears-text img {
+    width: 50px;
+    height: auto;
+}
+
+.tenyears-slogan h2 {
+    display: inline;
+    color: #f29400;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+#change-word {
+    margin-right: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.intro-right {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Estilos Seccion Quality */
 
 .quality-right {
     text-align: center;
@@ -73,6 +134,7 @@ button{
     color: #f29400;
 }
 
+/* Estilos Seccion Product */
 .product-section {
     width: 90%;
     margin: 80px auto;
@@ -84,6 +146,8 @@ button{
     grid-gap: 10px;
 }
 
+
+/* Estilos Cards */
 .card {
 
     width: 350px;
@@ -132,4 +196,15 @@ button{
 
 .card:hover .back {
     transform: rotateY(0deg);
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+    .quality-slogan {
+
+        font-size: 1.2em;
+
+    }
 }

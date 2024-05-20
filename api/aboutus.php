@@ -38,7 +38,7 @@ include("header.php");
                 <h1>¿Qué ofrecemos?</h1>
             </div>
             <div class="offer-data">
-                <img src="../assets/img/productos.jpg" alt="">
+                <img src="../assets/img/interior.jpg" alt="">
                 <div class="offer-text">
                     <p class="parragraf">Somos una tienda joven con una marcada vocación de servicio,  en la 
                         que el cliente puede, tanto entrar a mirar como, realizar sus compras bien sea mediante 

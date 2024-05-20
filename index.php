@@ -19,10 +19,18 @@ include("./api/header.php");
         <h1 class="intro-title section-title">Ferretería en Gijón</h1>
         <div class="intro-container section-container">
             <div class="intro-left section-left">
-                <div class="gallery intro-left section-left">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 1">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 2">
-                    <img class="gallery-img" src="./assets/img/ferreteria.jpg" alt="Image 3">
+                <div class="tenyears-container">
+                    <div class="tenyears-num">
+                        <h1>+</h1>
+                        <h1 class="counter" id="counter">+0</h1>
+                        </div>         
+                    <div class="tenyears-text">
+                        <img src="./assets/img/certified.png" alt="">
+                        <h3>AÑOS</h3>
+                    </div>
+                </div>
+                <div class="tenyears-slogan">
+                     <h2 id="change-word">DE COMPROMISO</h2>
                 </div>
             </div>
             <div class="intro-right section-right">
@@ -134,6 +142,7 @@ include("./api/header.php");
         </div>
     </section>
     <script src="./scripts/galeria.js"></script>
+    <script src="./scripts/change-word.js"></script>
 </div>
 </body>
 

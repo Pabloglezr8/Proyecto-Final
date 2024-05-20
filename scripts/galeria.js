@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
       function fadeOut() {
         images[index].style.opacity = '0';
-        index = (index + 1) % Math.min(images.length, maxImages);
+        index = (index +1) % Math.min(images.length, maxImages);
         setTimeout(fadeIn, 1000); // Tiempo de espera antes de que aparezca la próxima imagen
       }
   
