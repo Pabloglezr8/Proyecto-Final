@@ -46,7 +46,7 @@ if (!isset($_SESSION['cart'])) {
             <!-- Menú de usuario para dispositivos de escritorio -->
             <nav class="user-menu hidden">
                     <div class="menu-element cart-icon">
-                        <a href="/FerreteriaVegagrande/api/my_cart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
+                        <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo count($_SESSION['cart']); ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
                     </div>
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/login.php">LogIn</a></div>
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/register.php">Register</a></div>
@@ -83,11 +83,11 @@ if (!isset($_SESSION['cart'])) {
             </div>
             <div>
                 <div class=" user-menu-burger">
+                    <div class="menu-element user-element"><a href="">LogIn</a></div>
+                    <div class="menu-element user-element"><a href="">Register</a></div>
                     <div class="menu-element cart-icon">
                         <a href="/FerreteriaVegagrande/api/my_cart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
                     </div>
-                    <div class="menu-element user-element"><a href="">LogIn</a></div>
-                    <div class="menu-element user-element"><a href="">Register</a></div>
                 </div>
             </div>
         </nav>

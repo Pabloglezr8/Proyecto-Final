@@ -21,13 +21,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
-
-  function redirectPage(url) {
-    var card = event.currentTarget;
-    card.style.transform = 'scale(0)';
-    setTimeout(() => {
-      window.location.href = url;
-    }, 1000); // Este valor debe ser igual al tiempo de la transición en CSS
-  }
-  
   

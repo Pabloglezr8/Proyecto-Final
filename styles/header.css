@@ -108,11 +108,10 @@ header{
     align-items: center;
     justify-content: right;
 
+}
 
-
-    a:hover {
-        color: #0e3083;
-    }
+.cart-icon img{
+    width: 50px;
 }
 
 .user-menu a{

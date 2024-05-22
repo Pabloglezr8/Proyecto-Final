@@ -55,12 +55,9 @@ foreach ($cartProducts as $producto) {
         </div>
         <h2>Datos de Usuario y Envío</h2>
         <form id="order-form">
-            <label for="username">Nombre Completo:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="address">Dirección de Envío:</label>
-            <input type="text" id="address" name="address" required>
+            <input type="text" id="username" name="username" placeholder="Nombre Completo" required>
+            <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
+            <input type="text" id="address" name="address" placeholder="Dirección de envío" required>
             <!-- Otros campos del formulario -->
             <button type="submit" id="place-order-btn">Realizar Pedido</button>
         </form>

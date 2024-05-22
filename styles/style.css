@@ -47,6 +47,9 @@ img {
     width: 200px;
 }
 
+ul {
+    list-style-type: none;
+}
 
 a {
     text-decoration: none;
@@ -58,20 +61,27 @@ a:visited {
 }
 
 button {
+    font-family: Mulish;
     font-size: 1.3em;
     padding: 10px;
     border-radius: 10px;
     border: none;
     background-color: #0e3083;
-    color: #f49200;
+    color: #f29400;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
 
 button:hover {
-    background-color: #f49200;
+    background-color: #f29400;
     color: #0e3083;
     transform: scale(1.05);
+}
+
+.success,
+.error {
+    text-align: center;
+    font-size: 1.5em;
 }
 
 
@@ -83,16 +93,64 @@ button:hover {
     color: green;
 }
 
-.products-table td {
+input {
+    font-family: Mulish;
+    color: #f29400;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: 20px;
     padding: 10px;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+
+}
+
+
+input::placeholder {
+    color: #f29400;
+}
+
+input:focus {
+    color: #0e3083;
+    border: 1px solid #f29400;
+    outline: none;
+}
+
+#input-file {
+    color: #0e3083;
+    border: none;
+}
+
+#input-file:hover {
+    color: #f29400;
+    border: none;
+}
+
+input::-webkit-file-upload-button {
+    font-family: Mulish;
+
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f29400;
+    color: #0e3083;
+    transition: 0.5s ease-in-out;
+}
+
+input::-webkit-file-upload-button:hover {
+    transform: scale(1.05);
+    color: #f29400;
+    background-color: #0e3083;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-     body {
-     padding-top: 150px;
-        
+    body {
+        padding-top: 150px;
+
     }
-/*
+
+    /*
     h1 {
         color: #f29400;
         font-size: 2em;

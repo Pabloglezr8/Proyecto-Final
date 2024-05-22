@@ -159,6 +159,10 @@ button {
     transition: transform 0.3s;
 }
 
+.card img{
+    width: 80px;
+}
+
 .front,
 .back {
     width: 100%;
@@ -172,6 +176,7 @@ button {
     color: #f29400;
     background-color: #0e3083;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 20px;

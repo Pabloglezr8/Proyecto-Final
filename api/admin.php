@@ -3,11 +3,34 @@ include("connectDB.php");
 
 session_start();
 
+// Variable para almacenar mensajes
+$message = "";
+$messageClass = ""; // Clase para el estilo del mensaje
+
 // Función para eliminar un producto por su ID
+
 function deleteProducto($conn, $id){
+    // Obtener el nombre de la imagen del producto a eliminar
+    $query = $conn->prepare("SELECT img FROM productos WHERE id = :id");
+    $query->bindParam(":id", $id);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $imgToDelete = $result['img'];
+
+    // Eliminar el producto de la base de datos
     $query = $conn->prepare("DELETE FROM productos WHERE id = :id");
     $query->bindParam(":id", $id);
-    return $query->execute();
+    $deleted = $query->execute();
+
+    // Si se eliminó el producto de la base de datos, eliminar la imagen del servidor
+    if ($deleted && !empty($imgToDelete)) {
+        $filePath = "../assets/img/productos/" . $imgToDelete;
+        if (file_exists($filePath)) {
+            unlink($filePath); // Eliminar el archivo de imagen
+        }
+    }
+
+    return $deleted; // Retornar si se eliminó el producto correctamente o no
 }
 
 // Función para obtener los detalles de un producto por su ID para editarlo
@@ -39,17 +62,15 @@ function updateProducto($conn, $id, $name, $img, $description, $price){
     $query->bindParam(":price", $price);
     return $query->execute();
 }
-?>
-
-<?php
 
 // Función para listar todos los productos disponibles
-function listProducto($conn){
+function listProducto($conn, &$message, &$messageClass){
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['delete'])){
             $id = $_POST['delete_id'];
             deleteProducto($conn, $id);
-            echo "<p id='message' class='message success'>Producto eliminado correctamente.</p>";
+            $message = "Producto eliminado correctamente.";
+            $messageClass = "success"; // Clase para el estilo de mensaje de éxito
         } else if(isset($_POST['edit'])){
             $id = $_POST['edit_id'];
             editProducto($conn, $id);
@@ -68,14 +89,14 @@ function listProducto($conn){
                 if(move_uploaded_file($_FILES['img']['tmp_name'], $target_file)){
                     addProducto($conn, $name, $img, $description, $price);
                     $message = "Producto añadido correctamente.";
-                    echo "<p id='message' class='message success'>" . $message . "</p>";
+                    $messageClass = "success"; // Clase para el estilo de mensaje de éxito
                 } else {
                     $message = "Error al subir la imagen.";
-                    echo "<p id='message' class='message error'>" . $message . "</p>";
+                    $messageClass = "error"; // Clase para el estilo de mensaje de error
                 }
             } else {
                 $message = "Error al insertar el producto. Imagen no válida.";
-                echo "<p id='message' class='message error'>" . $message . "</p>";
+                $messageClass = "error"; // Clase para el estilo de mensaje de error
             }
         } else if(isset($_POST['update'])){
             $id = $_POST['id'];
@@ -93,17 +114,17 @@ function listProducto($conn){
                 if(move_uploaded_file($_FILES['img']['tmp_name'], $target_file)){
                     updateProducto($conn, $id, $name, $img, $description, $price);
                     $message = "Producto actualizado correctamente.";
-                    echo "<p id='message' class='message success'>" . $message . "</p>";
+                    $messageClass = "success"; // Clase para el estilo de mensaje de éxito
                 } else {
                     $message = "Error al subir la imagen.";
-                    echo "<p id='message' class='message error'>" . $message . "</p>";
+                    $messageClass = "error"; // Clase para el estilo de mensaje de error
                 }
             } else {
                 // Si no se ha subido una nueva imagen, usar la imagen actual
                 $img = $_POST['current_img'];
                 updateProducto($conn, $id, $name, $img, $description, $price);
                 $message = "Producto actualizado correctamente.";
-                echo "<p id='message' class='message success'>" . $message . "</p>";
+                $messageClass = "success"; // Clase para el estilo de mensaje de éxito
             }
         }
     }
@@ -118,67 +139,73 @@ function listProducto($conn){
         $productoToEdit = editProducto($conn, $id);
     }
     ?>
+    <div class="header">
+        <h1 class='title'>Panel de Administrador</h1>
 
-    <form method='post' enctype='multipart/form-data' class='shadow'>
-        <legend><?= ($productoToEdit ? "Editar Producto" : "Insertar Producto") ?></legend>   
-        <label for='name'>Nombre</label>
-        <input type='text' name='name' id='name' value='<?= ($productoToEdit ? $productoToEdit["name"] : "") ?>'>
-        <label for='img'>Imagen</label>
-        <input type='file' name='img' id='img'>
-        <?php if($productoToEdit): ?>
-            <input type='hidden' name='current_img' value='<?= $productoToEdit["img"] ?>'>
-        <?php endif; ?>
-        <label for='description'>Descripción</label>
-        <input type='text' name='description' id='description' value='<?= ($productoToEdit ? $productoToEdit["description"] : "") ?>'>
-        <label for='price'>Precio</label>
-        <input type='text' name='price' id='price' value='<?= ($productoToEdit ? $productoToEdit["price"] : "") ?>'>
-        <input type='hidden' name='id' value='<?= ($productoToEdit ? $productoToEdit["id"] : "") ?>'>
+        <form method='post' enctype='multipart/form-data' class='control-panel'>
+            <div class="form-title"><h3><?= ($productoToEdit ? "Editar Producto" : "Añadir Producto") ?></h3></div>   
+            <div class="form-element-container">    
+                <div class="form-element">
+                    <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? $productoToEdit["name"] : "") ?>'>
+                </div>
 
-        <div class='btn-container'>
-            <button class='btn insertar' type='submit' name='<?= ($productoToEdit ? "update" : "insert") ?>' id='insert-btn'><?= ($productoToEdit ? "Editar" : "Insertar") ?> producto</button>
+                <div class="form-element">
+                     <input type='text' name='description' id='description' placeholder="Descripción" value='<?= ($productoToEdit ? $productoToEdit["description"] : "") ?>'>
+                </div>
+
+                <div class="form-element">
+                     <input type='text' name='price' id='price' placeholder="Precio" value='<?= ($productoToEdit ? $productoToEdit["price"] : "") ?>'>
+                     <input type='hidden' name='id' value='<?= ($productoToEdit ? $productoToEdit["id"] : "") ?>'>
+                </div>
+
+                <div class="form-element">
+                    <input type='file' name='img' id='input-file'>
+                    <?php if($productoToEdit): ?>
+                        <input type='hidden' name='current_img' value='<?= $productoToEdit["img"] ?>'>
+                    <?php endif; ?>
+                </div>
+                
+            </div>
+                <div class='btn-container'>
+                    <button class='btn-insertar' type='submit' name='<?= ($productoToEdit ? "update" : "insert") ?>' id='insert-btn'><?= ($productoToEdit ? "Editar" : "Insertar") ?> producto</button>
+                </div>
+        </form>
+
+            <!-- Mostrar mensaje si existe -->
+    <?php if (!empty($message)): ?>
+        <div class="message-container">
+            <p class="message <?= $messageClass ?>"><?= $message ?></p>
         </div>
-    </form>
+    <?php endif; ?>
 
-    <div class="h2Container">
-        <div class="line"></div>
-        <h2 class='heading'>Nuestros productos</h2>
-        <div class="line"></div>
     </div>
-    
     <!-- Consulta los productos disponibles en la base de datos y muestra una tabla HTML con ellos -->
-    <table border='1' class='userTable'>
-        <tr>
-            <th>Nombre</th>
-            <th>Imagen</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-        </tr>
     <?php
-    foreach($query as $row){          
-        echo "<tr>";
-        echo "<td>" . $row["name"] . "</td>";
-        echo "<td><img src='../assets/img/productos/" . $row["img"] . "' alt='" . $row["name"] . "'></td>";
-        echo "<td>" . $row["description"] . "</td>";
-        echo "<td>" . $row["price"] ."€" . "</td>";
-        echo "<td>
-                <form method='post'>
-                    <input type='hidden' name='delete_id' value='" . $row["id"] . "'>
-                    <input class='btn' type='submit' name='delete' value='Eliminar'>
-                </form>
-                <form method='post'>
-                    <input type='hidden' name='edit_id' value='" . $row["id"] . "'>
-                    <input class='btn' type='submit' name='edit' value='Editar' id='edit-btn'>
-                </form>
-              </td>";
-        echo "</tr>";           
-    }
-    echo "</table>";    
+    foreach($query as $product): ?> 
+    <div class="product-container">
+        <img src="../assets/img/productos/<?= $product['img'] ?>" alt="<?= $product['name'] ?>">
+        <p class="parragraf name" id="name"><?= $product["name"]?></p>
+        <p class="parragraf description" id="description"><?= $product["description"]?></p>
+        <p class="parragraf price" id="price"><?= $product["price"]?> €</p>
+        <div class="button-container">
+            <form method='post'>
+                <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
+                <button class='btn' type='submit' name='delete' id="delete-btn">Eliminar</button>
+            </form>
+            <form method='post'>
+                <input type='hidden' name='edit_id' value='<?= $product["id"] ?>'>
+                <button class='btn' type='submit' name='edit' id='edit-btn'>Editar</button>
+            </form>
+        </div>
+    </div>
+    <?php endforeach; ?>              
+
+<?php
 }
 
 $conn = connectDB();
 
-listProducto($conn);
+listProducto($conn, $message, $messageClass);
 ?>
 
 <!DOCTYPE html>
@@ -186,11 +213,10 @@ listProducto($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $user ?></title>
+    <title><?= $username ?></title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/admin.css">
 </head>
 <body>
-    <script type="module" src="../scripts/main.js"></script>
-    <script src="https://kit.fontawesome.com/c3db1c8a5f.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,108 @@
+body {
+    padding-top: 400px;
+}
+
+.header {
+    background-color: #f0f0f0;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+
+.control-panel{
+    text-align: center;
+}
+
+.title {
+    margin: 0 auto;
+    color: #f29400;
+    background-color: #0e3083;
+    padding: 20px;
+    text-align: center;
+}
+
+.form-title {
+    text-align: center;
+    color: #0e3083;
+}
+
+.form-element-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-element {
+    margin: 20px;
+
+    input {
+        padding: 10px;
+        border: 1px solid #0e3083;
+        border-radius: 10px;
+    }
+
+}
+
+
+.product-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    background-color: white;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 20px;
+
+    p {
+        text-align: center;
+    }
+}
+
+
+img {
+    width: 100px;
+    margin: 30px;
+}
+
+.name {
+    min-width: 200px;
+    margin: 30px;
+}
+
+.price {
+    margin: 30px;
+    min-width: 100px;
+}
+
+.button-container {
+    text-align: center;
+}
+
+#delete-btn {
+    color: #cf2525;
+    background:none;
+}
+
+#delete-btn:hover{
+    color: white;
+    background-color: #cf2525;
+}
+
+#edit-btn{
+    color: #f29400;
+    background: none;
+}
+
+#edit-btn:hover{
+    color: white;
+    background-color: #f29400;
+}

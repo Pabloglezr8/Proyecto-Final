@@ -91,8 +91,10 @@ include("./api/header.php");
     <section class="product-section">
         <h1 class="product-title section-title">y una Gran Variedad de Productos</h1>
         <div class="product-container">
-            <div class="card" id="tools" onclick="redirectPage('./templates/error403.html')">
+            <div class="card" id="tools">
                 <div class="front">
+                <img src="./assets/img/icons/tools.png" alt="Herramientas">
+
                     <h3>Herramientas</h3>
                 </div>
                 <div class="back">
@@ -107,8 +109,9 @@ include("./api/header.php");
                     </ul>
                 </div>
             </div>
-            <div class="card" id="tools" onclick="redirectPage('./templates/error403.html')">
+            <div class="card" id="tools">
                 <div class="front">
+                <img src="./assets/img/icons/menaje.png" alt="Cocina/Hogar">
                     <h3>Cocina/Hogar</h3>
                 </div>
                 <div class="back">
@@ -123,8 +126,9 @@ include("./api/header.php");
                     </ul>
                 </div>
             </div>
-            <div class="card" id="tools" onclick="redirectPage('./templates/error403.html')">
+            <div class="card" id="tools">
                 <div class="front">
+                    <img src="./assets/img/icons/cerrajeria.png" alt="Cerrajería">
                     <h3>Cerrajería</h3>
                 </div>
                 <div class="back">
