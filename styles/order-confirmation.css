@@ -1,0 +1,28 @@
+.order-confirmation{
+    position: relative;
+    margin: 50px auto;
+    text-align: center;
+    background-color: #f29400;
+    border-radius: 20px;
+    padding: 20px;
+    width: 40%;
+}
+
+.order-confirmation img{
+    width: 10%;
+    position: absolute;
+    top: 0;
+    right: 20px;
+
+}
+.parragraf{
+    text-align: center;
+}
+
+.order-confirmation h1{
+    color: #0e3083;
+}
+.order-details{
+    margin: 0 auto;
+    width: 80%;
+}

@@ -45,7 +45,7 @@ foreach ($cartProducts as $producto) {
             <?php foreach($cartProducts as $producto): ?>
             <div class="product-container">
                 <div class="product-delete">
-                    <button class="remove-all-from-cart-btn" data-product-id="<?= $producto['id'] ?>">X</button>
+                    <button class="remove-all-from-cart-btn" data-product-id="<?= $producto['id'] ?>">Eliminar</button>
                 </div>
                 <div class="product-data">
                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">

@@ -9,10 +9,11 @@ $conn = connectDB();
 $response = ['status' => false, 'message' => 'Error al procesar el pedido.'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['address'])) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['address']) && isset($_POST['payment_method'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $address = $_POST['address'];
+        $paymentMethod = $_POST['payment_method'];
         $totalPrice = 0;
 
         // Calcular el precio total del pedido
@@ -46,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $conn->lastInsertId();
 
             // Insertar pedido en la tabla pedidos
-            $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date) VALUES (?, ?, NOW())");
-            if (!$stmt->execute([$userId, $totalPrice])) {
+            $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method) VALUES (?, ?, NOW(), ?)");
+            if (!$stmt->execute([$userId, $totalPrice, $paymentMethod])) {
                 throw new Exception('Error al insertar en la tabla pedidos.');
             }
             $pedidoId = $conn->lastInsertId();
@@ -72,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $response['status'] = true;
             $response['message'] = 'Pedido realizado con éxito.';
+            $response['order_id'] = $pedidoId;
 
         } catch (Exception $e) {
             // Revertir la transacción

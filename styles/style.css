@@ -45,6 +45,7 @@ h4 {
 
 img {
     width: 200px;
+    border-radius: 20px;
 }
 
 ul {
@@ -142,6 +143,15 @@ input::-webkit-file-upload-button:hover {
     color: #f29400;
     background-color: #0e3083;
     cursor: pointer;
+}
+
+.product-container{
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    background-color: white;
+    align-items: center;
+    border-radius: 20px;
 }
 
 @media screen and (max-width: 900px) {

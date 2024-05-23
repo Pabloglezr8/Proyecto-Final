@@ -1,0 +1,89 @@
+.title {
+    text-align: center;
+}
+
+.order-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    grid-gap: 40px;
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+.order-details {
+    height: 65vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.product-container {
+    width: 90%;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.product-container img {
+    width: 100px;
+}
+
+.product-element {
+    margin: 20px;
+}
+
+.order-form-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    margin: 0 auto;
+}
+
+.data-container {
+    text-align: center;
+
+}
+
+.data-container input {
+    width: 80%;
+}
+
+.payment-container select {
+    font-family: Mulish;
+    color: #f29400;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+}
+
+.payment-container select:focus {
+    color: #0e3083;
+    border: 1px solid #f29400;
+    outline: none;
+}
+
+.payment-container select:hover {
+    cursor: pointer;
+}
+
+#bank-transfer-instructions{
+    display: none;
+    border-radius: 20px;
+    border: 2px solid #0e3083;
+    background-color: white;
+    padding: 10px;
+}
+
+#bank-transfer-instructions p:last-child{
+    text-align: center;
+}
+
+.parragraf{
+    text-align: center;
+}
+
+p strong{
+    font-size: 1.2em;
+    color: #f29400;
+}

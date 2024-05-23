@@ -39,30 +39,49 @@ foreach ($cartProducts as $producto) {
 </head>
 <body>
 <div class="page">
-    <div class="order-container">
-        <h1>Detalles del Pedido</h1>
-        <!-- Mostrar detalles del pedido -->
-        <div id="order-details">
-            <?php foreach($cartProducts as $producto): ?>
-                <div class="product-container">
-                    <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
-                    <div class="product-name"><?= $producto['name'] ?></div>
-                    <div class="product-quantity"><?= $_SESSION['cart'][$producto['id']] ?></div>
-                    <div class="product-price"><?= $producto['price'] ?> €</div>
+    
+        <div><h1 class="title">Detalles del Pedido</h1></div>
+        <div class="order-container">
+            <!-- Mostrar detalles del pedido -->
+            <div class="order-details" id="order-details">
+                <?php foreach($cartProducts as $producto): ?>
+                    <div class="product-container">
+                        <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
+                        <div class="product-element parragraf"><?= $producto['name'] ?></div>
+                        <div class="product-element parragraf"><?= $producto['price'] ?> €</div>
+                        <div class="product-element parragraf">x<?= $_SESSION['cart'][$producto['id']] ?></div>
+                        <div class="product-element parragraf">= <?= $_SESSION['cart'][$producto['id']] * $producto['price'] ?> €</div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="order-form-container">
+                <div class="data-container">
+                    <h3>Datos de Usuario y Envío</h3>
+                    <form id="order-form">
+                        <input type="text" id="username" name="username" placeholder="Nombre Completo" required>
+                        <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
+                        <input type="text" id="address" name="address" placeholder="Dirección de envío" required>
+                        <button type="submit" id="place-order-btn">Realizar Pedido</button>
                 </div>
-            <?php endforeach; ?>
-            <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
+                <div class="payment-container">   
+                    <h3>Método de Pago</h3>
+                        <select id="payment-method" name="payment_method" required>
+                            <option value="contrareembolso">Contra Reembolso</option>
+                            <option value="transferencia">Transferencia Bancaria</option>
+                        </select>
+
+                        <div id="bank-transfer-instructions" >
+                            <p class="parragraf">Por favor, realice la transferencia al siguiente número de cuenta:</p>
+                            <p><strong>Banco:</strong>&nbsp;&nbsp;&nbsp; XYZ Bank</p>
+                            <p><strong>IBAN:</strong>&nbsp;&nbsp;&nbsp; ES00 0000 0000 0000 0000</p>
+                            <p><strong>SWIFT:</strong>&nbsp;&nbsp;&nbsp; ABCDESMMXXX</p>
+                            <p>*Asegúrese de incluir su nombre y el ID del pedido en la referencia de la transferencia.</p>
+                        </div>
+                </div> 
+                </form>
+                <div id="order-message"></div>
+            </div>
         </div>
-        <h2>Datos de Usuario y Envío</h2>
-        <form id="order-form">
-            <input type="text" id="username" name="username" placeholder="Nombre Completo" required>
-            <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
-            <input type="text" id="address" name="address" placeholder="Dirección de envío" required>
-            <!-- Otros campos del formulario -->
-            <button type="submit" id="place-order-btn">Realizar Pedido</button>
-        </form>
-        <div id="order-message"></div>
-    </div>
 </div>
 <script src="../scripts/order.js"></script>
 </body>

@@ -10,8 +10,8 @@ $(document).ready(function() {
             success: function(response) {
                 $('#order-message').text(response.message);
                 if (response.status) {
-                    // Limpiar el carrito o redirigir a una página de confirmación
-                    window.location.href = 'order-confirmation.php';
+                    // Redirigir a una página de confirmación
+                    window.location.href = 'order-confirmation.php?order_id=' + response.order_id;
                 }
             },
             error: function() {
@@ -19,4 +19,14 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+document.getElementById('payment-method').addEventListener('change', function() {
+    var paymentMethod = this.value;
+    var instructions = document.getElementById('bank-transfer-instructions');
+    if (paymentMethod === 'transferencia') {
+        instructions.style.display = 'block';
+    } else {
+        instructions.style.display = 'none';
+    }
 });
