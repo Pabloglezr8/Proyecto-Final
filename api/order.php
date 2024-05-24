@@ -15,11 +15,14 @@ function getCartProducts($pdo) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 // Verificar si la conexión a la base de datos fue exitosa
 if (!$conn) {
     echo "Error al conectar a la base de datos";
     exit();
 }
+
+
 
 $cartProducts = getCartProducts($conn);
 $totalPrice = 0;
@@ -58,9 +61,15 @@ foreach ($cartProducts as $producto) {
                 <div class="data-container">
                     <h3>Datos de Usuario y Envío</h3>
                     <form id="order-form">
-                        <input type="text" id="username" name="username" placeholder="Nombre Completo" required>
-                        <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
-                        <input type="text" id="address" name="address" placeholder="Dirección de envío" required>
+                    <input type="text" id="name" name="name" placeholder="Nombre"  value="<?= htmlspecialchars($user['name']); ?>" required>
+                        <input type="text" id="surname" name="surname" placeholder="Apellidos"  value="<?= htmlspecialchars($user['surname']); ?>" required>
+                        <input type="email" id="email" name="email" placeholder="E-mail"  value="<?= htmlspecialchars($user['email']); ?>" required>
+                        <input type="password" id="password" name="password" placeholder="Contraseña" requiered>
+                        <input type="text" id="address" name="address" placeholder="Dirección de envío"  value="<?= htmlspecialchars($user['address']); ?>" required>
+                        <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal"  value="<?= htmlspecialchars($user['postal_code']); ?>" required>
+                        <input type="text" id="location" name="location" placeholder="Localidad"  value="<?= htmlspecialchars($user['location']); ?>" required>
+                        <input type="text" id="country" name="country" placeholder="Pais"  value="<?= htmlspecialchars($user['country']); ?>" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Teléfono"  value="<?= htmlspecialchars($user['phone']); ?>" required>
                         <button type="submit" id="place-order-btn">Realizar Pedido</button>
                 </div>
                 <div class="payment-container">   

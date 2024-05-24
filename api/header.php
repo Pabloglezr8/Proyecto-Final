@@ -4,10 +4,47 @@ include("connectDB.php");
 
 session_start();
 
+
+if (isset($_SESSION['id'])) {
+    $user = [
+        'name' => $_SESSION['name'],
+        'surname' => $_SESSION['surname'],
+        'email' => $_SESSION['email'],
+        'address' => $_SESSION['address'],
+        'postal_code' => $_SESSION['postal_code'],
+        'location' => $_SESSION['location'],
+        'country' => $_SESSION['country'],
+        'phone' => $_SESSION['phone'],
+        'role' => $_SESSION['role'],
+    ];
+    $isLoggedIn = true;
+    
+
+} else {
+    $user = [
+        'name' => '',
+        'surname' => '',
+        'email' => '',
+        'address' => '',
+        'postal_code' => '',
+        'location' => '',
+        'country' => '',
+        'phone' => '',
+        'role' => '' // Si el usuario no está logueado, el rol es vacío
+    ];
+    $isLoggedIn = false;
+}
+
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
+
+$total_productos = 0;
+foreach ($_SESSION['cart'] as $prod) {
+    $total_productos += $prod;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,12 +82,19 @@ if (!isset($_SESSION['cart'])) {
 
             <!-- Menú de usuario para dispositivos de escritorio -->
             <nav class="user-menu hidden">
-                    <div class="menu-element cart-icon">
-                        <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo count($_SESSION['cart']); ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
-                    </div>
+                <div class="menu-element cart-icon">
+                    <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo $total_productos; ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
+                </div>
+                <?php if($isLoggedIn): ?>
+                    <span><?php echo $_SESSION['name']; ?></span>
+                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/logout-process.php">LogOut</a></div>
+
+                <?php else: ?>
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/login.php">LogIn</a></div>
+                <?php endif; ?>
+                <?php if(!$isLoggedIn): ?>
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/register.php">Register</a></div>
-                </ul>
+                <?php endif; ?>
             </nav>
         </div>
         </div>
@@ -58,9 +102,12 @@ if (!isset($_SESSION['cart'])) {
         <!-- Menú de navegación para dispositivos de escritorio -->
         <div class="menu-container navigation-menu-container hidden">
             <nav class="navigation-menu">
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 0): ?>
+                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/admin.php">Panel de Administrador</a></div>
+                <?php endif; ?>
             </nav>
         </div>
 
@@ -83,15 +130,21 @@ if (!isset($_SESSION['cart'])) {
             </div>
             <div>
                 <div class=" user-menu-burger">
-                    <div class="menu-element user-element"><a href="">LogIn</a></div>
-                    <div class="menu-element user-element"><a href="">Register</a></div>
                     <div class="menu-element cart-icon">
                         <a href="/FerreteriaVegagrande/api/my_cart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
                     </div>
+                    <?php if($isLoggedIn): ?>
+                    <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/logout-process.php">LogOut</a></div>
+                    <?php else: ?>
+                    <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/login.php">LogIn</a></div>
+                    <?php endif; ?>
+                    <?php if(!$isLoggedIn): ?>
+                        <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/register.php">Register</a></div>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
     </div>
     <script src="/FerreteriaVegagrande/scripts/burgermenu.js"></script>
-    </body>
-    </html>
+</body>
+</html>

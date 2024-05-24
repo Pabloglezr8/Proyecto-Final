@@ -53,6 +53,7 @@ ul {
 }
 
 a {
+    color: #f29400;
     text-decoration: none;
     transition: 0.3s ease-in-out;
 }

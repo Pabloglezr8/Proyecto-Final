@@ -57,38 +57,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userId = $conn->lastInsertId();
             }
 
-            // Calcular el precio total del pedido
-            foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
-                $stmt->execute([$productId]);
-                $product = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($product) {
-                    $totalPrice += $product['price'] * $quantity;
-                } else {
-                    $response['message'] = "Producto con ID $productId no encontrado.";
-                    echo json_encode($response);
-                    exit;
-                }
-            }
 
-            // Insertar pedido en la tabla pedidos
-            $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method) VALUES (?, ?, NOW(), ?)");
-            if (!$stmt->execute([$userId, $totalPrice, $paymentMethod])) {
-                throw new Exception('Error al insertar en la tabla pedidos.');
-            }
+           // Insertar pedido en la tabla pedidos
+           $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method) VALUES (?, ?, NOW(), ?)");
+           if (!$stmt->execute([$userId, $totalPrice, $paymentMethod])) {
+               throw new Exception('Error al insertar en la tabla pedidos.');
+           }
+           $pedidoId = $conn->lastInsertId();
+           // Insertar productos en la tabla pedidos_productos
+           foreach ($_SESSION['cart'] as $productId => $quantity) {
+               $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
+               $stmt->execute([$productId]);
+               $product = $stmt->fetch(PDO::FETCH_ASSOC);
+               $stmt = $conn->prepare("INSERT INTO pedidos_productos (pedido_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+               if (!$stmt->execute([$pedidoId, $productId, $quantity, $product['price']])) {
+                   throw new Exception('Error al insertar en la tabla pedidos_productos.');
+               }
+           }
+            // Obtener el ID del pedido insertado
             $pedidoId = $conn->lastInsertId();
-
-            // Insertar productos en la tabla pedidos_productos
-            foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
-                $stmt->execute([$productId]);
-                $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                $stmt = $conn->prepare("INSERT INTO pedidos_productos (pedido_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-                if (!$stmt->execute([$pedidoId, $productId, $quantity, $product['price']])) {
-                    throw new Exception('Error al insertar en la tabla pedidos_productos.');
-                }
-            }
 
             // Confirmar la transacción
             $conn->commit();

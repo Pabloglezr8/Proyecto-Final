@@ -1,0 +1,19 @@
+.page h1{
+text-align: center;
+}
+
+.register-form-container{
+    width: 30%;
+    margin: 0 auto;
+}
+
+.register-form-container form{
+ display: flex;
+ flex-direction: column;
+}
+
+.register-form-container button{
+    margin: 0 auto;
+    width: 25%;
+
+}

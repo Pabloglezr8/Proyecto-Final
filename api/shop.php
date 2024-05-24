@@ -61,7 +61,7 @@ $cartProducts = getCartProducts($conn);
             <?php if(isset($productos) && count($productos) > 0): ?>
                 <?php foreach($productos as $producto): ?>
                             <div class="product-card">
-                                <a href="../api/product.php?product_id=<?=$producto['id']?>" target="blank">
+                                <a href="../api/product.php?product_id=<?=$producto['id']?>">
                                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
                                     <h3 class="product-title"><?= $producto['name'] ?></h3>
                                     <h3 class="product-price"><?= $producto['price'] ?> €</h3>

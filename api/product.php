@@ -26,6 +26,7 @@ if($conn){
     echo "Error al conectar a la base de datos";
     // Detener la ejecución del script
     exit();
+
 }
 ?>
 
@@ -48,12 +49,15 @@ if($conn){
                 <h1 class="item-title"><?= $producto['name'] ?></h1>
                 <div class="item-buy-container">
                     <h2>Precio: <?= $producto['price']?> €</h2>
-                    <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
+                    <input type="number" class="quantity-input" value="1" min="1">
+                    <button class="add-to-cart-btn-product" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
                 </div>
                 <div class="item-descriptin-container">
                     <h3 class="h3">Descripción</h3>
                     <p class="parragraf"><?= $producto['description'] ?></p>
                 </div>
+
+                <a href="shop.php"><button>Seguir Comprando</button></a>
             </div>
         <?php else: ?>
             <p>No se encontró el producto</p>

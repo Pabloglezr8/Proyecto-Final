@@ -5,7 +5,7 @@ $conn = connectDB();
 
 $order_id = $_GET['order_id'];
 
-$stmt = $conn->prepare("SELECT p.id, p.total_price, p.date, p.payment_method, u.username, u.email, u.address FROM pedidos p JOIN usuarios u ON p.id_usuario = u.id WHERE p.id = ?");
+$stmt = $conn->prepare("SELECT p.id, p.total_price, p.date, p.payment_method, u.name, u.surname, u.email, u.address FROM pedidos p JOIN usuarios u ON p.id_usuario = u.id WHERE p.id = ?");
 $stmt->execute([$order_id]);
 $order = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -27,7 +27,7 @@ $order_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="order-confirmation">
         <h1>Pedido Confirmado</h1>
         <img src="../assets/img/icons/check.svg" alt="check">
-        <p class="parragraf">Gracias por su compra, <?= htmlspecialchars($order['username']) ?>!</p>
+        <p class="parragraf">Gracias por su compra, <?= htmlspecialchars($order['name'])?> <?= htmlspecialchars($order['surname'])?>!</p>
         <p class="parragraf">Hemos recibido su pedido y estamos procesándolo.</p>
     </div>
     <div class="order-details">
@@ -58,7 +58,7 @@ $order_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <div class="shipping-data">
         <h2>Datos de Envío</h2>
-        <p><strong>Nombre:</strong> <?= htmlspecialchars($order['username']) ?></p>
+        <p><strong>Nombre:</strong> <?= htmlspecialchars($order['name']) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($order['email']) ?></p>
         <p><strong>Dirección:</strong> <?= htmlspecialchars($order['address']) ?></p>
 

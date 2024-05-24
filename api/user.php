@@ -9,7 +9,7 @@ session_start();
 $conn = connectDB();
 
 // Obtener el nombre de usuario de la sesión
-$user = $_SESSION['username'];
+$user = $_SESSION['name'];
 
 // Verificar si la conexión a la base de datos fue exitosa
 if($conn){
