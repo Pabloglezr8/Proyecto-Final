@@ -1,5 +1,5 @@
 body {
-    padding-top: 400px;
+    padding-top: 420px;
 }
 
 .header {
@@ -14,17 +14,35 @@ body {
     box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
 }
 
+
+
+
+.title-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    color: #f29400;
+    background-color: #0e3083;
+    align-items: center;
+
+    
+    h1{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.title-container img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+}
+
 .control-panel{
     text-align: center;
 }
 
-.title {
-    margin: 0 auto;
-    color: #f29400;
-    background-color: #0e3083;
-    padding: 20px;
-    text-align: center;
-}
 
 .form-title {
     text-align: center;
@@ -32,16 +50,14 @@ body {
 }
 
 .form-element-container {
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     align-items: center;
     justify-content: center;
 }
 
 .form-element {
-    margin: 20px;
-
     input {
         padding: 10px;
         border: 1px solid #0e3083;
@@ -50,6 +66,9 @@ body {
 
 }
 
+.btn-container{
+    margin-top: 20px;
+}
 
 .product-container {
     justify-content: space-between;

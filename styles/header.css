@@ -54,18 +54,6 @@ header{
 
 
 /* Estilos para menus de navegación y user */
-.menu-container {
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    a {
-        white-space: nowrap;
-        padding: 10px;
-    }
-}
 
 .navigation-menu-container {
     display: flex;
@@ -107,7 +95,10 @@ header{
     flex-direction: row;
     align-items: center;
     justify-content: right;
+}
 
+.user-name{
+    color: #0e3083;
 }
 
 .cart-icon img{

@@ -8,6 +8,37 @@ $conn = connectDB();
 
 $response = ['status' => false, 'message' => 'Error al procesar el pedido.'];
 
+if (isset($_SESSION['id'])) {
+    $user = [
+        'name' => $_SESSION['name'],
+        'surname' => $_SESSION['surname'],
+        'pasword' => $_SESSION['password'],
+        'email' => $_SESSION['email'],
+        'address' => $_SESSION['address'],
+        'postal_code' => $_SESSION['postal_code'],
+        'location' => $_SESSION['location'],
+        'country' => $_SESSION['country'],
+        'phone' => $_SESSION['phone'],
+        'role' => $_SESSION['role'],
+    ];
+    $isLoggedIn = true;
+    
+
+} else {
+    $user = [
+        'name' => '',
+        'surname' => '',
+        'email' => '',
+        'address' => '',
+        'postal_code' => '',
+        'location' => '',
+        'country' => '',
+        'phone' => '',
+        'role' => ''
+    ];
+    $isLoggedIn = false;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['address']) && isset($_POST['postal_code']) && isset($_POST['location']) && isset($_POST['country']) && isset($_POST['phone']) && isset($_POST['payment_method'])) {
         $name = $_POST['name'];
@@ -28,6 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
         try {
+
+            if ($existingUser) {
+                if (!$isLoggedIn) {
+                    $response['message'] = 'El correo electrónico ya está en uso.';
+                    echo json_encode($response);
+                    exit;
+                }
+            }
+
             // Hash de la contraseña solo si es una nueva contraseña
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

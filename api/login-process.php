@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["name"] = $user["name"];
                 $_SESSION["surname"] = $user["surname"];
                 $_SESSION["email"] = $user["email"];
+                $_SESSION["password"] = $user["password"];
                 $_SESSION["address"] = $user["address"];
                 $_SESSION["postal_code"] = $user["postal_code"];
                 $_SESSION["location"] = $user["location"];
@@ -49,20 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["phone"] = $user["phone"];
                 $_SESSION["role"] = $user["role"];
 
-                // Redireccionar según el rol del usuario (admin o usuario normal)
-                if ($user["role"] == 0) {
-                    $response = [
-                        "success" => true,
-                        "message" => "Inicio de sesión exitoso",
-                        "redirect" => "../index.php"
-                    ];
-                } else {
-                    $response = [
-                        "success" => true,
-                        "message" => "Inicio de sesión exitoso",
-                        "redirect" => "../index.php"
-                    ];
-                }
+                $response = [
+                    "success" => true,
+                    "message" => "Inicio de sesión exitoso"
+                ];
             } else {
                 $response["message"] = "Correo electrónico o contraseña incorrectos";
             }

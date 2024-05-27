@@ -9,6 +9,7 @@ if (isset($_SESSION['id'])) {
     $user = [
         'name' => $_SESSION['name'],
         'surname' => $_SESSION['surname'],
+        'pasword' => $_SESSION['password'],
         'email' => $_SESSION['email'],
         'address' => $_SESSION['address'],
         'postal_code' => $_SESSION['postal_code'],
@@ -86,7 +87,7 @@ foreach ($_SESSION['cart'] as $prod) {
                     <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo $total_productos; ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
                 </div>
                 <?php if($isLoggedIn): ?>
-                    <span><?php echo $_SESSION['name']; ?></span>
+                    <span class="user-name"><?php echo $_SESSION['name']; ?></span>
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/logout-process.php">LogOut</a></div>
 
                 <?php else: ?>
@@ -98,6 +99,7 @@ foreach ($_SESSION['cart'] as $prod) {
             </nav>
         </div>
         </div>
+        
 
         <!-- Menú de navegación para dispositivos de escritorio -->
         <div class="menu-container navigation-menu-container hidden">

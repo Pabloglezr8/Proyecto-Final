@@ -48,28 +48,41 @@
 
         // Verificar si la conexión fue exitosa
         if($conn){
-            // Preparar la consulta para insertar un nuevo usuario en la base de datos
-            $query = "INSERT INTO usuarios (name, surname, email, password, role) VALUES (:name, :surname, :email, :password, :role)";
-            $statement = $conn->prepare($query);
+            // Verificar si el correo electrónico ya está registrado
+            $query_check_email = "SELECT COUNT(*) as count FROM usuarios WHERE email = :email";
+            $statement_check_email = $conn->prepare($query_check_email);
+            $statement_check_email->bindParam(":email", $email);
+            $statement_check_email->execute();
+            $result_check_email = $statement_check_email->fetch(PDO::FETCH_ASSOC);
 
-            $statement->bindParam(":name", $name);
-            $statement->bindParam(":surname", $surname);
-            $statement->bindParam(":email", $email);
-            $statement->bindParam(":password", $hashed_password); // Almacenar la contraseña hasheada
-            $statement->bindParam(":role", $role);
-
-            // Ejecutar la consulta para insertar el nuevo usuario
-            if($statement->execute() && !empty($name) && !empty($surname) && !empty($email) && !empty($hashed_password)){
-                $message = "Usuario registrado correctamente";
-                $message_class = "color-message-success"; // Asignar la clase de mensaje de éxito
-                echo "<p class='message $message_class'>" . $message . "</p>";
-                header("Refresh: 3; url=./login.php");
-                exit();
-            }else{
-                $message = "Error al registrar al usuario";
+            if($result_check_email['count'] > 0){
+                // Si el correo electrónico ya está registrado, mostrar un mensaje de error
+                $message = "El correo electrónico ya está registrado";
                 $message_class = "color-message-error"; // Asignar la clase de mensaje de error
-                echo "<p class='message $message_class'>" . $message . "</p>";
-                header("Refresh: 3; url=" . $_SERVER['PHP_SELF']); 
+            } else {
+                // Preparar la consulta para insertar un nuevo usuario en la base de datos
+                $query = "INSERT INTO usuarios (name, surname, email, password, role) VALUES (:name, :surname, :email, :password, :role)";
+                $statement = $conn->prepare($query);
+
+                $statement->bindParam(":name", $name);
+                $statement->bindParam(":surname", $surname);
+                $statement->bindParam(":email", $email);
+                $statement->bindParam(":password", $hashed_password); // Almacenar la contraseña hasheada
+                $statement->bindParam(":role", $role);
+
+                // Ejecutar la consulta para insertar el nuevo usuario
+                if($statement->execute() && !empty($name) && !empty($surname) && !empty($email) && !empty($hashed_password)){
+                    $message = "Usuario registrado correctamente";
+                    $message_class = "color-message-success"; // Asignar la clase de mensaje de éxito
+                    echo "<p class='message $message_class'>" . $message . "</p>";
+                    header("Refresh: 3; url=./login.php");
+                    exit();
+                }else{
+                    $message = "Error al registrar al usuario";
+                    $message_class = "color-message-error"; // Asignar la clase de mensaje de error
+                    echo "<p class='message $message_class'>" . $message . "</p>";
+                    header("Refresh: 3; url=" . $_SERVER['PHP_SELF']); 
+                }
             }
         }else{
             echo "Error al conectar a la Base de Datos";
@@ -77,9 +90,6 @@
     }
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -125,4 +135,3 @@
 
 </body>
 </html>
-

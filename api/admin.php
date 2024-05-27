@@ -1,3 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $name ?></title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="../styles/content.css">
+    <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#mytextarea',
+        placeholder:'Descripción',
+        language: 'es',
+        height: 200,
+        width: 400,
+        branding: false,
+        menubar:false,
+        toolbar: ['undo redo | styles  forecolor| bold italic | outdent indent | alignleft aligncenter alignright'],
+        statusbar: false,
+        content_css: '../styles/textarea.css'
+      });
+</script>
+    </script>
+</head>
+<body>
+
+
+
+
 <?php 
 include("connectDB.php");
 
@@ -140,31 +171,31 @@ function listProducto($conn, &$message, &$messageClass){
     }
     ?>
     <div class="header">
-        <h1 class='title'>Panel de Administrador</h1>
-
+        <div class="title-container">
+            <a href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+            <h1 class='title'>Panel de Administrador</h1>
+        </div>
         <form method='post' enctype='multipart/form-data' class='control-panel'>
-            <div class="form-title"><h3><?= ($productoToEdit ? "Editar Producto" : "Añadir Producto") ?></h3></div>   
-            <div class="form-element-container">    
-                <div class="form-element">
-                    <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? $productoToEdit["name"] : "") ?>'>
-                </div>
+            <div class="form-element-container">   
+                    <div class="form-element">
+                        <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? $productoToEdit["name"] : "") ?>'>
+                    </div>
 
-                <div class="form-element">
-                     <input type='text' name='description' id='description' placeholder="Descripción" value='<?= ($productoToEdit ? $productoToEdit["description"] : "") ?>'>
-                </div>
-
-                <div class="form-element">
-                     <input type='text' name='price' id='price' placeholder="Precio" value='<?= ($productoToEdit ? $productoToEdit["price"] : "") ?>'>
-                     <input type='hidden' name='id' value='<?= ($productoToEdit ? $productoToEdit["id"] : "") ?>'>
-                </div>
-
-                <div class="form-element">
-                    <input type='file' name='img' id='input-file'>
-                    <?php if($productoToEdit): ?>
-                        <input type='hidden' name='current_img' value='<?= $productoToEdit["img"] ?>'>
-                    <?php endif; ?>
-                </div>
+                    <div class="form-element">
+                         <input type='text' name='price' id='price' placeholder="Precio" value='<?= ($productoToEdit ? $productoToEdit["price"] : "") ?>'>
+                         <input type='hidden' name='id' value='<?= ($productoToEdit ? $productoToEdit["id"] : "") ?>'>
+                    </div>
                 
+
+                    <div class="form-element">
+                        <input type='file' name='img' id='input-file'>
+                        <?php if($productoToEdit): ?>
+                            <input type='hidden' name='current_img' value='<?= $productoToEdit["img"] ?>'>
+                            <?php endif; ?>
+                    </div>
+                <div class="form-element">
+                    <textarea type='text' name='description' id="mytextarea"><?php if($productoToEdit): ?><?=$productoToEdit["description"]?><?php endif; ?></textarea>
+                </div>
             </div>
                 <div class='btn-container'>
                     <button class='btn-insertar' type='submit' name='<?= ($productoToEdit ? "update" : "insert") ?>' id='insert-btn'><?= ($productoToEdit ? "Editar" : "Insertar") ?> producto</button>
@@ -208,15 +239,5 @@ $conn = connectDB();
 listProducto($conn, $message, $messageClass);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $name ?></title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/admin.css">
-</head>
-<body>
 </body>
 </html>

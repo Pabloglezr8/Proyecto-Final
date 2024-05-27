@@ -31,22 +31,56 @@
     margin: 20px;
 }
 
+
 .order-form-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto;
 }
 
-.data-container {
-    text-align: center;
-
+.order-login p{
+    margin: 0 auto;
+    display: inline-flex;
+    text-align: center ;
+    color: #0e3083;
+    transition: 0.5s ease-in-out;
 }
 
-.data-container input {
-    width: 80%;
+
+.order-login p:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
-.payment-container select {
+.data-container h3{
+    display: inline-flex;
+}
+
+#order-form{
+display: flex;
+flex-direction: column;
+}
+
+#order-form div{
+    width: 100%;
+}
+#name{
+    width: 41.7%;
+}
+
+#surname{
+    width: 41.7%;
+}
+
+#phone{
+width: 42%;
+}
+
+
+#payment-method {
+    width: 44.2%;
     font-family: Mulish;
     color: #f29400;
     font-size: 1em;
@@ -57,13 +91,13 @@
     border-radius: 10px;
 }
 
-.payment-container select:focus {
+#payment-method:focus {
     color: #0e3083;
     border: 1px solid #f29400;
     outline: none;
 }
 
-.payment-container select:hover {
+.payment-method:hover {
     cursor: pointer;
 }
 
@@ -74,6 +108,7 @@
     background-color: white;
     padding: 10px;
 }
+
 
 #bank-transfer-instructions p:last-child{
     text-align: center;
@@ -86,4 +121,8 @@
 p strong{
     font-size: 1.2em;
     color: #f29400;
+}
+
+button{
+    margin-top: 20px;
 }

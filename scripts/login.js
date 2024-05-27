@@ -20,10 +20,13 @@ $(document).ready(function() {
                     // Verifica que response sea un objeto JSON
                     if (typeof response === 'object') {
                         if (response.success) {
-                            $("#message").html("<p class='message success'>" + response.message + "</p>");
-                            setTimeout(function() {
+                            // Verifica si la respuesta incluye una URL de redireccionamiento
+                            if (response.redirect) {
                                 window.location.href = response.redirect;
-                            }, 2000);
+                            } else {
+                                // Si no hay URL de redireccionamiento, redirige al índice por defecto
+                                window.location.href = "../index.php";
+                            }
                         } else {
                             $("#message").html("<p class='message error'>" + response.message + "</p>");
                         }
