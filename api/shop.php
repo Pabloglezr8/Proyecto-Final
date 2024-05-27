@@ -63,8 +63,8 @@ $cartProducts = getCartProducts($conn);
                             <div class="product-card">
                                 <a href="../api/product.php?product_id=<?=$producto['id']?>">
                                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
-                                    <h3 class="product-title"><?= $producto['name'] ?></h3>
-                                    <h3 class="product-price"><?= $producto['price'] ?> €</h3>
+                                    <h4 class="product-title"><?= $producto['name'] ?></h4>
+                                    <p class="product-price parragraf"><?= $producto['price'] ?> €</p>
                                 </a>
                                 <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
                             </div>

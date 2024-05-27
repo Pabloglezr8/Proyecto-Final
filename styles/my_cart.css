@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 50px auto;
     width: 90%;
 }
 
 .product-container {
+    position: relative;
     flex-direction: column;
     align-items: normal;
     width: 70%;
@@ -35,13 +36,13 @@
 .product-name {
     margin: 10px;
     color: #f29400;
-    font-size: 1.3em;
+    text-align: center;
 }
 
 .product-price {
     margin: 10px;
     color: #0e3083;
-    font-size: 1.2em;
+    text-align: center;
 }
 
 .product-actions {
@@ -53,7 +54,7 @@
     width: 60%;
     display: inline;
     justify-content: space-between;
-    padding: 10px;
+    padding: 5px;
     border: 2px solid #0e3083;
     border-radius: 20px;
 
@@ -63,44 +64,37 @@
     font-size: 1.7em;
     font-weight: bolder;
     background: none;
-    margin: 10px;
+    margin: 5px;
 }
 
-.product-quantity span {
-    font-size: 1.5em;
-    font-weight: bolder;
 
-}
-
-.product-delete {
-    width: 100%;
-    text-align: right;
-    margin: 0 auto;
-}
-
-.product-delete button{
+.delete-product {
+    position: absolute;
+    right: 0;
+    top: 0;
     color: #cf2525;
     background:none;
 }
 
-.product-delete button:hover{
+.delete-product:hover{
     color: white;
     background-color: #cf2525;
 }
 
 .cart-total{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         margin: 0 auto;
         width: 70%;
         background-color: white;
-        color: #0e3083;
+        border-radius: 20px;
+        color: #f29400;
 
 }
 
-.cart-total div{
+.cart-total{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -108,8 +102,23 @@
     width: 50%;
 }
 
-
-
-#clear-cart-btn {
+.cart-total button{
     margin: 20px;
+}
+
+
+@media screen and (width < 1025px) {
+
+    .product-container {
+        width: 90%;
+    
+    }
+    .product-data {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    .cart-total{
+        width: 70%;
+    }
+    
 }

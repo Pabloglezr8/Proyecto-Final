@@ -16,7 +16,7 @@ header{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
 }
 
 .identity-container {
@@ -26,7 +26,7 @@ header{
     align-items: center;
 
     img {
-        width: 150px;
+        width: 100px;
     }
 }
 
@@ -68,11 +68,11 @@ header{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 20px;
     background-color: #0e3083;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    font-size: x-large;
+    font-size: 1.3em;
     color: #f29400;
     margin: 0 auto;
 
@@ -83,6 +83,8 @@ header{
     padding-top: 0;
     padding-bottom: 0;
     transition: transform 0.3s ease;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .menu-element:hover {
@@ -90,7 +92,7 @@ header{
 }
 
 .user-menu {
-    font-size: x-large;
+    font-size: 1.3em;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -102,7 +104,7 @@ header{
 }
 
 .cart-icon img{
-    width: 50px;
+    width: 30px;
 }
 
 .user-menu a{
@@ -124,8 +126,8 @@ header{
     cursor: pointer;
     margin: 20px;
     display: none;
-    top: 20px;
-    right: 20px;
+    top: -5px;
+    right: 0px;
     z-index: 1000;
 }
 
@@ -157,25 +159,22 @@ header{
 
 /* Estilos para el menú hamburguesa */
 .hamburger-container {
-    padding-top: 100px; /* Mantenemos el padding-top */
-    font-size: 2em;
+    padding-top: 70px;
+    font-size: 1.3em;
     position: fixed;
     z-index: 1;
     top: 0;
     width: 98%;
     height: 0;
     background-color: #f29400;
-    
-    overflow: hidden; /* Oculta el contenido que desborda */
-    transition: height 0.5s ease-in-out; /* Transición suave de la altura */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden; 
+    transition: height 0.5s ease-in-out; 
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .hamburger-container.show {
-    
-    height: calc(100vh - 100px); /* Cuando se muestra, la altura es 100% de la ventana menos el padding-top */
+    height: 250px; 
 }
 
 .burger-menu {
@@ -184,6 +183,30 @@ header{
     flex-direction: column;
     text-align: center;
     border-radius: 20px;
+}
+
+
+.user-menu-burger{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 97%;
+    background-color: #0e3083;
+    color: #f29400;
+    padding: 15px;
+    margin-bottom: 20px;
+    
+    .user-name{
+        color: #f29400;
+    }
+
+}
+
+.navigation-menu-burger a {
+    margin-top: 40px;
+    color: #0e3083;
 }
 
 #success-message {
@@ -202,22 +225,27 @@ header{
     }
 }
 
-/* Media query para mostrar el botón hamburguesa y el menú desplegable en dispositivos con ancho inferior a 600px */
-@media screen and (max-width: 900px) {
+@media screen and (width < 1025px) {
+    .menu-element {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
 
- /*    #logo{
+@media screen and (width < 900px) {
+
+    #logo{
         display: none;
     }
 
     #logo-completo{
-        margin-bottom:20px ;
         display: block;
         width: 300px;
     } 
 
     .identity-title-container{
         display: none;
-    }*/
+    }
 
     .header-top-container {
         flex-direction: column;
@@ -230,11 +258,11 @@ header{
     }
 
     .hidden {
-        display: none; /* Ocultamos los menús de navegación normales */
+        display: none;
     }
 
-    .burger-menu a {
+    .navigation-menu-burger .menu-element {
         margin-top: 20px;
-        color: #0e3083;
     }
+    
 }

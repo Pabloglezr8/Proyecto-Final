@@ -6,33 +6,34 @@
 
 .aboutus-data, .offer-data{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
 
 }
-.aboutus-text, .offer-text{
-    width: 90%;
-}
+.aboutus-text, .offer-text, .brand-text{
+    margin: 0 auto;}
 
 .aboutus-data img, .offer-data img{
+    margin: 0 auto;
     border-radius: 20px;
-    width: 90%;
+    width: 80%;
 }
 
 .brand-carousel {
     background-color: white;
-    margin: 50px;
+    margin-top: 50px;
     overflow: hidden;
     border-radius: 20px;
+    width:100%;
 }
 
 .logos{
-    width:80%;
     display: flex;
     align-items: center;
     animation: scroll 25s linear alternate infinite;
+    
 }
 
 .logos div:first-child{
@@ -57,3 +58,4 @@
         transform: translateX(calc(-170px * 16.5));
     }
 }
+

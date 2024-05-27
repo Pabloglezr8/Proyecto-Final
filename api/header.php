@@ -60,18 +60,20 @@ foreach ($_SESSION['cart'] as $prod) {
 <body>
     <header class="index-header">
         <div class="header-top-container">
-            <a href="/FerreteriaVegagrande/index.php">
-                <div class="identity-container">
-                    <div class="Logo-container">
+            <div class="identity-container">
+                <div class="Logo-container">
+                    <a href="/FerreteriaVegagrande/index.php">
                         <img id="logo" src="/FerreteriaVegagrande/assets/img/Logo.png" alt="Logo">
                         <img id="logo-completo" src="/FerreteriaVegagrande/assets/img/LogoCompleto.png" alt="Logo">
-                    </div>
-                    <div class="identity-title-container">
+                    </a>
+                </div>
+                <div class="identity-title-container">
+                    <a href="/FerreteriaVegagrande/index.php">
                         <h1 class="identity-title">Ferretería Vegagrande</h1>
                         <h2 class="identity-subtitle">Donde comienza la mejora de tu hogar</h2>
-                    </div>
+                    </a>
                 </div>
-            </a>
+            </div>
             <!-- <div class="menu-container"></div> -->
             <!-- Botón hamburguesa para dispositivos móviles -->
             <div class="menu-toggle" id="mobile-menu">
@@ -121,29 +123,25 @@ foreach ($_SESSION['cart'] as $prod) {
 
     <!-- Menú desplegable para dispositivos móviles -->
     <div class="hamburger-container">
-
         <nav class="burger-menu">
-            <div>
-                <div class="navigation-menu-burger">
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
-                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>
+            <div class=" user-menu-burger">
+                <div class="menu-element cart-icon">
+                    <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo $total_productos; ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
                 </div>
+                <?php if($isLoggedIn): ?>
+                <span class="user-name"><?php echo $_SESSION['name']; ?></span>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/logout-process.php">LogOut</a></div>
+                <?php else: ?>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/login.php">LogIn</a></div>
+                <?php endif; ?>
+                <?php if(!$isLoggedIn): ?>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/register.php">Register</a></div>
+                <?php endif; ?>
             </div>
-            <div>
-                <div class=" user-menu-burger">
-                    <div class="menu-element cart-icon">
-                        <a href="/FerreteriaVegagrande/api/my_cart.php">Carrito (<span id="cart-count"><?php echo count($_SESSION['cart']); ?></span>)</a>
-                    </div>
-                    <?php if($isLoggedIn): ?>
-                    <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/logout-process.php">LogOut</a></div>
-                    <?php else: ?>
-                    <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/login.php">LogIn</a></div>
-                    <?php endif; ?>
-                    <?php if(!$isLoggedIn): ?>
-                        <div class="menu-element user-element"><a href="/FerreteriaVegagrande/api/register.php">Register</a></div>
-                    <?php endif; ?>
-                </div>
+            <div class="navigation-menu-burger">
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>
             </div>
         </nav>
     </div>

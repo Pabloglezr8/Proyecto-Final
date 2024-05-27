@@ -44,19 +44,17 @@ foreach ($cartProducts as $producto) {
         <?php if(count($cartProducts) > 0): ?>
             <?php foreach($cartProducts as $producto): ?>
             <div class="product-container">
-                <div class="product-delete">
-                    <button class="remove-all-from-cart-btn" data-product-id="<?= $producto['id'] ?>">Eliminar</button>
-                </div>
+                    <button class="delete-product" data-product-id="<?= $producto['id'] ?>">Eliminar</button>
                 <div class="product-data">
                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
                     <div class="product-text">
-                        <div class="product-name"><?= $producto['name'] ?></div>
-                        <div class="product-price"><?= $producto['price'] ?> €</div>
+                        <div class="product-name parragraf"><?= $producto['name'] ?></div>
+                        <div class="product-price parragraf"><?= $producto['price'] ?> €</div>
                     </div>
                     <div class="product-actions">
                         <div class="product-quantity">
                             <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
-                            <span class="cart-quantity" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
+                            <span class="parragraf" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
                             <button class="remove-from-cart-btn" id="delete-quantity" data-product-id="<?= $producto['id'] ?>">-</button>
                         </div>
                     </div>
@@ -64,13 +62,11 @@ foreach ($cartProducts as $producto) {
             </div>
             <?php endforeach; ?>
             <div class="cart-total">
-                <h2>Total: <span id="total-price"><?= $totalPrice ?> €</span></h2>
-                <div >
-                    <a href="order.php">
-                        <button id="checkout-btn">Realizar Pedido</button>
-                    </a>
-                    <button id="clear-cart-btn">Vaciar Cesta</button>
-                </div>
+                <a href="order.php">
+                    <button id="checkout-btn">Realizar Pedido</button>
+                </a>
+                <h3>Total: <span id="total-price"><?= $totalPrice ?> €</span></h3>
+                <button id="clear-cart-btn">Vaciar Cesta</button>
             </div>
         <?php else: ?>
             <h2>No tienes productos añadidos a tu carrito</h2>

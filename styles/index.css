@@ -35,7 +35,7 @@ button {
 .section-container {
     margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     justify-content: center;
     align-items: center;
 }
@@ -92,7 +92,7 @@ button {
 }
 
 .tenyears-text img {
-    width: 50px;
+    width: 30px;
     height: auto;
 }
 
@@ -142,15 +142,16 @@ button {
 
 .product-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 10px;
+    background: none;
 }
 
 
 /* Estilos Cards */
 .card {
 
-    width: 350px;
+    width: 270px;
     height: 300px;
     margin: 20px auto;
     perspective: 1000px;
@@ -180,7 +181,7 @@ button {
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .back {
@@ -193,6 +194,10 @@ button {
     border-radius: 20px;
     font-size: 1.3em;
     text-align: center;
+}
+
+.back li{
+    margin: 10px;
 }
 
 .card:hover .front {
@@ -208,8 +213,12 @@ button {
 @media screen and (max-width: 900px) {
 
     .quality-slogan {
-
         font-size: 1.2em;
+    }
+
+    .gallery {
+        width: 60%;
+        height: 200px;
 
     }
 }

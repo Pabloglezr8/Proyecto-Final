@@ -8,7 +8,7 @@ body {
     background-color: #f0f0f0;
     width: 98%;
     margin: 0 auto;
-    padding-top: 230px;
+    padding-top: 150px;
 
 }
 
@@ -21,10 +21,11 @@ body {
 
 h1 {
     color: #f29400;
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 h2 {
+    color: #f29400;
     font-size: 1.7em;
 }
 
@@ -32,9 +33,6 @@ h3 {
     font-size: 1.5em;
 }
 
-h4 {
-    font-size: 1.3em;
-}
 
 
 .parragraf {
@@ -44,12 +42,13 @@ h4 {
 }
 
 img {
-    width: 200px;
+    width: 100px;
     border-radius: 20px;
 }
 
 ul {
     list-style-type: none;
+    padding-inline-start: 0;
 }
 
 a {
@@ -146,7 +145,7 @@ input::-webkit-file-upload-button:hover {
     cursor: pointer;
 }
 
-.product-container{
+.product-container {
     display: flex;
     flex-direction: row;
     margin: 20px auto;
@@ -155,31 +154,26 @@ input::-webkit-file-upload-button:hover {
     border-radius: 20px;
 }
 
-@media screen and (max-width: 900px) {
-    body {
-        padding-top: 150px;
+@media screen and (width < 1441px) {
 
-    }
-
-    /*
     h1 {
         color: #f29400;
-        font-size: 2em;
+        font-size: 1.8em;
     }
-    
+
     h2 {
         font-size: 1.5em;
     }
-    
+
     h3 {
         font-size: 1.3em;
     }
-    
+
     h4 {
         font-size: 1em;
     }
 
-    
+
     .parragraf {
         color: #1c1c1c;
         font-size: 1em;
@@ -188,5 +182,71 @@ input::-webkit-file-upload-button:hover {
 
     button {
         font-size: 1em;
-    } */
+    }
+
+}
+
+@media screen and (width < 1025px) {
+
+    h1 {
+        color: #f29400;
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    h4 {
+        font-size: 0.9em;
+    }
+
+
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+        text-align: justify;
+    }
+
+    button {
+        font-size: 1em;
+    }
+
+}
+
+@media screen and (width < 901px) {
+    body {
+        padding-top: 50px;
+
+    }
+
+    h1 {
+        color: #f29400;
+        font-size: 1.4em;
+    }
+    
+    h2 {
+        font-size: 1.1em;
+    }
+    
+    h3 {
+        font-size: 0.9em;
+    }
+    
+    h4 {
+        font-size: 0.7em;
+    }
+
+    
+    .parragraf {
+        font-size: 0.8em;
+    }
+
+    button {
+        font-size: 0.8em;
+    }
 }

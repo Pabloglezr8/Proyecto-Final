@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2024 a las 14:06:27
+-- Tiempo de generación: 27-05-2024 a las 12:25:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,18 +35,6 @@ CREATE TABLE `pedidos` (
   `payment_method` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id`, `id_usuario`, `total_price`, `date`, `payment_method`) VALUES
-(21, 22, 0.00, '2024-05-24 11:20:25', 'contrareembolso'),
-(22, 22, 0.00, '2024-05-24 11:22:39', 'contrareembolso'),
-(23, 22, 0.00, '2024-05-24 11:22:39', 'contrareembolso'),
-(24, 22, 48.72, '2024-05-24 11:31:08', 'contrareembolso'),
-(25, 22, 148.48, '2024-05-24 11:31:48', 'contrareembolso'),
-(26, 36, 75.47, '2024-05-24 13:51:04', 'contrareembolso');
-
 -- --------------------------------------------------------
 
 --
@@ -60,26 +48,6 @@ CREATE TABLE `pedidos_productos` (
   `quantity` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `pedidos_productos`
---
-
-INSERT INTO `pedidos_productos` (`id`, `pedido_id`, `product_id`, `quantity`, `price`) VALUES
-(56, 21, 15, 3, 18.75),
-(57, 22, 15, 2, 18.75),
-(58, 22, 9, 2, 9.99),
-(59, 22, 5, 3, 45.50),
-(60, 23, 15, 2, 18.75),
-(61, 23, 9, 2, 9.99),
-(62, 23, 5, 3, 45.50),
-(63, 24, 15, 1, 18.75),
-(64, 24, 9, 3, 9.99),
-(65, 25, 15, 2, 18.75),
-(66, 25, 9, 2, 9.99),
-(67, 25, 5, 2, 45.50),
-(68, 26, 9, 3, 9.99),
-(69, 26, 5, 1, 45.50);
 
 -- --------------------------------------------------------
 
@@ -100,8 +68,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `name`, `description`, `price`, `img`) VALUES
-(1, 'Martillo', 'Martillo resistente con mango de madera ideal para trabajos de carpintería.', 15.99, 'martillo.jpg'),
-(2, 'Destornillador plano', 'Destornillador con punta Phillips, perfecto para apretar o aflojar tornillos de tipo Phillips.', 7.50, 'destornillador_plano.jpg'),
+(1, 'Martillo', '<p><strong>Martillo</strong> resistente con mango de madera ideal para trabajos de carpinter&iacute;a.</p>', 15.99, 'martillo.jpg'),
+(2, 'Destornillador plano', '<p>Destornillador con punta Phillips<em>,</em> perfecto para apretar o aflojar tornillos de tipo Phillips.</p>', 7.50, 'destornillador_plano.jpg'),
 (3, 'Olla de 5 litros', 'Olla de cocina de alta calidad fabricada en acero inoxidable, ideal para cocinar todo tipo de alimentos.', 28.99, 'olla_5l.jpg'),
 (4, 'Cuchillos de cocina', 'Juego de cuchillos de cocina que incluye cuchillo de chef, cuchillo para pan, cuchillo para pelar, entre otros.', 19.75, 'juego_cuchillos_cocina.jpg'),
 (5, 'Cerradura puerta', 'Cerradura de alta seguridad con llave de seguridad para proteger tu puerta principal contra intrusos.', 45.50, 'cerradura_puerta.jpg'),
@@ -187,13 +155,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -205,7 +173,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Restricciones para tablas volcadas

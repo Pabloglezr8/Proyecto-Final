@@ -25,7 +25,7 @@ include("./api/header.php");
                         <h1 class="counter" id="counter">+0</h1>
                         </div>         
                     <div class="tenyears-text">
-                        <img src="./assets/img/certified.png" alt="">
+                        <img src="./assets/img/icons/certified.png" alt="">
                         <h3>AÑOS</h3>
                     </div>
                 </div>
