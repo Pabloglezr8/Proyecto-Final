@@ -1,38 +1,38 @@
-.contact-title-container{
+.contact-title-container {
     margin: 80px auto;
     margin-bottom: 0;
     width: 80%;
 }
 
-.contact-subtitle{
+.contact-subtitle {
     text-align: center;
     color: #0e3083;
 }
 
-.contact-data-container{
+.contact-data-container {
     margin: 0 auto;
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     align-items: center;
 }
 
-.contact-data{
-    display:  flex;
+.contact-data {
+    display: flex;
     flex-direction: row;
     align-items: center;
     padding: 20px;
 
-    h4{
+    h4 {
         margin-left: 50px;
     }
 }
 
-.ubication:hover{
+.ubication:hover {
     color: #f29400;
 }
 
-.horario{
+.horario {
     border: 2px solid #0e3083;
     border-radius: 20px;
     margin: 0 auto;
@@ -42,56 +42,102 @@
     padding: 10px;
 }
 
-.parragraf{
-    text-align:left;
+.parragraf {
+    text-align: left;
 }
 
-.horario-container{
+.horario-container {
     padding-left: 10px;
     padding-right: 10px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     text-align: center;
+    justify-content: space-around;
 
-    p{
+    p {
         text-align: center;
     }
 
 }
 
+.week{
+    margin: 0 auto;
+}
 
+.weekend{
+    margin: 0 auto;
+}
 
-.horario-title{
+.horario-title {
     border-bottom: 2px solid #f29400;
-    text-align:
-     center;
+    text-align: center;
     padding: 10px;
     margin-bottom: 0;
     color: #0e3083;
 }
 
-.icon{
+
+.icon {
     width: 50px;
     height: 50px;
 }
 
 
 
-@media screen and (width < 1025px) {
-    .contact-data-container{
-        width: 90%;
-    }
+@media screen and (width < 1441px) {
 
-    .icon{
+    /*     .contact-data-left{
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        align-items: center;
+    }
+ */
+    .icon {
         width: 35px;
         height: 35px;
     }
+
+    .parragraf {
+        font-size: 1em;
+    }
+
 }
+
+@media screen and (width < 1025px) {
+    .contact-data-left {
+        flex-direction: column;
+    }
+
+    .horario-container {
+        width: 100%;
+    }
+}
+
 @media screen and (width < 901px) {
-    .icon{
+    .contact-title-container {
+        margin: 40px auto;
+
+    }
+
+    .icon {
         width: 20px;
         height: 20px;
+    }
+}
+
+@media screen and (width < 470px) {
+
+    .contact-data-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .horario-container {
+        flex-direction: column;
+    }
+
+    h3 {
+        font-size: 1.2em;
     }
 }

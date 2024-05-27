@@ -13,9 +13,7 @@ header{
 
 /* Estilos para el header logo y titulo */
 .header-top-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    justify-content: space-between;
+    position: relative;
     padding: 10px;
 }
 
@@ -92,6 +90,9 @@ header{
 }
 
 .user-menu {
+    position: absolute;
+    top: 40px;
+    right: 0;
     font-size: 1.3em;
     display: flex;
     flex-direction: row;

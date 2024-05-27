@@ -100,7 +100,6 @@ foreach ($_SESSION['cart'] as $prod) {
                 <?php endif; ?>
             </nav>
         </div>
-        </div>
         
 
         <!-- Menú de navegación para dispositivos de escritorio -->
