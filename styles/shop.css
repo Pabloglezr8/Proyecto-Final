@@ -1,3 +1,5 @@
+
+
 .products-container {
     padding: 20px;
     width: 90%;
@@ -5,7 +7,6 @@
     grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
     grid-gap: 50px;
     margin: 80px auto;
-    
 }
 .product-card {
     position: relative;
@@ -51,7 +52,7 @@
 
 @media screen and (width < 1025px) {
     .products-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     }
 
     .product-card img {
@@ -60,4 +61,12 @@
         margin-bottom: 5px;
         border-radius: 10px;
     }
+}
+
+@media screen and (width < 470px) {
+    .products-container {
+        padding: 0;
+        margin-top: 20px;
+    }
+    
 }

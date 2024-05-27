@@ -26,12 +26,11 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.status) {
-                    $('#success-message').fadeIn('slow');
+                    $('#success-message').hide().fadeIn('slow');
                     updateCartCount(response.cart_count);
-                    updateCartView(); // Actualiza la visualización de la cesta
                     setTimeout(function() {
                         $('#success-message').fadeOut('slow');
-                    }, 3000);
+                    }, 2000);
                 } else {
                     showMessage(response.message, 'error');
                 }

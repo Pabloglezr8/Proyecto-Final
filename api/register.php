@@ -74,8 +74,7 @@
                 if($statement->execute() && !empty($name) && !empty($surname) && !empty($email) && !empty($hashed_password)){
                     $message = "Usuario registrado correctamente";
                     $message_class = "color-message-success"; // Asignar la clase de mensaje de éxito
-                    echo "<p class='message $message_class'>" . $message . "</p>";
-                    header("Refresh: 3; url=./login.php");
+                    header("Refresh: url=login.php");
                     exit();
                 }else{
                     $message = "Error al registrar al usuario";
@@ -108,7 +107,10 @@
 </head>
 <body>
 <div class="page">
-    <div><h1 class="title">Registrate</h1></div>
+    <div>
+    <a class="home-button" href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+    <h1 class="title">Registrate</h1>
+    </div>
     <!-- Aquí se mostrará el mensaje -->
     <div id="register-message"></div>
     <div class="register-form-container">
@@ -121,7 +123,7 @@
             <a id="show-code-btn">¿Tienes un código de administrador?</a>
             <!-- Contenedor para el input del código (inicialmente oculto) -->
             <div class="code-input-container">
-                <input type="password" id="code" name="code" placeholder="Código">
+                <input type="password" id="code" name="code" placeholder="Código de Administrador">
             </div>
             <button type="button" id="place-register-btn">Confirmar</button>
         </form>

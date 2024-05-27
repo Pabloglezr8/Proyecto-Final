@@ -1,5 +1,16 @@
+.page {
+position: relative;
+}
 .page h1{
 text-align: center;
+padding: 30px;
+}
+
+.home-button img{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 50px;
 }
 
 .register-form-container{
@@ -12,8 +23,19 @@ text-align: center;
  flex-direction: column;
 }
 
+
+#show-code-btn{
+    margin: 20px;
+    cursor: pointer;
+}
+
+#show-code-btn:hover{
+    color: #0e3083;
+    cursor: pointer;
+}
+
 .register-form-container button{
     margin: 0 auto;
+    margin-bottom: 30px;
     width: 25%;
-
 }

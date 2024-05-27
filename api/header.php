@@ -117,6 +117,9 @@ foreach ($_SESSION['cart'] as $prod) {
         <div id="success-message" class="message-container">
             <div><p class="message">Producto añadido al carrito correctamente.</p></div>
         </div>
+        <div id="error-message" class="message-container">
+            <div><p class="message">Producto añadido al carrito correctamente.</p></div>
+        </div>
 
     </header>
 

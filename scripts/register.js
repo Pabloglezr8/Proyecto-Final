@@ -24,7 +24,7 @@ $(document).ready(function(){
             return; // Salir de la función si el código no es válido
         }
         
-        // Hashear la contraseña
+        // Hashear la contraseña (asegurándote de que la librería de hashing esté incluida si es necesario)
         var hashed_password = $.trim(password); // Suponiendo que ya has importado jQuery
         
         // Verificar si todos los campos están llenos
@@ -33,8 +33,30 @@ $(document).ready(function(){
             return; // Salir de la función si algún campo está vacío
         }
         
-        // Enviar el formulario si todo está bien
-        $("#role").val(role); // Asignar el valor del rol al campo oculto
-        $("#register-form").submit(); // Enviar el formulario
+        // Asignar el valor del rol al campo oculto y enviar el formulario
+        $("#role").val(role);
+        
+        // Enviar el formulario mediante AJAX
+        $.ajax({
+            url: 'register.php',
+            type: 'POST',
+            data: {
+                name: name,
+                surname: surname,
+                email: email,
+                password: hashed_password,
+                role: role
+            },
+            success: function(response) {
+                if (response.status) {
+                    window.location.href = '../api/login.php';
+                } else {
+                    $("#register-message").html(response.message).addClass("color-message-error");
+                }
+            },
+            error: function() {
+                $("#register-message").html("Error al registrar. Inténtelo de nuevo.").addClass("color-message-error");
+            }
+        });
     });
 });
