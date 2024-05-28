@@ -172,7 +172,7 @@ function listProducto($conn, &$message, &$messageClass){
     ?>
     <div class="header">
         <div class="title-container">
-            <a href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+            <a href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
             <h1 class='title'>Panel de Administrador</h1>
         </div>
         <form method='post' enctype='multipart/form-data' class='control-panel'>

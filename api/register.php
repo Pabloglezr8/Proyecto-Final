@@ -108,10 +108,10 @@
     </style>
 </head>
 <body>
-<div class="logo"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></div>
+<div class="logo"><a href="/FerreteriaVegagrande/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
 <div class="container">
     <div class="title-container">
-        <a class="home-button" href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+        <a class="home-button" href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
         <h1 class="title">Registrate</h1>
     </div>
     <div class="message parragraf <?=$message_class?>"><p><?= $message ?></p></div>

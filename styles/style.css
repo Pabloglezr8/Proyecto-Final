@@ -203,7 +203,6 @@ input::-webkit-file-upload-button:hover {
         font-size: 0.9em;
     }
 
-
     .parragraf {
         color: #1c1c1c;
         font-size: 1em;
@@ -219,9 +218,9 @@ input::-webkit-file-upload-button:hover {
 @media screen and (width < 901px) {
     body {
         padding-top: 70px;
-
+        
     }
-
+    
     h1 {
         color: #f29400;
         font-size: 1.4em;
@@ -238,13 +237,27 @@ input::-webkit-file-upload-button:hover {
     h4 {
         font-size: 0.7em;
     }
-
+    
     
     .parragraf {
         font-size: 0.8em;
     }
-
+    
     button {
+        font-size: 0.8em;
+    }
+    
+    input {
+        
+        font-size: 0.9em;
+    }
+}
+
+
+@media screen and (width < 769px) {
+    input {
+        margin: 10px;
+        padding: 8px;
         font-size: 0.8em;
     }
 }

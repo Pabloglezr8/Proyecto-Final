@@ -38,7 +38,7 @@
 }
 
 .register-form-container{
-    width: 30%;
+    width: 60%;
     margin: 0 auto;
 }
 
@@ -61,4 +61,53 @@
 .register-form-container button{
     margin: 0 auto;
     margin-bottom: 30px;
+}
+
+@media screen and (width < 1025px) {
+    .logo img{
+        width: 40%;
+    }
+    
+    .home-button img {
+        left: 10px;
+        top: 10px;
+        width: 40px;
+    }
+}
+
+@media screen and (width < 769px) {
+    .logo img{
+        width: 50%;
+    }
+
+    .home-button img {
+        width: 30px;
+    }
+
+    .register-form-container {
+        width: 60%;
+    }
+
+    #show-code-btn{
+        font-size: 0.8em;
+    }
+
+}
+
+@media screen and (width < 470px) {
+    .logo img{
+        width: 60%;
+    }
+
+
+    .home-button img {
+        top: 20px;
+        left: 20px;
+        width: 25px;
+    }
+
+    .register-form-container {
+        width: 90%;
+    }
+
 }

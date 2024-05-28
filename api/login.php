@@ -10,17 +10,15 @@
     <script src="../scripts/login.js"></script>
 </head>
 <body >
-    <div class="logo"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></div>
+<div class="logo"><a href="/FerreteriaVegagrande/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
     <div class="container">
         <div class="title-container">
-            <a class="home-button" href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+            <a class="home-button" href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
             <h1 class="title">LogIn</h1>
         </div>
         <form class="login-form">
-            <div>
-                <input type="email" name="email" id="email" placeholder="E-mail"required>
-                <input type="password" name="password" id="password" placeholder="Contraseña"required>
-            </div>
+            <input type="email" name="email" id="email" placeholder="E-mail"required>
+            <input type="password" name="password" id="password" placeholder="Contraseña"required>
             <button class='btn insertar' type='submit'>Iniciar Sesión</button>
         </form>
     </div>

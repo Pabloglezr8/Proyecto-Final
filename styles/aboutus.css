@@ -32,7 +32,7 @@
 .logos{
     display: flex;
     align-items: center;
-    animation: scroll 25s linear alternate infinite;
+    animation: scroll 5s linear alternate infinite;
     
 }
 
@@ -55,7 +55,6 @@
     }
 
     100% {
-        transform: translateX(calc(-170px * 16.5));
+        transform: translateX(calc(-170px * 8.5));
     }
 }
-

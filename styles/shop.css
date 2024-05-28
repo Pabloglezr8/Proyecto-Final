@@ -52,7 +52,7 @@
 
 @media screen and (width < 1025px) {
     .products-container {
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
     .product-card img {
@@ -67,6 +67,6 @@
     .products-container {
         padding: 0;
         margin-top: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     }
-    
 }
