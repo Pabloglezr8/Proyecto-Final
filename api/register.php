@@ -16,9 +16,9 @@
     // Verificar si se ha enviado un formulario por el método POST
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Obtener los datos del formulario
-        $name = $_POST["name"];
-        $surname = $_POST["surname"];
-        $email = $_POST["email"];
+        $name = trim($_POST["name"]);
+        $surname = trim($_POST["surname"]);
+        $email = trim($_POST["email"]);
         $password = $_POST["password"];
         $role = null;
 
@@ -33,61 +33,63 @@
             // Si el campo del código no está vacío, pero no coincide con el código de administrador, mostrar error
             if($code != $admin_code){
                 $message = "El código no es válido";
-                $message_class = "color-message-error"; // Asignar la clase de mensaje de error
+                $message_class = "error"; // Asignar la clase de mensaje de error
             } else {
                 // Si el código de administrador es correcto, asignar rol 0
                 $role = 0;
             }
         }
 
-        // Hashear la contraseña
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Verificar si hay un rol asignado antes de continuar
+        if (is_null($role)) {
+            $message = "Error al asignar rol de usuario";
+            $message_class = "error"; // Asignar la clase de mensaje de error
+        } else {
+            // Conexión a la base de datos
+            $conn = connectDB();
 
-        // Conexión a la base de datos
-        $conn = connectDB();
+            // Verificar si la conexión fue exitosa
+            if($conn){
+                // Verificar si el correo electrónico ya está registrado
+                $query_check_email = "SELECT email FROM usuarios WHERE email = :email";
+                $statement_check_email = $conn->prepare($query_check_email);
+                $statement_check_email->bindParam(":email", $email, PDO::PARAM_STR);
+                $statement_check_email->execute();
+                $result_check_email = $statement_check_email->fetch(PDO::FETCH_ASSOC);
 
-        // Verificar si la conexión fue exitosa
-        if($conn){
-            // Verificar si el correo electrónico ya está registrado
-            $query_check_email = "SELECT COUNT(*) as count FROM usuarios WHERE email = :email";
-            $statement_check_email = $conn->prepare($query_check_email);
-            $statement_check_email->bindParam(":email", $email);
-            $statement_check_email->execute();
-            $result_check_email = $statement_check_email->fetch(PDO::FETCH_ASSOC);
+                if($result_check_email){
+                    $message = "El correo electrónico ya existe";
+                    $message_class = "error"; // Asignar la clase de mensaje de error
+                } else {
+                    // Hashear la contraseña
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            if($result_check_email['count'] > 0){
-                // Si el correo electrónico ya está registrado, mostrar un mensaje de error
-                $message = "El correo electrónico ya está registrado";
-                $message_class = "color-message-error"; // Asignar la clase de mensaje de error
-            } else {
-                // Preparar la consulta para insertar un nuevo usuario en la base de datos
-                $query = "INSERT INTO usuarios (name, surname, email, password, role) VALUES (:name, :surname, :email, :password, :role)";
-                $statement = $conn->prepare($query);
+                    // Preparar la consulta para insertar un nuevo usuario en la base de datos
+                    $query = "INSERT INTO usuarios (name, surname, email, password, role) VALUES (:name, :surname, :email, :password, :role)";
+                    $statement = $conn->prepare($query);
 
-                $statement->bindParam(":name", $name);
-                $statement->bindParam(":surname", $surname);
-                $statement->bindParam(":email", $email);
-                $statement->bindParam(":password", $hashed_password); // Almacenar la contraseña hasheada
-                $statement->bindParam(":role", $role);
+                    $statement->bindParam(":name", $name, PDO::PARAM_STR);
+                    $statement->bindParam(":surname", $surname, PDO::PARAM_STR);
+                    $statement->bindParam(":email", $email, PDO::PARAM_STR);
+                    $statement->bindParam(":password", $hashed_password, PDO::PARAM_STR); // Almacenar la contraseña hasheada
+                    $statement->bindParam(":role", $role, PDO::PARAM_INT);
 
-                // Ejecutar la consulta para insertar el nuevo usuario
-                if($statement->execute() && !empty($name) && !empty($surname) && !empty($email) && !empty($hashed_password)){
-                    $message = "Usuario registrado correctamente";
-                    $message_class = "color-message-success"; // Asignar la clase de mensaje de éxito
-                    header("Refresh: url=login.php");
-                    exit();
-                }else{
-                    $message = "Error al registrar al usuario";
-                    $message_class = "color-message-error"; // Asignar la clase de mensaje de error
-                    echo "<p class='message $message_class'>" . $message . "</p>";
-                    header("Refresh: 3; url=" . $_SERVER['PHP_SELF']); 
+                    // Ejecutar la consulta para insertar el nuevo usuario
+                    if($statement->execute() && !empty($name) && !empty($surname) && !empty($email) && !empty($password)){
+                        $message = "Usuario registrado correctamente";
+                        $message_class = "success"; // Asignar la clase de mensaje de éxito
+                        header("Refresh: 0; url=login.php"); // Redirigir inmediatamente
+                        exit();
+                    } else {
+                        $message = "Error al registrar al usuario";
+                        $message_class = "error"; // Asignar la clase de mensaje de error
+                    }
                 }
+            } else {
+                echo "Error al conectar a la Base de Datos";
             }
-        }else{
-            echo "Error al conectar a la Base de Datos";
         }
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +97,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realizar Pedido</title>
+    <title>Registrate</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/register.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -106,13 +108,13 @@
     </style>
 </head>
 <body>
-<div class="page">
-    <div>
-    <a class="home-button" href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
-    <h1 class="title">Registrate</h1>
+<div class="logo"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></div>
+<div class="container">
+    <div class="title-container">
+        <a class="home-button" href="../index.php"><img src="../assets/img/icons/home.png" alt="home"></a>
+        <h1 class="title">Registrate</h1>
     </div>
-    <!-- Aquí se mostrará el mensaje -->
-    <div id="register-message"></div>
+    <div class="message parragraf <?=$message_class?>"><p><?= $message ?></p></div>
     <div class="register-form-container">
         <form id="register-form" method="post" action="">
             <input type="text" id="name" name="name" placeholder="Nombre" required>
@@ -125,15 +127,17 @@
             <div class="code-input-container">
                 <input type="password" id="code" name="code" placeholder="Código de Administrador">
             </div>
-            <button type="button" id="place-register-btn">Confirmar</button>
+            <button type="submit" id="place-register-btn">Confirmar</button>
         </form>
-        
-        
     </div>
 </div>
 <script>
+    $(document).ready(function(){
+        $('#show-code-btn').click(function(event){
+            event.preventDefault();
+            $('.code-input-container').toggle();
+        });
+    });
 </script>
-<script src="../scripts/register.js"></script>
-
 </body>
 </html>

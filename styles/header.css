@@ -211,8 +211,7 @@ header {
     color: #0e3083;
 }
 
-#success-message,
-#error-message {
+.message {
     z-index: -1;
     display: none;
     text-align: center;

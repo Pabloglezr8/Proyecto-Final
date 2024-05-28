@@ -1,9 +1,22 @@
-.page {
-position: relative;
+
+.logo{
+    text-align: center;
 }
-.page h1{
-text-align: center;
-padding: 30px;
+
+.logo img{
+    width: 30%;
+}
+
+.container {
+    position: relative;
+    margin:0 auto;
+    width: 60%;
+    border: 3px solid #0e3083;
+    border-radius: 20px;
+}
+
+.container h1 {
+    text-align: center;
 }
 
 .home-button img{
@@ -11,6 +24,17 @@ padding: 30px;
     left: 20px;
     top: 20px;
     width: 50px;
+}
+
+.error{
+    color: #cf2525 ;
+}
+
+.message img{
+    margin-inline: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
 }
 
 .register-form-container{
@@ -37,5 +61,4 @@ padding: 30px;
 .register-form-container button{
     margin: 0 auto;
     margin-bottom: 30px;
-    width: 25%;
 }

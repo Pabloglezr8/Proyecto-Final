@@ -58,7 +58,7 @@ a {
 }
 
 a:visited {
-    color: inherit;
+    color:#f29400;
 }
 
 button {
@@ -85,12 +85,10 @@ button:hover {
     font-size: 1.5em;
 }
 
-
-.error {
-    color: red;
-}
-
 .success {
+    color: green;
+}
+.error {
     color: green;
 }
 
