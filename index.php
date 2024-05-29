@@ -147,7 +147,10 @@ include("./api/header.php");
     </section>
     <script src="./scripts/galeria.js"></script>
     <script src="./scripts/change-word.js"></script>
+<?php
+include("./api/footer.php");
+?>
 </div>
-</body>
 
+</body>
 </html>

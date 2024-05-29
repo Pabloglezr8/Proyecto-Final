@@ -42,7 +42,7 @@ foreach ($cartProducts as $producto) {
 </head>
 <body>
 <div class="page">
-<a class="home-button" href="my_cart.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
+    <a class="home-button" href="my_cart.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
         <div><h1 class="title">Detalles del Pedido</h1></div>
         <div class="order-container">
             <!-- Mostrar detalles del pedido -->
@@ -113,7 +113,13 @@ foreach ($cartProducts as $producto) {
                 </form>
                 <div id="order-message"></div>
             </div>
+
         </div>
+    </div>
+    
+<?php
+include("footer.php");
+?>
 </div>
 <script src="../scripts/order.js"></script>
 </body>

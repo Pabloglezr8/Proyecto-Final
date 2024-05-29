@@ -72,6 +72,9 @@ foreach ($cartProducts as $producto) {
             <a href="shop.php"><button>Comprar</button></a>
         <?php endif; ?>
     </div>
+<?php
+include("footer.php");
+?>
 </div>
 <script src="../scripts/cart-actions.js"></script>
 </body>

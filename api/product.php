@@ -66,6 +66,9 @@ if($conn){
         <?php endif; ?>
     
     </div>
+<?php
+include("footer.php");
+?>
 </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../scripts/add-to-cart.js"></script>

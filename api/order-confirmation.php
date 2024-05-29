@@ -107,6 +107,9 @@ $order_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </table>
         </div>
     </div>
+<?php
+include("footer.php");
+?>
 </div>
 </body>
 </html>
