@@ -1,15 +1,14 @@
-
-.logo{
+.logo {
     text-align: center;
 }
 
-.logo img{
+.logo img {
     width: 30%;
 }
 
 .container {
     position: relative;
-    margin:0 auto;
+    margin: 0 auto;
     width: 60%;
     border: 3px solid #0e3083;
     border-radius: 20px;
@@ -19,55 +18,62 @@
     text-align: center;
 }
 
-.home-button img{
+.home-button img {
     position: absolute;
     left: 20px;
     top: 20px;
     width: 50px;
 }
 
-.error{
-    color: #cf2525 ;
+.error {
+    color: #cf2525;
 }
 
-.message img{
+.message img {
     margin-inline: 20px;
     width: 30px;
     height: 30px;
     border-radius: 0;
 }
 
-.register-form-container{
+.register-form-container {
     width: 60%;
     margin: 0 auto;
 }
 
-.register-form-container form{
- display: flex;
- flex-direction: column;
+.register-form-container form {
+    display: flex;
+    flex-direction: column;
 }
 
-
-#show-code-btn{
-    margin: 20px;
+#show-code-btn {
+    display: block;
+    margin: 10px;
+    margin-bottom: 20px;
     cursor: pointer;
+    text-align: center;
 }
 
-#show-code-btn:hover{
+#show-code-btn:hover {
     color: #0e3083;
     cursor: pointer;
 }
 
-.register-form-container button{
+.code-input-container {
+    display: none;
+    text-align: center;
+}
+
+.register-form-container button {
     margin: 0 auto;
     margin-bottom: 30px;
 }
 
 @media screen and (width < 1025px) {
-    .logo img{
+    .logo img {
         width: 40%;
     }
-    
+
     .home-button img {
         left: 10px;
         top: 10px;
@@ -76,7 +82,7 @@
 }
 
 @media screen and (width < 769px) {
-    .logo img{
+    .logo img {
         width: 50%;
     }
 
@@ -88,14 +94,14 @@
         width: 60%;
     }
 
-    #show-code-btn{
+    #show-code-btn {
         font-size: 0.8em;
     }
 
 }
 
 @media screen and (width < 470px) {
-    .logo img{
+    .logo img {
         width: 60%;
     }
 

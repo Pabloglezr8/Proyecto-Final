@@ -13,7 +13,6 @@ header {
 
 /* Estilos para el header logo y titulo */
 .header-top-container {
-    position: relative;
     padding: 10px;
 }
 
@@ -54,6 +53,7 @@ header {
 /* Estilos para menus de navegación y user */
 
 .navigation-menu-container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,11 +113,6 @@ header {
     color: #f29400;
 }
 
-.user-menu ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 
 
 /* Estilos para el botón hamburguesa */
@@ -212,12 +207,11 @@ header {
 }
 
 .message {
-    z-index: -1;
     display: none;
     text-align: center;
     position: absolute;
-    bottom: -55px;
-    right: 40%;
+    width: 100%;
+    bottom: -60px;
 }
 
 #success-message p {
@@ -252,29 +246,29 @@ header {
     }
 }
 
-@media screen and (width < 900px) {
-
+@media screen and (width < 901px) {
+    
     #logo {
         display: none;
     }
-
+    
     #logo-completo {
         display: block;
         width: 300px;
     }
-
+    
     .identity-title-container {
         display: none;
     }
-
+    
     .header-top-container {
         flex-direction: column;
         align-items: flex-start;
     }
-
+    
     .menu-toggle {
         display: block;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .hidden {
@@ -283,6 +277,20 @@ header {
 
     .navigation-menu-burger .menu-element {
         margin-top: 20px;
+    }
+}
+
+@media screen and (width < 470px) {
+    .user-menu-burger a{
+        font-size: 0.8em;
+    }
+
+    .cart-icon img{
+        width: 25px ;
+    }
+
+    .navigation-menu-burger a{
+        font-size: 0.8em;
     }
 
 }

@@ -40,6 +40,7 @@ foreach ($cartProducts as $producto) {
 <body>
  <div class="page">
     <div class="cart-container">
+    <a class="home-button" href="shop.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
         <h1>Carrito</h1>
         <?php if(count($cartProducts) > 0): ?>
             <?php foreach($cartProducts as $producto): ?>
@@ -51,12 +52,10 @@ foreach ($cartProducts as $producto) {
                         <div class="product-name parragraf"><?= $producto['name'] ?></div>
                         <div class="product-price parragraf"><?= $producto['price'] ?> €</div>
                     </div>
-                    <div class="product-actions">
-                        <div class="product-quantity">
-                            <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
-                            <span class="parragraf" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
-                            <button class="remove-from-cart-btn" id="delete-quantity" data-product-id="<?= $producto['id'] ?>">-</button>
-                        </div>
+                    <div class="product-quantity">
+                        <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
+                        <span class="parragraf" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
+                        <button class="remove-from-cart-btn" id="delete-quantity" data-product-id="<?= $producto['id'] ?>">-</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +64,7 @@ foreach ($cartProducts as $producto) {
                 <a href="order.php">
                     <button id="checkout-btn">Realizar Pedido</button>
                 </a>
-                <h3>Total: <span id="total-price"><?= $totalPrice ?> €</span></h3>
+                <h3 id="total-price">Total: <?= $totalPrice ?>€</h3>
                 <button id="clear-cart-btn">Vaciar Cesta</button>
             </div>
         <?php else: ?>

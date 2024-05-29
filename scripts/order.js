@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#order-form').submit(function(event) {
+    $('#orderForm').submit(function(event) {
         event.preventDefault(); // Evitar que el formulario se envíe de forma convencional
         var formData = $(this).serialize(); // Obtener datos del formulario
 
@@ -38,6 +38,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 // Agrega depuración aquí para ver la respuesta completa
+                $("#loginMessage").html("<p class='server-response'>Correo o contraseña incorrectos</p>");
                 console.log("Server response:", response);
 
                 try {
@@ -81,14 +82,29 @@ document.getElementById('payment-method').addEventListener('change', function() 
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    var mensaje = document.getElementById('order-login');
     var loginForm = document.getElementById('loginForm');
     var mostrarFormulario = document.getElementById('mostrarFormulario');
-  
-    // Función para mostrar el formulario al hacer clic en el enlace
+
+    // Variable para mantener el estado del formulario
+    var formularioVisible = false;
+
+    // Función para alternar la visibilidad del formulario al hacer clic en el botón
     mostrarFormulario.addEventListener('click', function(e) {
-      e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-      mensaje.style.display = 'none'; // Ocultar el mensaje inicial
-      loginForm.style.display = 'flex'; // Mostrar el formulario de inicio de sesión
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+
+        // Si el formulario está visible, ocúltalo; de lo contrario, muéstralo
+        if (formularioVisible) {
+            loginForm.style.display = 'none';
+            orderForm.style.display = 'flex';
+            loginMessage.style.display = 'none';
+            mostrarFormulario.textContent = 'Iniciar Sesión';
+            formularioVisible = false;
+        } else {
+            loginForm.style.display = 'flex';
+            orderForm.style.display = 'none';
+            loginMessage.style.display = 'block';
+            mostrarFormulario.textContent = 'x';
+            formularioVisible = true;
+        }
     });
-  });
+});

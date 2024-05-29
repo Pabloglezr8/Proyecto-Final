@@ -1,10 +1,22 @@
+.page{
+position: relative;
+}
+
+.home-button img {
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    width: 50px;
+}
+
 .title {
+    margin-top: 50px;
     text-align: center;
 }
 
 .order-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     grid-gap: 40px;
     width: 90%;
     margin: 0 auto;
@@ -12,9 +24,20 @@
 }
 
 .order-details {
-    height: 65vh;
+    border-radius: 20px;
+    height: 60vh;
     overflow: scroll;
     overflow-x: hidden;
+}
+
+.total-price {
+    margin: 0 auto;
+    width: 40%;
+    padding: 10px;
+    margin-top: 20px;
+    color: #0e3083;
+    border-radius: 10px;
+    border: 2px solid #f29400;
 }
 
 .product-container {
@@ -28,9 +51,14 @@
 }
 
 .product-element {
+    white-space: nowrap;
     margin: 20px;
 }
 
+h2{
+    color: #0e3083;
+    text-align: center;
+}
 
 .order-form-container {
     display: flex;
@@ -40,44 +68,52 @@
     margin: 0 auto;
 }
 
-.order-login p{
-    margin: 0 auto;
-    display: inline-flex;
-    text-align: center ;
-    color: #0e3083;
-    transition: 0.5s ease-in-out;
+#loginMessage{
+    display: none;
+    text-align: center;
+    color: #cf2525;
+    padding: 20px;
 }
 
-
-.order-login p:hover{
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.data-container h3{
-    display: inline-flex;
-}
-
-#order-form{
-display: flex;
-flex-direction: column;
-}
-
-#order-form div{
+#loginForm{
+    flex-direction: row;
     width: 100%;
-}
-#name{
-    width: 41.7%;
-}
-
-#surname{
-    width: 41.7%;
+    justify-content: center ;
+    align-items: center;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+    padding: 5px;
 }
 
-#phone{
-width: 42%;
+.data-container h3 {
+    display: inline-flex;
 }
 
+#orderForm {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#orderForm div{
+    margin-top: 20px;
+    display: flexbox;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+#name, #surname {
+    width: 41.5%;
+} 
+
+#postal_code, #location, #country{
+    width: 24.8%;
+}
+
+#phone, #payment-method  {
+    width: 40%;
+}
 
 #payment-method {
     width: 44.2%;
@@ -101,7 +137,8 @@ width: 42%;
     cursor: pointer;
 }
 
-#bank-transfer-instructions{
+#bank-transfer-instructions {
+    margin-top: 20px;
     display: none;
     border-radius: 20px;
     border: 2px solid #0e3083;
@@ -110,19 +147,100 @@ width: 42%;
 }
 
 
-#bank-transfer-instructions p:last-child{
+#bank-transfer-instructions p:last-child {
     text-align: center;
 }
 
-.parragraf{
+.parragraf {
     text-align: center;
 }
 
-p strong{
+p strong {
     font-size: 1.2em;
     color: #f29400;
 }
 
-button{
+#place-order-btn{
     margin-top: 20px;
+}
+
+@media screen and (width < 1441px) {
+    #name, #surname {
+        width: 39%;
+    } 
+    
+    #postal_code, #location, #country{
+        width: 22%;
+    }
+    
+}
+
+@media screen and (width < 1025px) {
+    .home-button img {
+        width: 40px;
+    }
+
+    #name, #surname {
+        width: 41.5%;
+    } 
+    
+    #postal_code, #location, #country{
+        width: 24.8%;
+    }
+    
+    #phone, #payment-method  {
+        width: 40%;
+    }
+}
+
+@media screen and (width < 769px) {
+    .home-button img {
+        width: 30px;
+    }
+
+    #payment-method {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (width < 470px) {
+
+    .order-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 40px;
+        width: 90%;
+        margin: 0 auto;
+    
+    }
+
+    .total-price {
+        width: 50%;
+    }
+
+    .product-container {
+        width: 50%;
+        flex-direction: column;
+    }
+
+    .product-container img{
+        width: 80px;
+    }
+
+    #loginForm{
+        flex-direction: column;
+    }
+
+    #name, #surname {
+        width: 38%;
+    } 
+    
+    #postal_code, #location, #country{
+        width: 23%;
+    }
+    
+    #phone, #payment-method  {
+        width: 39%;
+    }
 }

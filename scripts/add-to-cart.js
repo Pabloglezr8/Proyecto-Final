@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('.add-to-cart-btn-product').click(function() {
         var productId = $(this).data('product-id');
         var quantity = $(this).prev('.quantity-input').val();
-        quantity = parseInt(quantity); // Convertir a entero
+        quantity = parseInt(quantity);
         
         addToCart(productId, quantity);
     });
@@ -43,6 +43,7 @@ $(document).ready(function() {
 
     function updateCartCount(quantity) {
         $('#cart-count').text(quantity);
+        $('#cart-count-burger').text(quantity);
     }
 
     function showMessage(message, type) {

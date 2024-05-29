@@ -102,9 +102,6 @@
     <link rel="stylesheet" href="../styles/register.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .code-input-container {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -122,7 +119,7 @@
             <input type="email" id="email" name="email" placeholder="E-mail"  required>
             <input type="password" id="password" name="password" placeholder="Contraseña" required>
             <!-- Botón para mostrar el input del código -->
-            <a id="show-code-btn">¿Tienes un código de administrador?</a>
+            <a id="show-code-btn">¿Tienes un código de administrador? Haz click</a>
             <!-- Contenedor para el input del código (inicialmente oculto) -->
             <div class="code-input-container">
                 <input type="password" id="code" name="code" placeholder="Código de Administrador">

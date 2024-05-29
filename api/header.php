@@ -112,13 +112,13 @@ foreach ($_SESSION['cart'] as $prod) {
                     <div class="menu-element"><a href="/FerreteriaVegagrande/api/admin.php">Panel de Administrador</a></div>
                 <?php endif; ?>
             </nav>
+            
         </div>
-
         <div id="success-message" class="message">
             <div><p>Producto añadido al carrito correctamente.</p></div>
         </div>
         <div id="error-message" class="message">
-            <div><p>Producto añadido al carrito correctamente.</p></div>
+            <div><p>Error al añadir el producto al carrito.</p></div>
         </div>
 
     </header>
@@ -128,7 +128,7 @@ foreach ($_SESSION['cart'] as $prod) {
         <nav class="burger-menu">
             <div class=" user-menu-burger">
                 <div class="menu-element cart-icon">
-                    <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count"><?php echo $total_productos; ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
+                    <a href="/FerreteriaVegagrande/api/my_cart.php"><span id="cart-count-burger"><?php echo $total_productos; ?></span><img src="/FerreteriaVegagrande/assets/img/icons/shopcart.png" alt="shopcart"></a>
                 </div>
                 <?php if($isLoggedIn): ?>
                 <span class="user-name"><?php echo $_SESSION['name']; ?></span>
