@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2024 a las 12:25:52
+-- Tiempo de generación: 29-05-2024 a las 05:01:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -114,7 +114,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `name`, `surname`, `email`, `password`, `address`, `postal_code`, `location`, `country`, `phone`, `payment_method`, `role`) VALUES
 (22, 'user', 'uno', 'user@example.com', '$2y$10$EPrU5W0CgLRwiUF1EW6vgeeMRZRwzkq/14nRDxXAOH19b6NNhA8iC', 'calle manolo', '33202', 'Almeria', 'España', 123456879, NULL, 1),
 (23, 'pablo', 'prueba', 'prueba@prueba.com', '$2y$10$Sgnc/YeDMmln8OW2HZbK6eO0ykGusWgISCYEWRnUnE2JBngGBmf4i', 'calle manuel', '33202', 'gijon', 'España', 123456789, NULL, 1),
-(36, 'admin', 'admin', 'admin@admin.es', '$2y$10$1BHY.HksbFZeY6ibDAUXK.dYShZDfpo.9Kz2r7sWmZWhMDSymOOKm', 'calle roberto', '33202', 'gijon', 'España', 123456789, NULL, 0);
+(94, 'admin', 'admin', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 --
 -- Índices para tablas volcadas
@@ -155,13 +155,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -173,7 +173,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- Restricciones para tablas volcadas

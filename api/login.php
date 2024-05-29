@@ -16,7 +16,7 @@
             <a class="home-button" href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
             <h1 class="title">LogIn</h1>
         </div>
-        <form class="login-form">
+        <form id="loginForm" class="login-form">
             <input type="email" name="email" id="email" placeholder="E-mail"required>
             <input type="password" name="password" id="password" placeholder="Contraseña"required>
             <button class='btn insertar' type='submit'>Iniciar Sesión</button>

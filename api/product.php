@@ -41,10 +41,12 @@ if($conn){
     </style>
 </head>
 <body>
-
+<div class="page">
     <div class="item-container">
         <?php if(isset($producto) && !empty($producto)): ?>
+            <div class="img-container">
             <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
+            </div>
             <div class="item-data-container">
                 <h1 class="item-title"><?= $producto['name'] ?></h1>
                 <div class="item-buy-container">
@@ -64,6 +66,7 @@ if($conn){
         <?php endif; ?>
     
     </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../scripts/add-to-cart.js"></script>
 </body>

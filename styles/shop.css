@@ -34,7 +34,7 @@
 }
 
 .product-title{
-    white-space: nowrap;
+    /* white-space: nowrap; */
     font-size: 1.2em;
     color: #f29400;
 }
