@@ -33,9 +33,8 @@ footer {
     border-bottom: 1px solid #f29400;
 }
 
-.footer-section p {
-    font-size: 1em;
-    margin-bottom: 10px;
+.parragraf{
+    color: #f0f0f0;
 }
 
 .footer-section.links div{
@@ -62,4 +61,31 @@ footer {
     font-size: 0.9em;
     border-top: 1px solid #f29400;
     border-bottom: 1px solid #f29400;
+}
+
+@media screen and (width < 1025px) {
+    footer {
+        width: 103%;
+        margin: 0 -15px;
+
+    }
+ 
+}
+
+@media screen and (width < 769px) {
+    footer {
+        width: 103%;
+        margin: 0 -10px;
+
+    }
+
+}
+
+@media screen and (width < 470px) {
+    footer {
+        width: 103%;
+        margin: 0 -7px;
+
+    }
+
 }

@@ -12,13 +12,13 @@
     <div class="footer-content">
         <div class="footer-section about">
             <h2>Acerca de nosotros</h2>
-            <p>Somos Ferretería Vegagrande, tu aliado en la mejora de tu hogar. Ofrecemos una amplia gama de productos y servicios para tus proyectos.</p>
+            <p class="parragraf">Somos Ferretería Vegagrande, tu aliado en la mejora de tu hogar. Ofrecemos una amplia gama de productos y servicios para tus proyectos.</p>
         </div>
         <div class="footer-section contact">
             <h2>Contacto</h2>
-            <p>Dirección: Calle Principal, Vegagrande</p>
-            <p>Teléfono: +123456789</p>
-            <p>Email: info@ferreteriavegagrande.com</p>
+            <p class="parragraf">Dirección: Calle Principal, Vegagrande</p>
+            <p class="parragraf">Teléfono: +123456789</p>
+            <p class="parragraf">Email: info@ferreteriavegagrande.com</p>
         </div>
         <div class="footer-section links">
             <h2>Enlaces útiles</h2>
