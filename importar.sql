@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2024 a las 05:01:10
+-- Tiempo de generación: 29-05-2024 a las 19:55:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,6 +35,16 @@ CREATE TABLE `pedidos` (
   `payment_method` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `id_usuario`, `total_price`, `date`, `payment_method`) VALUES
+(57, 94, 18.75, '2024-05-29 13:33:51', 'contrareembolso'),
+(58, 94, 74.24, '2024-05-29 14:02:10', 'contrareembolso'),
+(59, 94, 29.97, '2024-05-29 15:07:16', 'contrareembolso'),
+(60, 94, 55.49, '2024-05-29 19:23:28', 'contrareembolso');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +58,19 @@ CREATE TABLE `pedidos_productos` (
   `quantity` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos_productos`
+--
+
+INSERT INTO `pedidos_productos` (`id`, `pedido_id`, `product_id`, `quantity`, `price`) VALUES
+(91, 57, 15, 1, 18.75),
+(92, 58, 15, 1, 18.75),
+(93, 58, 9, 1, 9.99),
+(94, 58, 5, 1, 45.50),
+(95, 59, 9, 3, 9.99),
+(96, 60, 9, 1, 9.99),
+(97, 60, 5, 1, 45.50);
 
 -- --------------------------------------------------------
 
@@ -114,7 +137,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `name`, `surname`, `email`, `password`, `address`, `postal_code`, `location`, `country`, `phone`, `payment_method`, `role`) VALUES
 (22, 'user', 'uno', 'user@example.com', '$2y$10$EPrU5W0CgLRwiUF1EW6vgeeMRZRwzkq/14nRDxXAOH19b6NNhA8iC', 'calle manolo', '33202', 'Almeria', 'España', 123456879, NULL, 1),
 (23, 'pablo', 'prueba', 'prueba@prueba.com', '$2y$10$Sgnc/YeDMmln8OW2HZbK6eO0ykGusWgISCYEWRnUnE2JBngGBmf4i', 'calle manuel', '33202', 'gijon', 'España', 123456789, NULL, 1),
-(94, 'admin', 'admin', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(94, 'admin', 'admin', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', 'mi calle', '33202', 'Gijón', '1234', 123456789, NULL, 0),
+(95, 'pablo', 'prueba', 'user1@example.com', '$2y$10$.QG3RM1X4qrZf40SUyMbP.dV/14Fkyvzdawd3gOGCDKDGhPgZ/NKu', NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 --
 -- Índices para tablas volcadas
@@ -155,13 +179,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -173,7 +197,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- Restricciones para tablas volcadas

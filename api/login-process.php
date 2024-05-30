@@ -1,27 +1,14 @@
 <?php
-// Incluir el archivo para la conexión a la base de datos
 include("connectDB.php");
 
-// Mostrar todos los errores (para desarrollo)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+function login($email, $password) {
+    // Inicializar la respuesta
+    $response = [
+        "success" => false,
+        "message" => "Error desconocido"
+    ];
 
-// Iniciar la sesión
-session_start();
-
-// Inicializar la respuesta
-$response = [
-    "success" => false,
-    "message" => "Error desconocido"
-];
-
-// Verificar si se ha enviado un formulario por el método POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        // Obtener el correo electrónico y la contraseña del formulario
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-
         // Conexión a la base de datos
         $conn = connectDB();
 
@@ -38,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Verificar si se encontró el usuario y si la contraseña es correcta
             if ($user && password_verify($password, $user["password"])) {
                 // Establecer las variables de sesión para el usuario
+                session_start();
                 $_SESSION["id"] = $user["id"];
                 $_SESSION["name"] = $user["name"];
                 $_SESSION["surname"] = $user["surname"];
@@ -63,9 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (Exception $e) {
         $response["message"] = "Excepción capturada: " . $e->getMessage();
     }
+
+    return $response;
 }
 
-// Devolver la respuesta en formato JSON
-header('Content-Type: application/json');
-echo json_encode($response);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtener el correo electrónico y la contraseña del formulario
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $response = login($email, $password);
+
+    // Devolver la respuesta en formato JSON
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 ?>

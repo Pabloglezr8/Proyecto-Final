@@ -55,11 +55,6 @@ position: relative;
     margin: 20px;
 }
 
-h2{
-    color: #0e3083;
-    text-align: center;
-}
-
 .order-form-container {
     display: flex;
     flex-direction: column;
