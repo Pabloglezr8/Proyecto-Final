@@ -4,7 +4,7 @@ $(document).ready(function() {
         removeFromCart(productId);
     });
 
-    $('.delete-product').click(function() {
+    $('.remove-all-from-cart-btn').click(function() {
         var productId = $(this).data('product-id');
         removeAllFromCart(productId);
     });

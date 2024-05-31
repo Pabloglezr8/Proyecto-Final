@@ -11,6 +11,7 @@ $(document).ready(function() {
     $('.add-to-cart-btn-product').click(function() {
         var productId = $(this).data('product-id');
         var quantity = $(this).prev('.quantity-input').val();
+        var quantity = $(this).data('.increase-quantity-btn');
         quantity = parseInt(quantity);
         
         addToCart(productId, quantity);

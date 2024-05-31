@@ -1,5 +1,5 @@
 body {
-    padding-top: 420px;
+    padding-top: 100px;
 }
 
 .header {
@@ -14,9 +14,6 @@ body {
     box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
 }
 
-
-
-
 .title-container {
     position: relative;
     display: flex;
@@ -25,21 +22,21 @@ body {
     background-color: #0e3083;
     align-items: center;
 
-    
-    h1{
+
+    h1 {
         width: 100%;
         text-align: center;
     }
 }
 
-.title-container img{
+.title-container img {
     position: absolute;
     left: 0;
     top: 0;
     width: 50px;
 }
 
-.control-panel{
+.control-panel {
     text-align: center;
 }
 
@@ -66,7 +63,7 @@ body {
 
 }
 
-.btn-container{
+.btn-container {
     margin-top: 20px;
 }
 
@@ -103,20 +100,90 @@ img {
 
 #delete-btn {
     color: #cf2525;
-    background:none;
+    background: none;
 }
 
-#delete-btn:hover{
+#delete-btn:hover {
     color: white;
     background-color: #cf2525;
 }
 
-#edit-btn{
+#edit-btn {
     color: #f29400;
     background: none;
 }
 
-#edit-btn:hover{
+#edit-btn:hover {
     color: white;
     background-color: #f29400;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(242, 148, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    margin: 5% auto;
+    width: 100%;
+    padding: 40px;
+    border-radius: 20px;
+
+}
+
+.close {
+    color: #0e3083;
+    position: absolute;
+    text-align: center;
+    right: 420px;
+    top: 0;
+    font-size: 40px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.section-title{
+    margin-top: 20px;
+    text-align: center;
+    border-top: 2px solid #f29400;
+}
+
+#pedido table{
+    margin: 0 auto;
+    width: 80%;
+    border-radius: 20px;
+    border-collapse: collapse;
+    text-align: center;
+    
+    th{
+        color: #f29400;
+        background-color: #0e3083; 
+    } 
+}
+
+#pedido tr:nth-child(even){
+    background-color: #0e2f8383;
+}
+
+#pedido td{
+    padding: 20px;
 }

@@ -89,14 +89,12 @@ function clearCart() {
 }
 
 function increaseCartItemQuantity() {
-    $response = ['status' => false, 'message' => 'Error al aumentar la cantidad del producto en la cesta.', 'quantity' => 0]; // Agregamos 'quantity' al array de respuesta
+    $response = ['status' => false, 'message' => 'Error al aumentar la cantidad del producto en la cesta.', 'quantity' => 0];
 
     if (isset($_POST['product_id'])) {
         $product_id = intval($_POST['product_id']);
 
-        // Verificar si el producto ya está en el carrito
         if (isset($_SESSION['cart'][$product_id])) {
-            // Incrementar la cantidad
             $_SESSION['cart'][$product_id]++;
             $response['status'] = true;
             $response['message'] = 'Cantidad del producto aumentada en la cesta correctamente.';
@@ -108,3 +106,4 @@ function increaseCartItemQuantity() {
 
     return $response;
 }
+

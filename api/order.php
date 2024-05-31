@@ -69,9 +69,11 @@ foreach ($cartProducts as $producto) {
                 </div>
             <div class="order-form-container">
                 <div class="data-container">
+                    <?php if(!$isLoggedIn): ?>
                     <div id="order-login">
                         <button id="mostrarFormulario">Iniciar Sesión</></button>
                     </div>
+                    <?php endif; ?>
                     <form id="loginForm" class="enter" style="display:none;">
                         <div>
                             <input type="email" name="email" id="email" placeholder="E-mail"required>
@@ -85,30 +87,42 @@ foreach ($cartProducts as $producto) {
                     </form>
                     <div id="loginMessage"></div>
                     <form id="orderForm">
-                        <div>
-                            <input type="text" id="name" name="name" placeholder="Nombre"  value="<?= htmlspecialchars($user['name']); ?>" required>
-                            <input type="text" id="surname" name="surname" placeholder="Apellidos"  value="<?= htmlspecialchars($user['surname']); ?>" required>
-                        </div>
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" placeholder="Nombre"  value="<?= htmlspecialchars($user['name']); ?>" required>
+                        
+                        <label for="surname">Apellidos</label>
+                        <input type="text" id="surname" name="surname" placeholder="Apellidos"  value="<?= htmlspecialchars($user['surname']); ?>" required>
                         <?php if($isLoggedIn): ?>
-                        <input type="email" id="email" name="email" placeholder="E-mail"  value="<?= htmlspecialchars($user['email']); ?>" readonly>
-                        <input type="password" id="password" name="password" placeholder="Contraseña" value="<?= htmlspecialchars($user['pasword']); ?>" readonly>
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="E-mail"  value="<?= htmlspecialchars($user['email']); ?>" style="display:none">
+                        
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Contraseña" value="<?= htmlspecialchars($user['pasword']); ?>" style="display:none">
                         <?php else: ?>
+                        <label for="email">E-mail</label>
                         <input type="email" id="email" name="email" placeholder="E-mail"  value="<?= htmlspecialchars($user['email']); ?>" required>
+                        
+                        <label for="password">Contraseña</label>
                         <input type="password" id="password" name="password" placeholder="Contraseña" requiered>
                         <?php endif; ?>
+                        <label for="address">Dirección</label>
                         <input type="text" id="address" name="address" placeholder="Dirección de envío"  value="<?= htmlspecialchars($user['address']); ?>" required>
-                        <div>
-                            <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal"  value="<?= htmlspecialchars($user['postal_code']); ?>" required>
-                            <input type="text" id="location" name="location" placeholder="Localidad"  value="<?= htmlspecialchars($user['location']); ?>" required>
-                            <input type="text" id="country" name="country" placeholder="Pais"  value="<?= htmlspecialchars($user['country']); ?>" required>
-                        </div>
-                        <div>
-                            <input type="tel" id="phone" name="phone" placeholder="Teléfono"  value="<?= htmlspecialchars($user['phone']); ?>" required>
-                                <select id="payment-method" name="payment_method" required>
-                                    <option value="contrareembolso">Contra Reembolso</option>
-                                    <option value="transferencia">Transferencia Bancaria</option>
-                                </select> <br>
-                        </div>    
+                        
+                        <label for="postal_code">Código Postal</label>
+                        <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal"  value="<?= htmlspecialchars($user['postal_code']); ?>" required>
+                        
+                        <label for="location">Localidad</label>
+                        <input type="text" id="location" name="location" placeholder="Localidad"  value="<?= htmlspecialchars($user['location']); ?>" required>
+                        
+                        <label for="country">País</label>
+                        <input type="text" id="country" name="country" placeholder="Pais"  value="<?= htmlspecialchars($user['country']); ?>" required>
+                        
+                        <label for="phone">Teléfono<label>
+                        <input type="tel" id="phone" name="phone" placeholder="Teléfono"  value="<?= htmlspecialchars($user['phone']); ?>" required>
+                            <select id="payment-method" name="payment_method" required>
+                                <option value="contrareembolso">Contra Reembolso</option>
+                                <option value="transferencia">Transferencia Bancaria</option>
+                            </select> <br>
                         <button type="submit" id="place-order-btn">Realizar Pedido</button>
                 </form>
                 <div id="order-message"></div>

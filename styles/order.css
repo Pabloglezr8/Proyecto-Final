@@ -1,5 +1,5 @@
-.page{
-position: relative;
+.page {
+    position: relative;
 }
 
 .home-button img {
@@ -63,17 +63,17 @@ position: relative;
     margin: 0 auto;
 }
 
-#loginMessage{
+#loginMessage {
     display: none;
     text-align: center;
     color: #cf2525;
     padding: 20px;
 }
 
-#loginForm{
+#loginForm {
     flex-direction: row;
     width: 100%;
-    justify-content: center ;
+    justify-content: center;
     align-items: center;
     border: 1px solid #0e3083;
     border-radius: 10px;
@@ -84,7 +84,11 @@ position: relative;
     display: inline-flex;
 }
 
-#orderForm {
+#orderForm input{
+    width: 100%;
+}
+
+/* #orderForm {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -108,7 +112,7 @@ position: relative;
 
 #phone, #payment-method  {
     width: 40%;
-}
+} */
 
 #payment-method {
     width: 44.2%;
@@ -155,87 +159,55 @@ p strong {
     color: #f29400;
 }
 
-#place-order-btn{
+#place-order-btn {
     margin-top: 20px;
 }
 
-@media screen and (width < 1441px) {
-    #name, #surname {
-        width: 39%;
-    } 
-    
-    #postal_code, #location, #country{
-        width: 22%;
-    }
-    
-}
+@media screen and (width < 1441px) {}
 
 @media screen and (width < 1025px) {
     .home-button img {
         width: 40px;
     }
 
-    #name, #surname {
-        width: 41.5%;
-    } 
-    
-    #postal_code, #location, #country{
-        width: 24.8%;
-    }
-    
-    #phone, #payment-method  {
-        width: 40%;
-    }
-}
 
-@media screen and (width < 769px) {
-    .home-button img {
-        width: 30px;
+    @media screen and (width < 769px) {
+        .home-button img {
+            width: 30px;
+        }
+
+        #payment-method {
+            padding: 8px;
+            font-size: 0.8em;
+        }
     }
 
-    #payment-method {
-        padding: 8px;
-        font-size: 0.8em;
-    }
-}
+    @media screen and (width < 470px) {
 
-@media screen and (width < 470px) {
+        .order-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 40px;
+            width: 90%;
+            margin: 0 auto;
 
-    .order-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        grid-gap: 40px;
-        width: 90%;
-        margin: 0 auto;
-    
-    }
+        }
 
-    .total-price {
-        width: 50%;
-    }
+        .total-price {
+            width: 50%;
+        }
 
-    .product-container {
-        width: 50%;
-        flex-direction: column;
-    }
+        .product-container {
+            width: 50%;
+            flex-direction: column;
+        }
 
-    .product-container img{
-        width: 80px;
-    }
+        .product-container img {
+            width: 80px;
+        }
 
-    #loginForm{
-        flex-direction: column;
-    }
+        #loginForm {
+            flex-direction: column;
+        }
 
-    #name, #surname {
-        width: 38%;
-    } 
-    
-    #postal_code, #location, #country{
-        width: 23%;
     }
-    
-    #phone, #payment-method  {
-        width: 39%;
-    }
-}

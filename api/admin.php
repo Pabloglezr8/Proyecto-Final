@@ -6,30 +6,10 @@
     <title>Ferretería Vegagrande</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/admin.css">
-    <link rel="stylesheet" href="../styles/content.css">
     <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
     <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-      tinymce.init({
-        selector: '#mytextarea',
-        placeholder:'Descripción',
-        language: 'es',
-        height: 200,
-        width: 400,
-        branding: false,
-        menubar:false,
-        toolbar: ['undo redo | styles  forecolor| bold italic | outdent indent | alignleft aligncenter alignright'],
-        statusbar: false,
-        content_css: '../styles/textarea.css'
-      });
-</script>
-    </script>
 </head>
 <body>
-
-
-
-
 <?php 
 include("connectDB.php");
 
@@ -40,7 +20,6 @@ $message = "";
 $messageClass = ""; // Clase para el estilo del mensaje
 
 // Función para eliminar un producto por su ID
-
 function deleteProducto($conn, $id){
     // Obtener el nombre de la imagen del producto a eliminar
     $query = $conn->prepare("SELECT img FROM productos WHERE id = :id");
@@ -170,75 +149,115 @@ function listProducto($conn, &$message, &$messageClass){
         $id = $_POST['edit_id'];
         $productoToEdit = editProducto($conn, $id);
     }
+
     ?>
     <div class="header">
         <div class="title-container">
             <a href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
             <h1 class='title'>Panel de Administrador</h1>
         </div>
+    </div>
+    <button id="mostrarPedidos">Pedidos</button>
+    <div id="producto">
+        <div class="section-title"><h2>Productos</h2></div>
         <form method='post' enctype='multipart/form-data' class='control-panel'>
-            <div class="form-element-container">   
-                    <div class="form-element">
-                        <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? $productoToEdit["name"] : "") ?>'>
-                    </div>
-
-                    <div class="form-element">
-                         <input type='text' name='price' id='price' placeholder="Precio" value='<?= ($productoToEdit ? $productoToEdit["price"] : "") ?>'>
-                         <input type='hidden' name='id' value='<?= ($productoToEdit ? $productoToEdit["id"] : "") ?>'>
-                    </div>
-                
-
-                    <div class="form-element">
-                        <input type='file' name='img' id='input-file'>
-                        <?php if($productoToEdit): ?>
-                            <input type='hidden' name='current_img' value='<?= $productoToEdit["img"] ?>'>
-                            <?php endif; ?>
-                    </div>
+            <div class="form-element-container">
                 <div class="form-element">
-                    <textarea type='text' name='description' id="mytextarea"><?php if($productoToEdit): ?><?=$productoToEdit["description"]?><?php endif; ?></textarea>
+                    <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? htmlspecialchars($productoToEdit["name"]) : "") ?>'>
+                </div>
+                <div class="form-element">
+                    <input type='text' name='price' id='price' placeholder="Precio" value='<?= ($productoToEdit ? htmlspecialchars($productoToEdit["price"]) : "") ?>'>
+                    <input type='hidden' name='id' value='<?= ($productoToEdit ? htmlspecialchars($productoToEdit["id"]) : "") ?>'>
+                </div>
+                <div class="form-element">
+                    <input type='file' name='img' id='input-file'>
+                    <?php if($productoToEdit): ?>
+                        <input type='hidden' name='current_img' value='<?= htmlspecialchars($productoToEdit["img"]) ?>'>
+                    <?php endif; ?>
+                </div>
+                <div class="form-element">
+                    <button type="button" id="description-button" class="description-button">Descripción</button>
+                    <input type='hidden' name='description' id='description-input' value='<?= ($productoToEdit ? htmlspecialchars($productoToEdit["description"]) : "") ?>'>
                 </div>
             </div>
-                <div class='btn-container'>
-                    <button class='btn-insertar' type='submit' name='<?= ($productoToEdit ? "update" : "insert") ?>' id='insert-btn'><?= ($productoToEdit ? "Editar" : "Insertar") ?> producto</button>
-                </div>
+            <div class='btn-container'>
+                <button class='btn-insertar' type='submit' name='<?= ($productoToEdit ? "update" : "insert") ?>' id='insert-btn'><?= ($productoToEdit ? "Editar" : "Insertar") ?> producto</button>
+            </div>
         </form>
 
-            <!-- Mostrar mensaje si existe -->
-    <?php if (!empty($message)): ?>
-        <div class="message-container">
-            <p class="message <?= $messageClass ?>"><?= $message ?></p>
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <textarea id="modal-editor"> <?= ($productoToEdit ? htmlspecialchars(strip_tags($productoToEdit["description"])) : "Descripción") ?></textarea>
+            </div>
         </div>
-    <?php endif; ?>
 
+        <!-- Mostrar mensaje si existe -->
+        <?php if (!empty($message)): ?>
+            <div class="message-container">
+                <p class="message <?= $messageClass ?>"><?= $message ?></p>
+            </div>
+        <?php endif; ?>
+
+        <!-- Consulta los productos disponibles en la base de datos y muestra una tabla HTML con ellos -->
+        <?php foreach($query as $product): ?> 
+            <div class="product-container">
+                <img src="../assets/img/productos/<?= $product['img'] ?>" alt="<?= $product['name'] ?>">
+                <p class="parragraf name" id="name"><?= $product["name"]?></p>
+                <p class="parragraf description" id="description"><?= $product["description"]?></p>
+                <p class="parragraf price" id="price"><?= $product["price"]?> €</p>
+                <div class="button-container">
+                    <form method='post'>
+                        <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
+                        <button class='btn' type='submit' name='delete' id="delete-btn">Eliminar</button>
+                    </form>
+                    <form method='post'>
+                        <input type='hidden' name='edit_id' value='<?= $product["id"] ?>'>
+                        <button class='btn' type='submit' name='edit' id='edit-btn'>Editar</button>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>              
     </div>
-    <!-- Consulta los productos disponibles en la base de datos y muestra una tabla HTML con ellos -->
+
+    <div id="pedido" style="display:none;">
+    <div class="section-title"><h2>Pedidos</h2></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numero Pedido</th>
+                    <th>Nombre Usuario</th>
+                    <th>Fecha</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+               $stmt = $conn->prepare("SELECT pedidos.id, pedidos.date, pedidos.total_price, usuarios.name, usuarios.surname
+               FROM pedidos
+               JOIN usuarios ON pedidos.id_usuario = usuarios.id");
+                $stmt->execute();
+                $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($orders as $order):
+                ?>
+                <tr>
+                    <td><?= $order['id'] ?></td>
+                    <td><?= $order['name'] ?> <?= $order['surname'] ?></td>
+                    <td><?= $order['date'] ?></td>
+                    <td><?= $order['total_price'] ?>€</td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <?php
-    foreach($query as $product): ?> 
-    <div class="product-container">
-        <img src="../assets/img/productos/<?= $product['img'] ?>" alt="<?= $product['name'] ?>">
-        <p class="parragraf name" id="name"><?= $product["name"]?></p>
-        <p class="parragraf description" id="description"><?= $product["description"]?></p>
-        <p class="parragraf price" id="price"><?= $product["price"]?> €</p>
-        <div class="button-container">
-            <form method='post'>
-                <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
-                <button class='btn' type='submit' name='delete' id="delete-btn">Eliminar</button>
-            </form>
-            <form method='post'>
-                <input type='hidden' name='edit_id' value='<?= $product["id"] ?>'>
-                <button class='btn' type='submit' name='edit' id='edit-btn'>Editar</button>
-            </form>
-        </div>
-    </div>
-    <?php endforeach; ?>              
-
-<?php
 }
 
 $conn = connectDB();
 
 listProducto($conn, $message, $messageClass);
 ?>
-
+<script src="../scripts/admin.js"></script>
 </body>
 </html>

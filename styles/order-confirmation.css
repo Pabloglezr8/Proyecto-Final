@@ -51,6 +51,9 @@
 .order-container tr:nth-child(even){
     background-color: #0e2f8383;
 }
+.order-container td{
+    padding: 2px;
+}
 
 .order-products img{
     width: 80px;
