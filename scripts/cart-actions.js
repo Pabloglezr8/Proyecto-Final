@@ -4,7 +4,7 @@ $(document).ready(function() {
         removeFromCart(productId);
     });
 
-    $('.remove-all-from-cart-btn').click(function() {
+    $('.delete-product').click(function() {
         var productId = $(this).data('product-id');
         removeAllFromCart(productId);
     });
@@ -31,10 +31,6 @@ $(document).ready(function() {
     }
 
     function increaseCartItemQuantity(productId) {
-        var quantityElement = $('.cart-quantity[data-product-id="' + productId + '"]');
-        var currentQuantity = parseInt(quantityElement.text());
-        quantityElement.text(currentQuantity + 1); // Incrementar la cantidad mostrada en la página
-        updateTotalPrice(); // Actualizar el precio total
         performCartAction('increase_quantity', productId);
     }
 
@@ -50,10 +46,11 @@ $(document).ready(function() {
                 if (response.status) {
                     if (action === 'remove' || action === 'remove_all' || action === 'clear') {
                         location.reload(); // Recargar la página para reflejar los cambios en la cesta
-                    } else {
+                    } else if (action === 'increase_quantity') {
                         // Actualizar la cantidad mostrada en la página
                         $('.cart-quantity[data-product-id="' + productId + '"]').text(response.quantity);
                         updateTotalPrice(); // Actualizar el precio total después de cada acción
+                        updateCartCount(response.cart_count); // Actualizar el contador del carrito
                     }
                 } else {
                     alert(response.message); // Mostrar mensaje de error
@@ -63,6 +60,11 @@ $(document).ready(function() {
                 alert('Error en la operación de la cesta.'); // Mostrar mensaje de error
             }
         });
+    }
+
+    function updateCartCount(quantity) {
+        $('#cart-count').text(quantity);
+        $('#cart-count-burger').text(quantity);
     }
 
     function updateTotalPrice() {

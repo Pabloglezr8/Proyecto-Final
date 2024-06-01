@@ -84,7 +84,7 @@
     display: inline-flex;
 }
 
-#orderForm input{
+#orderForm input {
     width: 100%;
 }
 
@@ -169,45 +169,46 @@ p strong {
     .home-button img {
         width: 40px;
     }
+}
 
 
-    @media screen and (width < 769px) {
-        .home-button img {
-            width: 30px;
-        }
-
-        #payment-method {
-            padding: 8px;
-            font-size: 0.8em;
-        }
+@media screen and (width < 769px) {
+    .home-button img {
+        width: 30px;
     }
 
-    @media screen and (width < 470px) {
+    #payment-method {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}
 
-        .order-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            grid-gap: 40px;
-            width: 90%;
-            margin: 0 auto;
+@media screen and (width < 470px) {
 
-        }
-
-        .total-price {
-            width: 50%;
-        }
-
-        .product-container {
-            width: 50%;
-            flex-direction: column;
-        }
-
-        .product-container img {
-            width: 80px;
-        }
-
-        #loginForm {
-            flex-direction: column;
-        }
+    .order-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 40px;
+        width: 90%;
+        margin: 0 auto;
 
     }
+
+    .total-price {
+        width: 50%;
+    }
+
+    .product-container {
+        width: 50%;
+        flex-direction: column;
+    }
+
+    .product-container img {
+        width: 80px;
+    }
+
+    #loginForm {
+        flex-direction: column;
+    }
+
+}

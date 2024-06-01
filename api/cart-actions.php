@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-$response = ['status' => false, 'message' => '', 'quantity' => 0]; // Agregamos 'quantity' al array de respuesta
+$response = ['status' => false, 'message' => '', 'quantity' => 0, 'cart_count' => 0];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
@@ -35,7 +35,7 @@ echo json_encode($response);
 exit;
 
 function removeFromCart() {
-    $response = ['status' => false, 'message' => 'Error al eliminar el producto de la cesta.', 'quantity' => 0]; // Agregamos 'quantity' al array de respuesta
+    $response = ['status' => false, 'message' => 'Error al eliminar el producto de la cesta.', 'quantity' => 0, 'cart_count' => 0];
 
     if (isset($_POST['product_id'])) {
         $product_id = intval($_POST['product_id']);
@@ -43,13 +43,14 @@ function removeFromCart() {
         if (isset($_SESSION['cart'][$product_id])) {
             if ($_SESSION['cart'][$product_id] > 1) {
                 $_SESSION['cart'][$product_id]--;
-                $response['quantity'] = $_SESSION['cart'][$product_id]; // Actualizamos la cantidad en la respuesta
+                $response['quantity'] = $_SESSION['cart'][$product_id];
             } else {
                 unset($_SESSION['cart'][$product_id]);
             }
 
             $response['status'] = true;
             $response['message'] = 'Producto eliminado de la cesta correctamente.';
+            $response['cart_count'] = array_sum($_SESSION['cart']); // Actualizar el recuento total del carrito
         } else {
             $response['message'] = 'El producto no está en la cesta.';
         }
@@ -59,7 +60,7 @@ function removeFromCart() {
 }
 
 function removeAllFromCart() {
-    $response = ['status' => false, 'message' => 'Error al eliminar todos los productos de la cesta.', 'quantity' => 0]; // Agregamos 'quantity' al array de respuesta
+    $response = ['status' => false, 'message' => 'Error al eliminar todos los productos de la cesta.', 'quantity' => 0, 'cart_count' => 0];
 
     if (isset($_POST['product_id'])) {
         $product_id = intval($_POST['product_id']);
@@ -68,6 +69,7 @@ function removeAllFromCart() {
             unset($_SESSION['cart'][$product_id]);
             $response['status'] = true;
             $response['message'] = 'Todos los productos eliminados de la cesta correctamente.';
+            $response['cart_count'] = array_sum($_SESSION['cart']); // Actualizar el recuento total del carrito
         } else {
             $response['message'] = 'El producto no está en la cesta.';
         }
@@ -77,19 +79,20 @@ function removeAllFromCart() {
 }
 
 function clearCart() {
-    $response = ['status' => false, 'message' => 'Error al vaciar la cesta.', 'quantity' => 0]; // Agregamos 'quantity' al array de respuesta
+    $response = ['status' => false, 'message' => 'Error al vaciar la cesta.', 'quantity' => 0, 'cart_count' => 0];
 
     if (isset($_SESSION['cart'])) {
         unset($_SESSION['cart']);
         $response['status'] = true;
         $response['message'] = 'Cesta vaciada correctamente.';
+        $response['cart_count'] = 0;
     }
 
     return $response;
 }
 
 function increaseCartItemQuantity() {
-    $response = ['status' => false, 'message' => 'Error al aumentar la cantidad del producto en la cesta.', 'quantity' => 0];
+    $response = ['status' => false, 'message' => 'Error al aumentar la cantidad del producto en la cesta.', 'quantity' => 0, 'cart_count' => 0];
 
     if (isset($_POST['product_id'])) {
         $product_id = intval($_POST['product_id']);
@@ -98,7 +101,8 @@ function increaseCartItemQuantity() {
             $_SESSION['cart'][$product_id]++;
             $response['status'] = true;
             $response['message'] = 'Cantidad del producto aumentada en la cesta correctamente.';
-            $response['quantity'] = $_SESSION['cart'][$product_id]; // Actualizar la cantidad en la respuesta
+            $response['quantity'] = $_SESSION['cart'][$product_id];
+            $response['cart_count'] = array_sum($_SESSION['cart']); // Actualizar el recuento total del carrito
         } else {
             $response['message'] = 'El producto no está en la cesta.';
         }
@@ -106,4 +110,4 @@ function increaseCartItemQuantity() {
 
     return $response;
 }
-
+?>
