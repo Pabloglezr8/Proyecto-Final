@@ -109,6 +109,22 @@ header {
     border-radius: 0;
 }
 
+
+.my-account{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #0e3083;
+
+}
+
+
+.my-account img{
+    width: 30px;
+    margin-inline: 5px;
+
+}
+
 .user-menu a {
     color: #f29400;
 }
@@ -191,7 +207,7 @@ header {
     align-items: center;
     width: 97%;
     background-color: #0e3083;
-    color: #f29400;
+/*     color: #f29400; */
     padding: 15px;
     margin-bottom: 20px;
 
@@ -264,6 +280,21 @@ header {
     .header-top-container {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .my-account{
+        color: #f29400;
+    
+    }
+
+    .my-account img{
+        width: 25px;
+    }
+    
+    .logout{
+        border-radius: 0;
+        width: 25px;
+        
     }
     
     .menu-toggle {

@@ -1,73 +1,94 @@
-<?php 
-// Incluir el archivo para la conexión a la base de datos
+<?php
+session_start();
 include("connectDB.php");
 
-// Iniciar la sesión
-session_start();
-
-// Establecer la conexión a la base de datos
 $conn = connectDB();
 
-// Obtener el nombre de usuario de la sesión
-$user = $_SESSION['name'];
+$response = ['success' => false, 'message' => ''];
 
-// Verificar si la conexión a la base de datos fue exitosa
-if($conn){
-    // Consultar todos los productos ordenados por nombre
-    $query = "SELECT * FROM productos ORDER BY name";
-    $statement = $conn->prepare($query);
-    $statement->execute();
-    $productos = $statement->fetchAll(PDO::FETCH_ASSOC);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax'])) {
+    // Comprobación de los campos requeridos
+    $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone'];
+    foreach ($required_fields as $field) {
+        if (empty($_POST[$field])) {
+            $response['message'] = "El campo $field es obligatorio.";
+            echo json_encode($response);
+            exit;
+        }
+    }
 
-    ?>
+    // Validaciones
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {
+        $response['message'] = 'El nombre solo puede contener letras y espacios.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {
+        $response['message'] = 'El apellido solo puede contener letras y espacios.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $response['message'] = 'Correo electrónico no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {
+        $response['message'] = 'Código postal no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {
+        $response['message'] = 'Localidad no válida.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {
+        $response['message'] = 'País no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {
+        $response['message'] = 'Número de teléfono no válido';
+        echo json_encode($response);
+        exit;
+    }
 
-    <!-- Estructura HTML para mostrar el menú de productos -->
-    <div class="header">
-        <a href="./login.php">Home</a>
-        <?php
-         echo "<p> Bienvenido " . $user ."</p>";
-        ?>
-        <div></div>
-    </div>
+    // Si todas las validaciones pasan, actualiza los datos en la base de datos
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $password = $_POST['password']; // Recuerda siempre encriptar las contraseñas antes de guardarlas en la base de datos
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $postal_code = $_POST['postal_code'];
+    $location = $_POST['location'];
+    $country = $_POST['country'];
+    $phone = $_POST['phone'];
+    
+    $stmt = $conn->prepare("UPDATE usuarios SET name=?, surname=?, password=?, email=?, address=?, postal_code=?, location=?, country=?, phone=? WHERE id=?");
+    $stmt->execute([$name, $surname, $password, $email, $address, $postal_code, $location, $country, $phone, $_SESSION['id']]);
 
-    <!-- Formulario para seleccionar la cantidad de productos -->
-    <div class="h2Container">
-<div class="line"></div>
-<h2 class='heading'>Productos</h2>
-<div class="line"></div>
-</div>
-    <?php if(count($productos) > 0): ?>
-            <table class="products-table">
-                <tr>
-                    <th>Imágen</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                </tr>
-                <?php foreach($productos as $producto): ?>
-                    <tr>
-                        <td><img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>"></td>
-                        <td><?= $producto['name'] ?></td>
-                        <td><?= $producto['description'] ?></td>
-                        <td><?= $producto['price'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="4" class="orderColumn">
-                    <div class='btn-container'>
-                    </div>
-                    </td>
-                </tr>
-            </table>
-    <?php else: ?>
-        <p>No se encontraron resultados</p>
-    <?php endif;
+    // Actualiza los datos en la sesión
+    $_SESSION['name'] = $name;
+    $_SESSION['surname'] = $surname;
+    $_SESSION['email'] = $email;
+    $_SESSION['address'] = $address;
+    $_SESSION['postal_code'] = $postal_code;
+    $_SESSION['location'] = $location;
+    $_SESSION['country'] = $country;
+    $_SESSION['phone'] = $phone;
+    $_SESSION['password'] = $password; // Asegúrate de encriptar la contraseña
 
-    // Cerrar la conexión a la base de datos
-    $conn = null;
-} else {
-    echo "Error al conectar a la Base de datos";
+    $response['success'] = true;
+    $response['message'] = 'Datos actualizados correctamente.';
+    echo json_encode($response);
+    exit();
 }
+
+// Consulta los datos actualizados del usuario de la base de datos
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
+$stmt->execute([$_SESSION['id']]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +96,116 @@ if($conn){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $user ?></title>
+    <title>Ferretería Vegagrande</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/user.css">
+    <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
+    <script src="../scripts/user.js" defer></script>
 </head>
 <body>
+
+<div class="header">
+    <div class="title-container">
+        <a href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
+        <h1 class='title'><?= htmlspecialchars($user['name']); ?> <?= htmlspecialchars($user['surname']); ?></h1>
+    </div>
+</div>
+<button id="mostrarPedidos">Pedidos</button>
+<div id="user-info">
+    <div class="section-title"><h2>Mi Información</h2></div>
+    <form id="userForm" method="post">
+        <div class="user-form">
+            <div class="input-cont">
+                <div class="name-cont">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" placeholder="Nombre" value="<?= htmlspecialchars($user['name']); ?>" >
+                </div>
+                <div class="surname-cont">
+                    <label for="surname">Apellidos</label>
+                    <input type="text" id="surname" name="surname" placeholder="Apellidos" value="<?= htmlspecialchars($user['surname']); ?>" >
+                </div>
+            </div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="E-mail" value="<?= htmlspecialchars($user['email']); ?>" >
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Contraseña" value="<?= htmlspecialchars($user['password']); ?>">
+            <label for="address">Dirección</label>
+            <input type="text" id="address" name="address" placeholder="Dirección de envío" value="<?= htmlspecialchars($user['address']); ?>" >
+            <div class="input-cont">
+                <div class="pcode-cont">
+                    <label for="postal_code">Código Postal</label>
+                    <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal" value="<?= htmlspecialchars($user['postal_code']); ?>" >
+                </div>
+                <div class="location-cont">
+                    <label for="location">Localidad</label>
+                    <input type="text" id="location" name="location" placeholder="Localidad" value="<?= htmlspecialchars($user['location']); ?>" >
+                </div>
+            </div>
+            <div class="input-cont">
+                <div class="country-cont">
+                    <label for="country">País</label>
+                    <input type="text" id="country" name="country" placeholder="Pais" value="<?= htmlspecialchars($user['country']); ?>" >
+                </div>
+                <div class="phone-cont">
+                    <label for="phone">Teléfono</label>
+                    <input type="text" id="phone" name="phone" placeholder="Teléfono" value="<?= htmlspecialchars($user['phone']); ?>" >
+                </div>
+            </div>
+        </div>
+        <div id="order-message" class="error"></div>
+        <button type="submit" id="place-order-btn">Guardar</button>
+    </form>
+</div>
+
+<div id="pedidos" style="display:none;">
+    <div class="section-title"><h2>Pedidos</h2></div>
+    <table>
+    <thead>
+        <tr>
+            <th>Número Pedido</th>
+            <th>Fecha</th>
+            <th>Precio Total</th>
+            <th>Detalle del Pedido</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+        $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date, pedidos.total_price, GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios, GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
+                                FROM pedidos
+                                JOIN usuarios ON pedidos.id_usuario = usuarios.id
+                                JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
+                                JOIN productos ON pedidos_productos.product_id = productos.id
+                                WHERE usuarios.id = ?
+                                GROUP BY pedidos.id");
+        $stmt->execute([$_SESSION['id']]);
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($orders as $order):
+        ?>
+        <tr>
+            <td><?= $order['pedido_id'] ?></td>
+            <td><?= $order['date'] ?></td>
+            <td><?= $order['total_price'] ?>€</td>
+            <td>
+                <?php
+                $productos = explode(", ", $order['productos']);
+                $precios = explode(", ", $order['precios']);
+                $cantidades = explode(", ", $order['cantidades']);
+                $imagenes = explode(", ", $order['imagenes']);
+                for ($i = 0; $i < count($productos); $i++):
+                    echo "<div>";
+                    echo "<img src='../assets/img/productos/" . $imagenes[$i] . "' alt='" . $productos[$i] . "' style='max-width: 100px; max-height: 100px;'>";
+                    echo "<p>Nombre: " . $productos[$i] . "</p>";
+                    echo "<p>Precio: " . $precios[$i] . "€</p>";
+                    echo "<p>Cantidad: " . $cantidades[$i] . "</p>";
+                    echo "</div>";
+                endfor;
+                ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+    </div>
+
 </body>
 </html>

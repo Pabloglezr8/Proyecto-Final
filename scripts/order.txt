@@ -1,32 +1,49 @@
-$(document).ready(function() {
-    $('#order-form').submit(function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe de forma convencional
-        var formData = $(this).serialize(); // Obtener datos del formulario
-
-        $.ajax({
-            url: 'order-process.php',
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                $('#order-message').text(response.message);
-                if (response.status) {
-                    // Redirigir a una página de confirmación
-                    window.location.href = 'order-confirmation.php?order_id=' + response.order_id;
-                }
-            },
-            error: function() {
-                $('#order-message').text('Error al procesar el pedido.');
-            }
-        });
-    });
-});
-
-document.getElementById('payment-method').addEventListener('change', function() {
-    var paymentMethod = this.value;
-    var instructions = document.getElementById('bank-transfer-instructions');
-    if (paymentMethod === 'transferencia') {
-        instructions.style.display = 'block';
-    } else {
-        instructions.style.display = 'none';
+   function validateForm() {
+        // Limpiar el mensaje de error
+        $('.error').text('');
+    
+        var name = $('#name').val();
+        var password = $('#password').val();
+        var address = $('#address').val();
+        var postalCode = $('#postal_code').val();
+        var location = $('#location').val();
+        var country = $('#country').val();
+        var phone = $('#phone').val();
+        var paymentMethod = $('#payment_method').val();
+    
+        if (!/^[a-zA-Z\s]+$/.test(name)) {
+            $('.error').text('Nombre no válida');
+            return false;
+        }
+        if (!/^[a-zA-Z\s]+$/.test(surname)) {
+            $('.error').text('Apellido no válida');
+            return false;
+        }
+        if (address.trim() === "") {
+            $('.error').text('La dirección es obligatoria.');
+            return false;
+        }
+        if (!/^\d{5}$/.test(postalCode)) {
+            $('.error').text('Código postal no válido.');
+            return false;
+        }
+        if (!/^[a-zA-Z\s]+$/.test(location)) {
+            $('.error').text('Localidad no válida');
+            return false;
+        }
+        if (!/^[a-zA-Z\s]+$/.test(country)) {
+            $('.error').text('País no válida');
+            return false;
+        }
+        if (!/^\+?[0-9]{10,15}$/.test(phone)) {
+            $('.error').text('Número de teléfono no válido. Incluya la extension');
+            return false;
+        }
+        if (paymentMethod.trim() === "") {
+            $('.error').text('El método de pago es obligatorio.');
+            return false;
+        }
+    
+        return true;
     }
 });

@@ -8,145 +8,148 @@ $conn = connectDB();
 
 $response = ['status' => false, 'message' => 'Error al procesar el pedido.'];
 
-if (isset($_SESSION['id'])) {
-    $user = [
-        'name' => $_SESSION['name'],
-        'surname' => $_SESSION['surname'],
-        'pasword' => $_SESSION['password'],
-        'email' => $_SESSION['email'],
-        'address' => $_SESSION['address'],
-        'postal_code' => $_SESSION['postal_code'],
-        'location' => $_SESSION['location'],
-        'country' => $_SESSION['country'],
-        'phone' => $_SESSION['phone'],
-        'role' => $_SESSION['role'],
-    ];
-    $isLoggedIn = true;
-    
-
-} else {
-    $user = [
-        'name' => '',
-        'surname' => '',
-        'email' => '',
-        'address' => '',
-        'postal_code' => '',
-        'location' => '',
-        'country' => '',
-        'phone' => '',
-        'role' => ''
-    ];
-    $isLoggedIn = false;
+// Función para validar y limpiar la entrada del usuario
+function validateInput($data) {
+    return htmlspecialchars(stripslashes(trim($data)));
 }
 
+// Verificar si hay datos POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['address']) && isset($_POST['postal_code']) && isset($_POST['location']) && isset($_POST['country']) && isset($_POST['phone']) && isset($_POST['payment_method'])) {
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $address = $_POST['address'];
-        $postalCode = $_POST['postal_code'];
-        $location = $_POST['location'];
-        $country = $_POST['country'];
-        $phone = $_POST['phone'];
-        $paymentMethod = $_POST['payment_method'];
-        $totalPrice = 0;
+    error_log(print_r($_POST, true));  // Registro de los datos POST recibidos para depuración
 
+    // Comprobación de los campos requeridos
+    $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone', 'payment_method', 'shipment_method'];
+    foreach ($required_fields as $field) {
+        if (empty($_POST[$field])) {
+            $response['message'] = "El campo $field es obligatorio.";
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    // Validaciones
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {
+        $response['message'] = 'El nombre solo puede contener letras y espacios.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {
+        $response['message'] = 'El apellido solo puede contener letras y espacios.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $response['message'] = 'Correo electrónico no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {
+        $response['message'] = 'Código postal no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {
+        $response['message'] = 'Localidad no válida.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {
+        $response['message'] = 'País no válido.';
+        echo json_encode($response);
+        exit;
+    }
+    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {
+        $response['message'] = 'Número de teléfono no válido';
+        echo json_encode($response);
+        exit;
+    }
+
+    $name = validateInput($_POST['name']);
+    $surname = validateInput($_POST['surname']);
+    $email = validateInput($_POST['email']);
+    $password = validateInput($_POST['password']);
+    $address = validateInput($_POST['address']);
+    $postalCode = validateInput($_POST['postal_code']);
+    $location = validateInput($_POST['location']);
+    $country = validateInput($_POST['country']);
+    $phone = validateInput($_POST['phone']);
+    $paymentMethod = validateInput($_POST['payment_method']);
+    $shipmentMethod = validateInput($_POST['shipment_method']);
+    $totalPrice = 0;
+
+    try {
         // Verificar si el usuario ya existe en la base de datos
         $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
         $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        try {
+        // Iniciar la transacción
+        $conn->beginTransaction();
 
-            if ($existingUser) {
-                if (!$isLoggedIn) {
-                    $response['message'] = 'El correo electrónico ya está en uso.';
-                    echo json_encode($response);
-                    exit;
-                }
+        if ($existingUser) {
+            // Actualizar los datos del usuario existente
+            $stmt = $conn->prepare("UPDATE usuarios SET name = ?, surname = ?, address = ?, postal_code = ?, location = ?, country = ?, phone = ?, payment_method = ?, shipment_method = ? WHERE email = ?");
+            if (!$stmt->execute([$name, $surname, $address, $postalCode, $location, $country, $phone, $paymentMethod, $shipmentMethod, $email])) {
+                throw new Exception('Error al actualizar los datos del usuario.');
             }
+            $userId = $existingUser['id'];
+        } else {
+            // Insertar un nuevo usuario si no existe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $role = 1; // Usuario normal
 
-            // Hash de la contraseña solo si es una nueva contraseña
-            if (!empty($password)) {
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            } else {
-                // Usar la contraseña existente si no se proporciona una nueva
-                $hashedPassword = $existingUser['password'];
+            $stmt = $conn->prepare("INSERT INTO usuarios (name, surname, email, password, address, postal_code, location, country, phone, payment_method, shipment_method, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            if (!$stmt->execute([$name, $surname, $email, $hashedPassword, $address, $postalCode, $location, $country, $phone, $paymentMethod, $shipmentMethod, $role])) {
+                throw new Exception('Error al insertar en la tabla usuarios.');
             }
-
-            // Iniciar la transacción
-            $conn->beginTransaction();
-
-            if ($existingUser) {
-                // Actualizar los datos del usuario existente
-                $stmt = $conn->prepare("UPDATE usuarios SET name = ?, surname = ?, address = ?, postal_code = ?, location = ?, country = ?, phone = ? WHERE email = ?");
-                if (!$stmt->execute([$name, $surname, $address, $postalCode, $location, $country, $phone, $email])) {
-                    throw new Exception('Error al actualizar los datos del usuario.');
-                }
-                $userId = $existingUser['id'];
-            } else {
-                // Insertar un nuevo usuario si no existe
-                $role = 1; // Usuario normal
-
-                $stmt = $conn->prepare("INSERT INTO usuarios (name, surname, email, password, address, postal_code, location, country, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                if (!$stmt->execute([$name, $surname, $email, $hashedPassword, $address, $postalCode, $location, $country, $phone, $role])) {
-                    throw new Exception('Error al insertar en la tabla usuarios.');
-                }
-                $userId = $conn->lastInsertId();
-            }
-
-            // Calcular el precio total del pedido
-            foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
-                $stmt->execute([$productId]);
-                $product = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($product) {
-                    $totalPrice += $product['price'] * $quantity;
-                } else {
-                    $response['message'] = "Producto con ID $productId no encontrado.";
-                    echo json_encode($response);
-                    exit;
-                }
-            }
-
-            // Insertar pedido en la tabla pedidos
-            $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method) VALUES (?, ?, NOW(), ?)");
-            if (!$stmt->execute([$userId, $totalPrice, $paymentMethod])) {
-                throw new Exception('Error al insertar en la tabla pedidos.');
-            }
-            $pedidoId = $conn->lastInsertId();
-
-            // Insertar productos en la tabla pedidos_productos
-            foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
-                $stmt->execute([$productId]);
-                $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                $stmt = $conn->prepare("INSERT INTO pedidos_productos (pedido_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-                if (!$stmt->execute([$pedidoId, $productId, $quantity, $product['price']])) {
-                    throw new Exception('Error al insertar en la tabla pedidos_productos.');
-                }
-            }
-
-            // Confirmar la transacción
-            $conn->commit();
-
-            // Limpiar el carrito
-            unset($_SESSION['cart']);
-
-            $response['status'] = true;
-            $response['message'] = 'Pedido realizado con éxito.';
-            $response['order_id'] = $pedidoId;
-
-        } catch (Exception $e) {
-            // Revertir la transacción
-            $conn->rollBack();
-            $response['message'] = 'Error al procesar el pedido: ' . $e->getMessage();
+            $userId = $conn->lastInsertId();
         }
-    } else {
-        $response['message'] = 'Faltan datos requeridos.';
+
+        // Calcular el precio total del pedido
+        foreach ($_SESSION['cart'] as $productId => $quantity) {
+            $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
+            $stmt->execute([$productId]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($product) {
+                $totalPrice += $product['price'] * $quantity;
+            } else {
+                throw new Exception("Producto con ID $productId no encontrado.");
+            }
+        }
+
+        // Insertar pedido en la tabla pedidos
+        $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method, shipment_method) VALUES (?, ?, NOW(), ?,?)");
+        if (!$stmt->execute([$userId, $totalPrice, $paymentMethod, $shipmentMethod])) {
+            throw new Exception('Error al insertar en la tabla pedidos.');
+        }
+        $pedidoId = $conn->lastInsertId();
+
+        // Insertar productos en la tabla pedidos_productos
+        foreach ($_SESSION['cart'] as $productId => $quantity) {
+            $stmt = $conn->prepare("SELECT price FROM productos WHERE id = ?");
+            $stmt->execute([$productId]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $stmt = $conn->prepare("INSERT INTO pedidos_productos (pedido_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+            if (!$stmt->execute([$pedidoId, $productId, $quantity, $product['price']])) {
+                throw new Exception('Error al insertar en la tabla pedidos_productos.');
+            }
+        }
+
+        // Confirmar la transacción
+        $conn->commit();
+
+        // Limpiar el carrito
+        unset($_SESSION['cart']);
+
+        $response['status'] = true;
+        $response['message'] = 'Pedido realizado con éxito.';
+        $response['order_id'] = $pedidoId;
+
+    } catch (Exception $e) {
+        // Revertir la transacción
+        $conn->rollBack();
+        $response['message'] = 'Error al procesar el pedido: ' . $e->getMessage();
     }
 } else {
     $response['message'] = 'Método no permitido.';

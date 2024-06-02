@@ -42,7 +42,7 @@
 
         // Verificar si hay un rol asignado antes de continuar
         if (is_null($role)) {
-            $message = "Error al asignar rol de usuario";
+            $message = "El código no es válido";
             $message_class = "error"; // Asignar la clase de mensaje de error
         } else {
             // Conexión a la base de datos

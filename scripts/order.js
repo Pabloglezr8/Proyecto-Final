@@ -23,6 +23,31 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    // Función para calcular el precio total del pedido
+    function calcularPrecioTotal() {
+        var precioTotal = parseFloat($('.total-price').data('total-price')); // Obtener el precio total desde el atributo de datos
+        var metodoEnvio = $('#shipment-method').val();
+        
+        // Sumar costo adicional según el método de envío seleccionado
+        if (metodoEnvio === "Envío24h") {
+            precioTotal += 10;
+        } else if (metodoEnvio === "Envío Normal") {
+            precioTotal += 5;
+        }
+
+        // Actualizar el precio total en la interfaz
+        $('.total-price').text('Coste del pedido= ' + precioTotal.toFixed(2) + ' €');
+    }
+
+    // Calcular el precio total cuando se carga la página
+    calcularPrecioTotal();
+
+    // Calcular el precio total cada vez que cambia el método de envío seleccionado
+    $('#shipment-method').change(function() {
+        calcularPrecioTotal();
+    });
+});
+$(document).ready(function() {
     $("#loginForm").on("submit", function(event) {
         event.preventDefault(); // Evitar que el formulario se envíe de la forma tradicional
 
@@ -75,7 +100,7 @@ document.getElementById('payment-method').addEventListener('change', function() 
     var paymentMethod = this.value;
     var instructions = document.getElementById('bank-transfer-instructions');
     if (paymentMethod === 'transferencia') {
-        instructions.style.display = 'block';
+        instructions.style.display = 'flex';
     } else {
         instructions.style.display = 'none';
     }
@@ -95,15 +120,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Si el formulario está visible, ocúltalo; de lo contrario, muéstralo
         if (formularioVisible) {
             loginForm.style.display = 'none';
-            orderForm.style.display = 'flex';
-            loginMessage.style.display = 'none';
+            orderForm.style.display = 'unset';
             mostrarFormulario.textContent = 'Iniciar Sesión';
+
+
             formularioVisible = false;
         } else {
-            loginForm.style.display = 'flex';
+            loginForm.style.display = 'unset';
             orderForm.style.display = 'none';
             loginMessage.style.display = 'block';
-            mostrarFormulario.textContent = 'x';
+            mostrarFormulario.textContent = 'Registarse';
+
             formularioVisible = true;
         }
     });
