@@ -44,6 +44,10 @@
     margin: 20px;
 }
 
+#message{
+    width: 100%;
+}
+
 @media screen and (width < 1025px) {
     .home-button img {
         left: 10px;

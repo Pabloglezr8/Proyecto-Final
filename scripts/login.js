@@ -13,6 +13,7 @@ $(document).ready(function() {
                 password: password
             },
             success: function(response) {
+                $("#message").html("<p class='message success'>" + response.message + "</p>");
                 // Agrega depuración aquí para ver la respuesta completa
                 console.log("Server response:", response);
 

@@ -21,45 +21,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone', 'payment_method', 'shipment_method'];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
-            $response['message'] = "El campo $field es obligatorio.";
             echo json_encode($response);
             exit;
         }
     }
 
     // Validaciones
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {
-        $response['message'] = 'El nombre solo puede contener letras y espacios.';
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {       
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {
-        $response['message'] = 'El apellido solo puede contener letras y espacios.';
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {        
         echo json_encode($response);
         exit;
     }
-    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        $response['message'] = 'Correo electrónico no válido.';
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {       
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {
-        $response['message'] = 'Código postal no válido.';
+    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {        
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {
-        $response['message'] = 'Localidad no válida.';
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {        
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {
-        $response['message'] = 'País no válido.';
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {        
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {
-        $response['message'] = 'Número de teléfono no válido';
+    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {    
         echo json_encode($response);
         exit;
     }

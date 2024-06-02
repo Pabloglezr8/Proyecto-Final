@@ -1,28 +1,85 @@
 $(document).ready(function() {
     $('#orderForm').submit(function(event) {
         event.preventDefault(); // Evitar que el formulario se envíe de forma convencional
-        var formData = $(this).serialize(); // Obtener datos del formulario
+  
+            // Obtener los datos del formulario
+            var formData = $(this).serializeArray();
+            var formDataObject = {};
+            formData.forEach(function(item) {
+                formDataObject[item.name] = item.value;
+            });
+    
+            // Etiquetas amigables para los campos
+            var fieldLabels = {
+                name: 'Nombre',
+                surname: 'Apellido',
+                email: 'Correo electrónico',
+                password: 'Contraseña',
+                address: 'Dirección',
+                postal_code: 'Código postal',
+                location: 'Localidad',
+                country: 'País',
+                phone: 'Teléfono',
+                payment_method: 'Método de Pago',
+                shipment_method: 'Método de Envío'
+            };
+    
+            // Validar campos requeridos
+            for (var field in fieldLabels) {
+                if (!formDataObject[field]) {
+                    $('#order-message').html("<p class='error'>El campo <strong>" + fieldLabels[field] + "</strong> es obligatorio.</p>");
+                    return;
+                }
+            }
 
+        // Validaciones
+        if (!/^[\p{L}\s]+$/u.test(formDataObject['name'])) {
+            $('#order-message').html("<p class='error'>Nombre no válido.</p>");
+            return;
+        }
+        if (!/^[\p{L}\s]+$/u.test(formDataObject['surname'])) {
+            $('#order-message').html("<p class='error'>Apellido no válido.</p>");
+            return;
+        }
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formDataObject['email'])) {
+            $('#order-message').html("<p class='error'>Correo electrónico no válido.</p>");
+            return;
+        }
+        if (!/^\d{5}$/.test(formDataObject['postal_code'])) {
+            $('#order-message').html("<p class='error'>Código postal no válido.</p>");
+            return;
+        }
+        if (!/^[\p{L}\s]+$/u.test(formDataObject['location'])) {
+            $('#order-message').html("<p class='error'>Localidad no válida.</p>");
+            return;
+        }
+        if (!/^[\p{L}\s]+$/u.test(formDataObject['country'])) {
+            $('#order-message').html("<p class='error'>País no válido.</p>");
+            return;
+        }
+        if (!/^[0-9]{9}$/.test(formDataObject['phone'])) {
+            $('#order-message').html("<p class='error'>Número de teléfono no válido.</p>");
+            return;
+        }
+
+        // Si todas las validaciones pasan, enviar la solicitud AJAX
         $.ajax({
             url: 'order-process.php',
             type: 'POST',
             data: formData,
             success: function(response) {
-                $('#order-message').text(response.message);
+                $('#order-message').html("<p class='error'>" + response.message + "</p>");
                 if (response.status) {
                     // Redirigir a una página de confirmación
                     window.location.href = 'order-confirmation.php?order_id=' + response.order_id;
                 }
             },
             error: function() {
-                $('#order-message').text('Error al procesar el pedido.');
+                $('#order-message').html("<p class='error'>Error en la petición AJAX.</p>");
             }
         });
     });
-    
-});
 
-$(document).ready(function() {
     // Función para calcular el precio total del pedido
     function calcularPrecioTotal() {
         var precioTotal = parseFloat($('.total-price').data('total-price')); // Obtener el precio total desde el atributo de datos
@@ -46,10 +103,43 @@ $(document).ready(function() {
     $('#shipment-method').change(function() {
         calcularPrecioTotal();
     });
-});
-$(document).ready(function() {
+
+    // Manejar el cambio de método de pago
+    document.getElementById('payment-method').addEventListener('change', function() {
+        var paymentMethod = this.value;
+        var instructions = document.getElementById('bank-transfer-instructions');
+        if (paymentMethod === 'transferencia') {
+            instructions.style.display = 'flex';
+        } else {
+            instructions.style.display = 'none';
+        }
+    });
+
+    // Manejar la alternancia entre el formulario de inicio de sesión y el formulario de pedido
+    var loginForm = document.getElementById('loginForm');
+    var mostrarFormulario = document.getElementById('mostrarFormulario');
+    var formularioVisible = false;
+
+    mostrarFormulario.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (formularioVisible) {
+            loginForm.style.display = 'none';
+            orderForm.style.display = 'unset';
+            mostrarFormulario.textContent = 'Iniciar Sesión';
+            formularioVisible = false;
+        } else {
+            loginForm.style.display = 'unset';
+            orderForm.style.display = 'none';
+            loginMessage.style.display = 'block';
+            mostrarFormulario.textContent = 'Registrarse';
+            formularioVisible = true;
+        }
+    });
+
+    // Manejar el formulario de inicio de sesión
     $("#loginForm").on("submit", function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe de la forma tradicional
+        event.preventDefault();
 
         var email = $("#email").val();
         var password = $("#password").val();
@@ -62,19 +152,15 @@ $(document).ready(function() {
                 password: password
             },
             success: function(response) {
-                // Agrega depuración aquí para ver la respuesta completa
                 $("#loginMessage").html("<p class='server-response'>Correo o contraseña incorrectos</p>");
                 console.log("Server response:", response);
 
                 try {
-                    // Verifica que response sea un objeto JSON
                     if (typeof response === 'object') {
                         if (response.success) {
-                            // Verifica si la respuesta incluye una URL de redireccionamiento
                             if (response.redirect) {
                                 window.location.href = response.redirect;
                             } else {
-                                // Si no hay URL de redireccionamiento, redirige al índice por defecto
                                 window.location.href = "../api/order.php";
                             }
                         } else {
@@ -93,45 +179,5 @@ $(document).ready(function() {
                 $("#message").html("<p class='message error'>Error en la petición AJAX</p>");
             }
         });
-    });
-});
-
-document.getElementById('payment-method').addEventListener('change', function() {
-    var paymentMethod = this.value;
-    var instructions = document.getElementById('bank-transfer-instructions');
-    if (paymentMethod === 'transferencia') {
-        instructions.style.display = 'flex';
-    } else {
-        instructions.style.display = 'none';
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var loginForm = document.getElementById('loginForm');
-    var mostrarFormulario = document.getElementById('mostrarFormulario');
-
-    // Variable para mantener el estado del formulario
-    var formularioVisible = false;
-
-    // Función para alternar la visibilidad del formulario al hacer clic en el botón
-    mostrarFormulario.addEventListener('click', function(e) {
-        e.preventDefault(); // Prevenir el comportamiento predeterminado del botón
-
-        // Si el formulario está visible, ocúltalo; de lo contrario, muéstralo
-        if (formularioVisible) {
-            loginForm.style.display = 'none';
-            orderForm.style.display = 'unset';
-            mostrarFormulario.textContent = 'Iniciar Sesión';
-
-
-            formularioVisible = false;
-        } else {
-            loginForm.style.display = 'unset';
-            orderForm.style.display = 'none';
-            loginMessage.style.display = 'block';
-            mostrarFormulario.textContent = 'Registarse';
-
-            formularioVisible = true;
-        }
     });
 });

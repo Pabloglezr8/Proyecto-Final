@@ -180,6 +180,9 @@ foreach ($_SESSION['cart'] as $prod) {
                 <div class="menu-element"><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
                 <div class="menu-element"><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
                 <div class="menu-element"><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 0): ?>
+                    <div class="menu-element"><a href="/FerreteriaVegagrande/api/admin.php">Panel de Administrador</a></div>
+                <?php endif; ?>
             </div>
         </nav>
     </div>

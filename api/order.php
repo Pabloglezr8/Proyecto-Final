@@ -152,7 +152,7 @@ foreach ($cartProducts as $producto) {
                     <p>*Asegúrese de incluir su nombre y el ID del pedido en la referencia de la transferencia.</p>
                 </div>
                 <div class="total-price parragraf" data-total-price="<?= $totalPrice ?>">Coste del pedido= <?= $totalPrice ?> €</div>
-                <div id="order-message" class="error"></div>
+                <div id="order-message"></div>
                 <button type="submit" id="place-order-btn">Realizar Pedido</button>
             </form>
             </div>

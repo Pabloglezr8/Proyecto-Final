@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const pedidos = document.getElementById('pedidos');
     const mostrarPedidos = document.getElementById('mostrarPedidos');
 
-    // Variable para mantener el estado del formulario
+    // letiable para mantener el estado del formulario
     let userInfoVisible = false;
 
     mostrarPedidos.addEventListener('click', function (e) {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('userForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        var formData = new FormData(this);
+        let formData = new FormData(this);
         formData.append('ajax', true);  // Añadir un campo adicional para diferenciar la solicitud AJAX
 
         fetch('user.php', {
@@ -62,4 +62,49 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('order-message').classList.remove('success');
         });
     });
+});
+
+// Función para mostrar la ventana modal con los detalles del pedido
+function showModal(orderDetails) {
+    let modal = document.getElementById("modal-detalle-pedido");
+    let detalleContent = document.getElementById("detalle-pedido-content");
+
+    // Parseamos el objeto JSON de los detalles del pedido
+    let order = JSON.parse(orderDetails);
+
+    // Creamos la tabla para mostrar los detalles del pedido
+    let table = "<table>";
+    table += "<thead><tr><th>Nombre</th><th>Precio</th><th>Cantidad</th><th></th></tr></thead>";
+    table += "<tbody class='parragraf'>";
+
+    let productos = order.productos.split(', ');
+    let precios = order.precios.split(', ');
+    let cantidades = order.cantidades.split(', ');
+    let imagenes = order.imagenes.split(', ');
+
+    // Iteramos sobre los productos del pedido y los agregamos a la tabla
+    for (let i = 0; i < productos.length; i++) {
+        table += "<tr>";
+        table += "<td class='name'>" + productos[i] + "</td>";
+        table += "<td class='price'>" + precios[i] + "€</td>";
+        table += "<td class='quantity'>" + cantidades[i] + "</td>";
+        table += "<td ><img src='../assets/img/productos/" + imagenes[i] + "' alt='" + productos[i] + "' style='max-width: 100px; max-height: 100px;'></td>";
+        table += "</tr>";
+    }
+
+    table += "</tbody></table>";
+
+    // Insertamos la tabla en el contenido de la ventana modal
+    detalleContent.innerHTML = table;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    let modal = document.getElementById("modal-detalle-pedido");
+    modal.style.display = "none";
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    let closeButton = document.querySelector('.close');
+    closeButton.addEventListener('click', closeModal);
 });

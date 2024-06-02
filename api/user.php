@@ -19,12 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax'])) {
 
     // Validaciones
     if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {
-        $response['message'] = 'El nombre solo puede contener letras y espacios.';
+        $response['message'] = 'Nombre no válido.';
         echo json_encode($response);
         exit;
     }
     if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {
-        $response['message'] = 'El apellido solo puede contener letras y espacios.';
+        $response['message'] = 'Apellido no válido.';
         echo json_encode($response);
         exit;
     }
@@ -152,7 +152,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-        <div id="order-message" class="error"></div>
+        <div id="order-message"></div>
         <button type="submit" id="place-order-btn">Guardar</button>
     </form>
 </div>
@@ -160,52 +160,47 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 <div id="pedidos" style="display:none;">
     <div class="section-title"><h2>Pedidos</h2></div>
     <table>
-    <thead>
-        <tr>
-            <th>Número Pedido</th>
-            <th>Fecha</th>
-            <th>Precio Total</th>
-            <th>Detalle del Pedido</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php
-        $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date, pedidos.total_price, GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios, GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
-                                FROM pedidos
-                                JOIN usuarios ON pedidos.id_usuario = usuarios.id
-                                JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
-                                JOIN productos ON pedidos_productos.product_id = productos.id
-                                WHERE usuarios.id = ?
-                                GROUP BY pedidos.id");
-        $stmt->execute([$_SESSION['id']]);
-        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($orders as $order):
-        ?>
-        <tr>
+        <thead>
+            <tr>
+                <th>Número Pedido</th>
+                <th>Fecha</th>
+                <th>Precio Total</th>
+                <th>Detalle del Pedido</th>
+            </tr>
+        </thead>
+        <tbody class="parragraf">
+            <?php
+            $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date, pedidos.total_price, GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios, GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
+            FROM pedidos
+            JOIN usuarios ON pedidos.id_usuario = usuarios.id
+            JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
+            JOIN productos ON pedidos_productos.product_id = productos.id
+            WHERE usuarios.id = ?
+            GROUP BY pedidos.id");
+            $stmt->execute([$_SESSION['id']]);
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($orders as $order):
+            $order_json = htmlspecialchars(json_encode($order), ENT_QUOTES, 'UTF-8');
+            ?>
+            <tr>
             <td><?= $order['pedido_id'] ?></td>
             <td><?= $order['date'] ?></td>
             <td><?= $order['total_price'] ?>€</td>
-            <td>
-                <?php
-                $productos = explode(", ", $order['productos']);
-                $precios = explode(", ", $order['precios']);
-                $cantidades = explode(", ", $order['cantidades']);
-                $imagenes = explode(", ", $order['imagenes']);
-                for ($i = 0; $i < count($productos); $i++):
-                    echo "<div>";
-                    echo "<img src='../assets/img/productos/" . $imagenes[$i] . "' alt='" . $productos[$i] . "' style='max-width: 100px; max-height: 100px;'>";
-                    echo "<p>Nombre: " . $productos[$i] . "</p>";
-                    echo "<p>Precio: " . $precios[$i] . "€</p>";
-                    echo "<p>Cantidad: " . $cantidades[$i] . "</p>";
-                    echo "</div>";
-                endfor;
-                ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-    </div>
+            <td><button onclick="showModal('<?= $order_json ?>')">Ver detalles</button></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
+            <div id="modal-detalle-pedido" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Detalles del Pedido</h2>
+                    <div id="detalle-pedido-content"></div>
+                </div>
+</div>
+
+</div>
 </body>
 </html>

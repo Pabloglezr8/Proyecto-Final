@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2024 a las 19:55:08
+-- Tiempo de generación: 02-06-2024 a las 04:30:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -32,18 +32,18 @@ CREATE TABLE `pedidos` (
   `id_usuario` int(11) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `date` datetime NOT NULL,
-  `payment_method` varchar(50) NOT NULL
+  `payment_method` varchar(50) NOT NULL,
+  `shipment_method` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `id_usuario`, `total_price`, `date`, `payment_method`) VALUES
-(57, 94, 18.75, '2024-05-29 13:33:51', 'contrareembolso'),
-(58, 94, 74.24, '2024-05-29 14:02:10', 'contrareembolso'),
-(59, 94, 29.97, '2024-05-29 15:07:16', 'contrareembolso'),
-(60, 94, 55.49, '2024-05-29 19:23:28', 'contrareembolso');
+INSERT INTO `pedidos` (`id`, `id_usuario`, `total_price`, `date`, `payment_method`, `shipment_method`) VALUES
+(90, 94, 28.74, '2024-06-02 03:16:24', 'contrareembolso', 0),
+(91, 94, 121.73, '2024-06-02 03:37:49', 'contrareembolso', 0),
+(92, 102, 133.99, '2024-06-02 04:27:58', 'contrareembolso', 0);
 
 -- --------------------------------------------------------
 
@@ -64,13 +64,13 @@ CREATE TABLE `pedidos_productos` (
 --
 
 INSERT INTO `pedidos_productos` (`id`, `pedido_id`, `product_id`, `quantity`, `price`) VALUES
-(91, 57, 15, 1, 18.75),
-(92, 58, 15, 1, 18.75),
-(93, 58, 9, 1, 9.99),
-(94, 58, 5, 1, 45.50),
-(95, 59, 9, 3, 9.99),
-(96, 60, 9, 1, 9.99),
-(97, 60, 5, 1, 45.50);
+(123, 90, 9, 1, 9.99),
+(124, 90, 15, 1, 18.75),
+(125, 91, 9, 2, 9.99),
+(126, 91, 5, 1, 45.50),
+(127, 91, 15, 3, 18.75),
+(128, 92, 5, 2, 45.50),
+(129, 92, 18, 1, 42.99);
 
 -- --------------------------------------------------------
 
@@ -127,6 +127,7 @@ CREATE TABLE `usuarios` (
   `country` varchar(50) DEFAULT NULL,
   `phone` bigint(9) UNSIGNED DEFAULT NULL,
   `payment_method` varchar(50) DEFAULT NULL,
+  `shipment_method` varchar(50) DEFAULT NULL,
   `role` tinyint(1) NOT NULL DEFAULT 1 CHECK (`role` in (0,1))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -134,11 +135,11 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `name`, `surname`, `email`, `password`, `address`, `postal_code`, `location`, `country`, `phone`, `payment_method`, `role`) VALUES
-(22, 'user', 'uno', 'user@example.com', '$2y$10$EPrU5W0CgLRwiUF1EW6vgeeMRZRwzkq/14nRDxXAOH19b6NNhA8iC', 'calle manolo', '33202', 'Almeria', 'España', 123456879, NULL, 1),
-(23, 'pablo', 'prueba', 'prueba@prueba.com', '$2y$10$Sgnc/YeDMmln8OW2HZbK6eO0ykGusWgISCYEWRnUnE2JBngGBmf4i', 'calle manuel', '33202', 'gijon', 'España', 123456789, NULL, 1),
-(94, 'admin', 'admin', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', 'mi calle', '33202', 'Gijón', '1234', 123456789, NULL, 0),
-(95, 'pablo', 'prueba', 'user1@example.com', '$2y$10$.QG3RM1X4qrZf40SUyMbP.dV/14Fkyvzdawd3gOGCDKDGhPgZ/NKu', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `usuarios` (`id`, `name`, `surname`, `email`, `password`, `address`, `postal_code`, `location`, `country`, `phone`, `payment_method`, `shipment_method`, `role`) VALUES
+(94, 'Pablo', 'González', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', 'mi calle', '33202', 'Salamanca', 'España', 123456789, 'contrareembolso', 'Envío24h', 0),
+(99, 'user', 'user', 'user@example.com', '$2y$10$Q30ad4poRD5opTRlXt.MfuLhUpy2eHZR5Je1r8g6oaTiyFcxPj/uu', 'calle manolo', '33202', 'Gijón', 'España', 123456789, NULL, '', 1),
+(100, 'sara', 'pidal martinez', 'sara@gmail.es', '$2y$10$PSBxRimojlqyAmOmVLSAo.cvqdBashNjMwsiqZ1jjxlocy0KsQIPG', 'avenida constitucion, 42, 1 izquierda', '33203', 'Gijón', 'España', 658921036, NULL, '', 1),
+(102, 'a', 'b', 'asdasdas@fgdgdfgdfg.com', '$2y$10$f0lyGZ7pFPaldQH8taWG4euj.tb2o1dlSw9B4Rlkgfc4DwNE4JVQG', '5', '33202', 'asdasdasd', 'sdfs', 123456789, 'contrareembolso', 'Envío Normal', 1);
 
 --
 -- Índices para tablas volcadas
@@ -179,13 +180,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -197,7 +198,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- Restricciones para tablas volcadas

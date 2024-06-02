@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
             tinymce.init({
                 selector: '#modal-editor',
                 language: 'es',
-                height: 500,
-                width: 1000,
+                height: 400,
+                width: 600,
                 branding: false,
                 menubar: false,
                 toolbar: ['undo redo | styles | bold italic | alignleft aligncenter alignright'],
@@ -38,11 +38,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 setup: function(editor) {
                     // Función que se ejecuta al cerrar el modal
                     editor.on('blur', function() {
-                        document.getElementById('description-button').innerText = editor.getContent({format: 'text'});
-                        document.getElementById('description-input').value = editor.getContent();
+                        var content = editor.getContent().trim(); // Eliminar espacios en blanco al principio y al final
+                        // Verificar si el contenido está vacío
+                        if (content !== '') {
+                            // Verificar si el contenido ya está envuelto en etiquetas <p>
+                            if (!content.startsWith('<p class="parragraf">')) {
+                                // Si no está envuelto, envolverlo en un párrafo con la clase especificada
+                                content = '<p class="parragraf">' + content + '</p>';
+                            }
+                        } else {
+                            // Si el contenido está vacío, asignar una cadena vacía
+                            content = '';
+                        }
+                        // Asignar el contenido procesado al campo de entrada
+                        document.getElementById('description-input').value = content;
+                    });
+                    // Configurar el plugin para procesar el contenido pegado
+                    editor.on('paste_preprocess', function(e) {
+                        // Verificar si el contenido ya está envuelto en etiquetas <p>
+                        if (!e.content.startsWith('<p class="parragraf">')) {
+                            // Si no está envuelto, envolverlo en un párrafo con la clase especificada
+                            e.content = '<p class="parragraf">' + e.content + '</p>';
+                        }
                     });
                 }
             });
+            
 
             // Obtener el modal
             var modal = document.getElementById("myModal");
