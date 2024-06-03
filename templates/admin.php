@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/admin.css">
     <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/admin.js"></script>
     <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 <?php 
-include("connectDB.php");
+include("../api/connectDB.php");
+
+$conn = connectDB();
 
 session_start();
 
@@ -72,6 +76,36 @@ function updateProducto($conn, $id, $name, $img, $description, $price){
     $query->bindParam(":description", $description);
     $query->bindParam(":price", $price);
     return $query->execute();
+}
+
+// Función para obtener el estado de un pedido
+function getEstadoPedido($conn, $id_pedido) {
+    $query = $conn->prepare("SELECT estado FROM estado_pedidos WHERE pedido_id = :id_pedido");
+    $query->bindParam(":id_pedido", $id_pedido);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result ? $result['estado'] : 'en espera';
+}
+
+// Función para actualizar el estado de un pedido
+function updateEstadoPedido($conn, $id_pedido, $estado) {
+    $fecha_actualizacion = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
+    
+    $query = $conn->prepare("UPDATE estado_pedidos SET estado = :estado, fecha_actualizacion = :fecha_actualizacion WHERE pedido_id = :id_pedido");
+    $query->bindParam(":estado", $estado);
+    $query->bindParam(":fecha_actualizacion", $fecha_actualizacion);
+    $query->bindParam(":id_pedido", $id_pedido);
+    
+    return $query->execute();
+}
+
+// Lógica para manejar el cambio de estado del pedido
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_estado'])) {
+    $id_pedido = $_POST['id_pedido'];
+    $estado = $_POST['estado'];
+    updateEstadoPedido($conn, $id_pedido, $estado);
+    $message = "Estado del pedido actualizado correctamente.";
+    $messageClass = "success";
 }
 
 // Función para listar todos los productos disponibles
@@ -160,7 +194,7 @@ function listProducto($conn, &$message, &$messageClass){
 <button id="mostrarPedidos">Pedidos</button>
 <div id="producto">
     <div class="section-title"><h2>Productos</h2></div>
-    <form method='post' enctype='multipart/form-data' class='control-panel'>
+    <form id="producto-form" method='post' enctype='multipart/form-data' class='control-panel'>
         <div class="form-element-container">
             <div class="form-element">
                 <input type='text' name='name' id='name' placeholder="Nombre" value='<?= ($productoToEdit ? htmlspecialchars($productoToEdit["name"]) : "") ?>'>
@@ -200,7 +234,7 @@ function listProducto($conn, &$message, &$messageClass){
 
     <!-- Mostrar mensaje si existe -->
     <?php if (!empty($message)): ?>
-        <div class="message-container">
+        <div id="message">
             <p class="message <?= $messageClass ?>"><?= $message ?></p>
         </div>
     <?php endif; ?>
@@ -240,8 +274,14 @@ function listProducto($conn, &$message, &$messageClass){
     </table>
 </div>
 
+
 <div id="pedido" style="display:none;">
     <div class="section-title"><h2>Pedidos</h2></div>
+    <?php if (!empty($message)): ?>
+        <div id="estado-message">
+            <p class="estado-message <?= $messageClass ?>"><?= $message ?></p>
+        </div>
+    <?php endif; ?>
     <table >
         <thead>
             <tr>
@@ -249,6 +289,8 @@ function listProducto($conn, &$message, &$messageClass){
                 <th>Nombre Usuario</th>
                 <th>Fecha</th>
                 <th>Precio</th>
+                <th>Estado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody class="parragraf">
@@ -257,12 +299,25 @@ function listProducto($conn, &$message, &$messageClass){
             $stmt->execute();
             $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($orders as $order):
+                $estado = getEstadoPedido($conn, $order['id']);
             ?>
             <tr>
                 <td><?= $order['id'] ?></td>
                 <td><?= $order['name'] ?> <?= $order['surname'] ?></td>
                 <td><?= $order['date'] ?></td>
                 <td><?= $order['total_price'] ?>€</td>
+                <td>
+                    <form id="estado-form" method='POST'>
+                        <input type='hidden' name='id_pedido' value='<?= htmlspecialchars($order['id']) ?>'>
+                        <select class="form-select" name='estado'>
+                            <option value='En Espera' <?= ($estado == 'En Espera' ? 'selected' : '') ?>>En espera</option>
+                            <option value='Procesando' <?= ($estado == 'Procesando' ? 'selected' : '') ?>>Procesando</option>
+                            <option value='Cancelado' <?= ($estado == 'Cancelado' ? 'selected' : '') ?>>Cancelado</option>
+                            <option value='Enviado' <?= ($estado == 'Enviado' ? 'selected' : '') ?>>Enviado</option>
+                        </select>
+                        <td><button type='submit' name='update_estado'>Actualizar</button></td>
+                    </form>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -276,6 +331,5 @@ $conn = connectDB();
 
 listProducto($conn, $message, $messageClass);
 ?>
-<script src="../scripts/admin.js"></script>
 </body>
 </html>

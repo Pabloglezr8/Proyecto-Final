@@ -1,5 +1,5 @@
 <?php 
-include("header.php");
+include("../api/header.php");
 
 // Establecer la conexión a la base de datos
 $conn = connectDB();
@@ -67,7 +67,7 @@ if($conn){
     
     </div>
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
 </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

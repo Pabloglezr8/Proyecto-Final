@@ -1,5 +1,5 @@
 <?php
-include("header.php");
+include("../api/header.php");
 
 $conn = connectDB();
 
@@ -108,7 +108,7 @@ $order_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
 </div>
 </body>

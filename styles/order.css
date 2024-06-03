@@ -63,10 +63,23 @@
     width: 100%;
 }
 
- h2{
+.empty-cart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-cart h2{
+    color: #0e3083;
+    border-bottom: none;
+}
+
+h2{
     text-align: center;
     border-bottom: 2px solid #f29400;
 }
+
 
 #mostrarFormulario{
     font-size: 1em;

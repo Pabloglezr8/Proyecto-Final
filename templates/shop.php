@@ -1,6 +1,6 @@
 <?php 
 // Incluir el archivo para la conexión a la base de datos
-include("header.php");
+include("../api/header.php");
 
 
 // Establecer la conexión a la base de datos
@@ -61,7 +61,7 @@ $cartProducts = getCartProducts($conn);
             <?php if(isset($productos) && count($productos) > 0): ?>
                 <?php foreach($productos as $producto): ?>
                             <div class="product-card">
-                                <a href="../api/product.php?product_id=<?=$producto['id']?>">
+                                <a href="../templates/product.php?product_id=<?=$producto['id']?>">
                                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
                                     <h4 class="product-title"><?= $producto['name'] ?></h4>
                                     <p class="product-price parragraf"><?= $producto['price'] ?> €</p>
@@ -74,7 +74,7 @@ $cartProducts = getCartProducts($conn);
             <?php endif; ?>
         </div>
         <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

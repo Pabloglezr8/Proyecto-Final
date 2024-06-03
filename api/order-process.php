@@ -17,6 +17,13 @@ function validateInput($data) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log(print_r($_POST, true));  // Registro de los datos POST recibidos para depuración
 
+        // Verificar si el carrito está vacío
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            $response['message'] = 'El carrito está vacío. No se puede procesar el pedido.';
+            echo json_encode($response);
+            exit;
+        }
+
     // Comprobación de los campos requeridos
     $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone', 'payment_method', 'shipment_method'];
     foreach ($required_fields as $field) {
@@ -115,6 +122,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('Error al insertar en la tabla pedidos.');
         }
         $pedidoId = $conn->lastInsertId();
+
+        // Insertar estado inicial del pedido en la tabla estado_pedidos
+        $estadoInicial = "En espera"; // Estado inicial del pedido
+        $stmt = $conn->prepare("INSERT INTO estado_pedidos (pedido_id, estado) VALUES (?, ?)");
+        if (!$stmt->execute([$pedidoId, $estadoInicial])) {
+            throw new Exception('Error al insertar en la tabla estado_pedidos.');
+        }
+        $estadoPedidoId = $conn->lastInsertId();
 
         // Insertar productos en la tabla pedidos_productos
         foreach ($_SESSION['cart'] as $productId => $quantity) {

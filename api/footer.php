@@ -23,6 +23,7 @@
         <div class="footer-section links">
             <h2>Enlaces útiles</h2>
             <div>
+                <div><a href="/FerreteriaVegagrande/index.php">Inicio</a></div>
                 <div><a href="/FerreteriaVegagrande/api/aboutus.php">Quiénes somos</a></div>
                 <div><a href="/FerreteriaVegagrande/api/contact.php">Dónde estamos</a></div>
                 <div><a href="/FerreteriaVegagrande/api/shop.php">Tienda</a></div>

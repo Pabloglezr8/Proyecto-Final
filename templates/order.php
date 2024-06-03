@@ -1,5 +1,5 @@
 <?php
-include("header.php");
+include("../api/header.php");
 
 
 // Establecer la conexión a la base de datos
@@ -46,6 +46,7 @@ foreach ($cartProducts as $producto) {
         <div><h1 class="title">Detalles del Pedido</h1></div>
         <div class="order-container">
             <!-- Mostrar detalles del pedido -->
+            <?php if(count($cartProducts) > 0): ?>
             <div class="order">
                 <div class="order-details" id="order-details">
                 <?php foreach($cartProducts as $producto): ?>
@@ -59,6 +60,14 @@ foreach ($cartProducts as $producto) {
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php else: ?>
+            <div class="empty-cart">
+            <h2>No tienes productos añadidos a tu carrito</h2>
+            <div class="empty-cart-button">
+                <a href="shop.php"><button>Comprar</button></a>
+            </div>
+            </div>
+        <?php endif; ?>
 
             <div class="order-form-container">
                 <h2>Datos del Usuario</h2>
@@ -159,7 +168,7 @@ foreach ($cartProducts as $producto) {
 
         </div>
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
     </div>
     

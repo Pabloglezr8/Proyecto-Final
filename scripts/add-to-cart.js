@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     function addToCart(productId, quantity) {
         $.ajax({
-            url: 'add-to-cart.php',
+            url: '../api/add-to-cart.php',
             type: 'POST',
             data: {
                 product_id: productId,

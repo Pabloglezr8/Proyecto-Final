@@ -1,5 +1,5 @@
 <?php 
-include("header.php");
+include("../api/header.php");
 
 // Establecer la conexión a la base de datos
 $conn = connectDB();
@@ -73,7 +73,7 @@ foreach ($cartProducts as $producto) {
         <?php endif; ?>
     </div>
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
 </div>
 <script src="../scripts/cart-actions.js"></script>

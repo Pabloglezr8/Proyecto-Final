@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Función para mostrar la ventana modal con los detalles del pedido
 function showModal(orderDetails) {
+    console.log('Detalles del pedido:', orderDetails);
     let modal = document.getElementById("modal-detalle-pedido");
     let detalleContent = document.getElementById("detalle-pedido-content");
 

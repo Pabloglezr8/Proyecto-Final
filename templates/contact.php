@@ -1,5 +1,5 @@
 <?php
-include("header.php");
+include("../api/header.php");
 ?>
 
 
@@ -60,7 +60,7 @@ include("header.php");
         </div>
 
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
     </div>
 </body>

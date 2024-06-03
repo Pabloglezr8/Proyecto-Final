@@ -4,17 +4,19 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Incluir el archivo para la conexión a la base de datos
-include("./connectDB.php");
+include("../api/connectDB.php");
 
 // Iniciar la sesión
 session_start();
 
-// Variable para mensajes
-$message = null;
-$message_class = ""; // Definir la clase de mensaje
-
 // Verificar si se ha enviado un formulario por el método POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Inicializar la respuesta
+    $response = [
+        "success" => false,
+        "message" => "Error desconocido"
+    ];
+
     // Obtener los datos del formulario
     $name = trim($_POST["name"]);
     $surname = trim($_POST["surname"]);
@@ -23,38 +25,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = null;
 
     // Validar campos requeridos
-    $required_fields = ['name', 'surname', 'email', 'password'];
-    foreach ($required_fields as $field) {
+    $_fields = ['name', 'surname', 'email', 'password'];
+    foreach ($_fields as $field) {
         if (empty($_POST[$field])) {
-            $message = "Todos los campos son obligatorios";
-            $message_class = "error"; // Asignar la clase de mensaje de error
-            echo $message;
+            $response["message"] = "Todos los campos son obligatorios";
+            echo json_encode($response);
             exit;
         }
     }
 
     // Validaciones
     if (!preg_match("/^[\p{L}\s]+$/u", $name)) {
-        $message = "El nombre solo puede contener letras y espacios.";
-        $message_class = "error";
-        echo $message;
+        $response["message"] = "Nombre no válido.";
+        echo json_encode($response);
         exit;
     }
     if (!preg_match("/^[\p{L}\s]+$/u", $surname)) {
-        $message = "El apellido solo puede contener letras y espacios.";
-        $message_class = "error";
-        echo $message;
+        $response["message"] = "Apellido no válido.";
+        echo json_encode($response);
         exit;
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "Correo electrónico no válido.";
-        $message_class = "error";
-        echo $message;
+        $response["message"] = "E-mail no válido.";
+        echo json_encode($response);
         exit;
     }
 
     // Verificar el código del administrador
-    $admin_code = "admin"; // Aquí debes reemplazar 'tu_codigo_de_administrador_predefinido' con el código de administrador real
+    $admin_code = "admin";
     $code = $_POST["code"];
 
     // Si el campo del código está vacío, asignar rol 1
@@ -63,9 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Si el campo del código no está vacío, pero no coincide con el código de administrador, mostrar error
         if ($code != $admin_code) {
-            $message = "El código no es válido";
-            $message_class = "error";
-            echo $message;
+            $response["message"] = "El código no es válido";
+            echo json_encode($response);
             exit;
         } else {
             // Si el código de administrador es correcto, asignar rol 0
@@ -75,9 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar si hay un rol asignado antes de continuar
     if (is_null($role)) {
-        $message = "El código no es válido";
-        $message_class = "error";
-        echo $message;
+        $response["message"] = "El código no es válido";
+        echo json_encode($response);
         exit;
     } else {
         // Conexión a la base de datos
@@ -93,10 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result_check_email = $statement_check_email->fetch(PDO::FETCH_ASSOC);
 
             if ($result_check_email) {
-                $message = "El correo electrónico ya existe";
-                $message_class = "error";
-                echo $message;
-                exit;
+                $response["message"] = "El correo electrónico ya existe";
             } else {
                 // Hashear la contraseña
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -108,31 +101,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $statement->bindParam(":name", $name, PDO::PARAM_STR);
                 $statement->bindParam(":surname", $surname, PDO::PARAM_STR);
                 $statement->bindParam(":email", $email, PDO::PARAM_STR);
-                $statement->bindParam(":password", $hashed_password, PDO::PARAM_STR); // Almacenar la contraseña hasheada
+                $statement->bindParam(":password", $hashed_password, PDO::PARAM_STR);
                 $statement->bindParam(":role", $role, PDO::PARAM_INT);
 
                 // Ejecutar la consulta para insertar el nuevo usuario
                 if ($statement->execute()) {
-                    $message = "Usuario registrado correctamente";
-                    $message_class = "success";
-                    echo $message;
-                    exit;
+                    $response["success"] = true;
+                    $response["message"] = "Usuario registrado correctamente";
                 } else {
-                    $message = "Error al registrar al usuario";
-                    $message_class = "error";
-                    echo $message;
-                    exit;
+                    $response["message"] = "Error al registrar al usuario";
                 }
             }
         } else {
-            $message = "Error al conectar a la Base de Datos";
-            $message_class = "error";
-            echo $message;
-            exit;
+            $response["message"] = "Error al conectar a la Base de Datos";
         }
     }
+
+    echo json_encode($response);
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -143,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/register.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../scripts/register.js"></script>
     <style>
     </style>
 </head>
@@ -155,28 +145,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="register-form-container">
         <form id="register-form" method="post" action="">
-            <input type="text" id="name" name="name" placeholder="Nombre" required>
-            <input type="text" id="surname" name="surname" placeholder="Apellidos" required>
-            <input type="email" id="email" name="email" placeholder="E-mail"  required>
-            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" placeholder="Nombre" >
+            
+            <label for="surname">Apellidos</label>
+            <input type="text" id="surname" name="surname" placeholder="Apellidos" >
+            
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="E-mail"  >
+            
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Contraseña" >
             <!-- Botón para mostrar el input del código -->
             <a id="show-code-btn">¿Tienes un código de administrador? Haz click</a>
             <!-- Contenedor para el input del código (inicialmente oculto) -->
-            <div class="code-input-container">
+            <div class="code-input-container" style="display: none;">
                 <input type="password" id="code" name="code" placeholder="Código de Administrador">
             </div>
-            <div class="message parragraf <?=$message_class?>"><p><?= $message ?></p></div>
+            <div id="register-message" class="message"></div>
             <button type="submit" id="place-register-btn">Confirmar</button>
         </form>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('#show-code-btn').click(function(event){
-            event.preventDefault();
-            $('.code-input-container').toggle();
-        });
-    });
-</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connectDB.php");
+include("../api/connectDB.php");
 
 $conn = connectDB();
 
@@ -166,15 +166,19 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 <th>Fecha</th>
                 <th>Precio Total</th>
                 <th>Detalle del Pedido</th>
+                <th></th>
             </tr>
         </thead>
         <tbody class="parragraf">
             <?php
-            $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date, pedidos.total_price, GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios, GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
+            $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date, pedidos.total_price, estado_pedidos.estado, estado_pedidos.fecha_actualizacion,
+            GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios,
+            GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
             FROM pedidos
             JOIN usuarios ON pedidos.id_usuario = usuarios.id
-            JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
-            JOIN productos ON pedidos_productos.product_id = productos.id
+            LEFT JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
+            LEFT JOIN productos ON pedidos_productos.product_id = productos.id
+            LEFT JOIN estado_pedidos ON pedidos.id = estado_pedidos.pedido_id
             WHERE usuarios.id = ?
             GROUP BY pedidos.id");
             $stmt->execute([$_SESSION['id']]);
@@ -186,6 +190,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <td><?= $order['pedido_id'] ?></td>
             <td><?= $order['date'] ?></td>
             <td><?= $order['total_price'] ?>€</td>
+            <td><div><?= $order ['fecha_actualizacion']?></div> <?= $order['estado'] ?: 'En espera' ?></td>
             <td><button onclick="showModal('<?= $order_json ?>')">Ver detalles</button></td>
             </tr>
             <?php endforeach; ?>

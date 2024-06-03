@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     function performCartAction(action, productId = null) {
         $.ajax({
-            url: 'cart-actions.php',
+            url: '../api/cart-actions.php',
             type: 'POST',
             data: {
                 action: action,

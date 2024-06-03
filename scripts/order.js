@@ -64,14 +64,14 @@ $(document).ready(function() {
 
         // Si todas las validaciones pasan, enviar la solicitud AJAX
         $.ajax({
-            url: 'order-process.php',
+            url: '../api/order-process.php',
             type: 'POST',
             data: formData,
             success: function(response) {
                 $('#order-message').html("<p class='error'>" + response.message + "</p>");
                 if (response.status) {
                     // Redirigir a una página de confirmación
-                    window.location.href = 'order-confirmation.php?order_id=' + response.order_id;
+                    window.location.href = '../templates/order-confirmation.php?order_id=' + response.order_id;
                 }
             },
             error: function() {
@@ -145,7 +145,7 @@ $(document).ready(function() {
         var password = $("#password").val();
 
         $.ajax({
-            url: "login-process.php",
+            url: "../api/login-process.php",
             type: "POST",
             data: {
                 email: email,
@@ -161,7 +161,7 @@ $(document).ready(function() {
                             if (response.redirect) {
                                 window.location.href = response.redirect;
                             } else {
-                                window.location.href = "../api/order.php";
+                                window.location.href = "../templates/order.php";
                             }
                         } else {
                             $("#message").html("<p class='message error'>" + response.message + "</p>");

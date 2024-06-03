@@ -17,8 +17,8 @@
             <h1 class="title">LogIn</h1>
         </div>
         <form id="loginForm" class="login-form">
-            <input type="email" name="email" id="email" placeholder="E-mail"required>
-            <input type="password" name="password" id="password" placeholder="Contraseña"required>
+            <input type="email" name="email" id="email" placeholder="E-mail">
+            <input type="password" name="password" id="password" placeholder="Contraseña">
             <div id="message"></div>
             <button class='btn insertar' type='submit'>Iniciar Sesión</button>
         </form>
