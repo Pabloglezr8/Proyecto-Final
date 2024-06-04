@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2024 a las 04:30:48
+-- Tiempo de generación: 03-06-2024 a las 18:12:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyecto`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_pedidos`
+--
+
+CREATE TABLE `estado_pedidos` (
+  `id` int(11) NOT NULL,
+  `pedido_id` int(11) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_pedidos`
+--
+
+INSERT INTO `estado_pedidos` (`id`, `pedido_id`, `estado`, `fecha_actualizacion`) VALUES
+(8, 105, 'En espera', '2024-06-03 16:06:02');
 
 -- --------------------------------------------------------
 
@@ -41,9 +61,7 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `id_usuario`, `total_price`, `date`, `payment_method`, `shipment_method`) VALUES
-(90, 94, 28.74, '2024-06-02 03:16:24', 'contrareembolso', 0),
-(91, 94, 121.73, '2024-06-02 03:37:49', 'contrareembolso', 0),
-(92, 102, 133.99, '2024-06-02 04:27:58', 'contrareembolso', 0);
+(105, 112, 15.25, '2024-06-03 18:06:02', 'transferencia', 0);
 
 -- --------------------------------------------------------
 
@@ -64,13 +82,7 @@ CREATE TABLE `pedidos_productos` (
 --
 
 INSERT INTO `pedidos_productos` (`id`, `pedido_id`, `product_id`, `quantity`, `price`) VALUES
-(123, 90, 9, 1, 9.99),
-(124, 90, 15, 1, 18.75),
-(125, 91, 9, 2, 9.99),
-(126, 91, 5, 1, 45.50),
-(127, 91, 15, 3, 18.75),
-(128, 92, 5, 2, 45.50),
-(129, 92, 18, 1, 42.99);
+(152, 105, 11, 1, 15.25);
 
 -- --------------------------------------------------------
 
@@ -81,7 +93,7 @@ INSERT INTO `pedidos_productos` (`id`, `pedido_id`, `product_id`, `quantity`, `p
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(225) DEFAULT NULL,
+  `description` varchar(1500) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `img` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -91,10 +103,10 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `name`, `description`, `price`, `img`) VALUES
-(1, 'Martillo', '<p><strong>Martillo</strong> resistente con mango de madera ideal para trabajos de carpinter&iacute;a.</p>', 15.99, 'martillo.jpg'),
-(2, 'Destornillador plano', '<p>Destornillador con punta Phillips<em>,</em> perfecto para apretar o aflojar tornillos de tipo Phillips.</p>', 7.50, 'destornillador_plano.jpg'),
-(3, 'Olla de 5 litros', 'Olla de cocina de alta calidad fabricada en acero inoxidable, ideal para cocinar todo tipo de alimentos.', 28.99, 'olla_5l.jpg'),
-(4, 'Cuchillos de cocina', 'Juego de cuchillos de cocina que incluye cuchillo de chef, cuchillo para pan, cuchillo para pelar, entre otros.', 19.75, 'juego_cuchillos_cocina.jpg'),
+(1, 'Martillo', '<p class=\"parragraf\"><p><strong>Lorem Ipsum</strong> es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est&aacute;ndar de las industrias desde el a&ntilde;o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us&oacute; una galer&iacute;a de textos y los mezcl&oacute; de tal manera que logr&oacute; hacer un libro de textos especimen. No s&oacute;lo sobrevivi&oacute; 500 a&ntilde;os, sino que tambien ingres&oacute; como texto de relleno en documentos electr&oacute;nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci&oacute;n de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y m&aacute;s recientemente con software de autoedici&oacute;n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>\r\n<p>&nbsp;</p></p>', 15.99, 'martillo.jpg'),
+(2, 'Destornillador plano', '<p class=\"parragraf\"><p><strong>Lorem Ipsum</strong> es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est&aacute;ndar de las industrias desde el a&ntilde;o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us&oacute; una galer&iacute;a de textos y los mezcl&oacute; de tal manera que logr&oacute; hacer un libro de textos especimen. No s&oacute;lo sobrevivi&oacute; 500 a&ntilde;os, sino que tambien ingres&oacute; como texto de relleno en documentos electr&oacute;nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci&oacute;n de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y m&aacute;s recientemente con software de autoedici&oacute;n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p></p>', 7.50, 'destornillador_plano.jpg'),
+(3, 'Olla de 5 litros', '<p class=\"parragraf\"><p><strong>Lorem Ipsum</strong> es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est&aacute;ndar de las industrias desde el a&ntilde;o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us&oacute; una galer&iacute;a de textos y los mezcl&oacute; de tal manera que logr&oacute; hacer un libro de textos especimen. No s&oacute;lo sobrevivi&oacute; 500 a&ntilde;os, sino que tambien ingres&oacute; como texto de relleno en documentos electr&oacute;nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci&oacute;n de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y m&aacute;s recientemente con software de autoedici&oacute;n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p></p>', 28.99, 'olla_5l.jpg'),
+(4, 'Cuchillos de cocina', '<p class=\"parragraf\"><p class=\"parragraf\"><strong>Lorem Ipsum</strong> es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est&aacute;ndar de las industrias desde el a&ntilde;o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us&oacute; una galer&iacute;a de textos y los mezcl&oacute; de tal manera que logr&oacute; hacer un libro de textos especimen. No s&oacute;lo sobrevivi&oacute; 500 a&ntilde;os, sino que tambien ingres&oacute; como texto de relleno en documentos electr&oacute;nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci&oacute;n de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y m&aacute;s recientemente con software de autoedici&oacute;n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p></p>', 19.75, 'juego_cuchillos_cocina.jpg'),
 (5, 'Cerradura puerta', 'Cerradura de alta seguridad con llave de seguridad para proteger tu puerta principal contra intrusos.', 45.50, 'cerradura_puerta.jpg'),
 (6, 'Sierra de mano', 'Sierra compacta y plegable, perfecta para cortar madera y otros materiales en espacios reducidos.', 22.99, 'sierra_mano.jpg'),
 (7, 'Juego de llaves allen', 'Juego de llaves allen de diferentes tamaños, útiles para apretar o aflojar tornillos hexagonales.', 14.99, 'juego_llaves_allen.jpg'),
@@ -136,14 +148,21 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `name`, `surname`, `email`, `password`, `address`, `postal_code`, `location`, `country`, `phone`, `payment_method`, `shipment_method`, `role`) VALUES
-(94, 'Pablo', 'González', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', 'mi calle', '33202', 'Salamanca', 'España', 123456789, 'contrareembolso', 'Envío24h', 0),
-(99, 'user', 'user', 'user@example.com', '$2y$10$Q30ad4poRD5opTRlXt.MfuLhUpy2eHZR5Je1r8g6oaTiyFcxPj/uu', 'calle manolo', '33202', 'Gijón', 'España', 123456789, NULL, '', 1),
+(94, 'Pablo', 'González Ruiz', 'admin@admin.es', '$2y$10$BTvtpOEOLV.1Kay2K.StZOWx3u9SuYCVYMY7H1dyxrWeki9u5VWim', 'mi calle', '33202', 'Gijón', 'España', 123456789, 'contrareembolso', 'Envío Normal', 0),
+(99, 'user', 'user', 'user@example.com', '$2y$10$Q30ad4poRD5opTRlXt.MfuLhUpy2eHZR5Je1r8g6oaTiyFcxPj/uu', 'calle manolo', '33202', 'Gijón', 'España', 123456789, 'transferencia', 'Envío Normal', 1),
 (100, 'sara', 'pidal martinez', 'sara@gmail.es', '$2y$10$PSBxRimojlqyAmOmVLSAo.cvqdBashNjMwsiqZ1jjxlocy0KsQIPG', 'avenida constitucion, 42, 1 izquierda', '33203', 'Gijón', 'España', 658921036, NULL, '', 1),
-(102, 'a', 'b', 'asdasdas@fgdgdfgdfg.com', '$2y$10$f0lyGZ7pFPaldQH8taWG4euj.tb2o1dlSw9B4Rlkgfc4DwNE4JVQG', '5', '33202', 'asdasdasd', 'sdfs', 123456789, 'contrareembolso', 'Envío Normal', 1);
+(112, 'Prueba', 'Prueba', 'prueba@prueba.com', '$2y$10$dYz/oeI.41foddAiBPVZweKHJpN3LLRVUZZcQtHVq7/7M5xpWFij.', 'Calle Prueba', '33202', 'Gijón', 'España', 123456789, 'transferencia', 'Envío Normal', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `estado_pedidos`
+--
+ALTER TABLE `estado_pedidos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedido_id` (`pedido_id`);
 
 --
 -- Indices de la tabla `pedidos`
@@ -177,16 +196,22 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `estado_pedidos`
+--
+ALTER TABLE `estado_pedidos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -198,11 +223,17 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `estado_pedidos`
+--
+ALTER TABLE `estado_pedidos`
+  ADD CONSTRAINT `estado_pedidos_ibfk_1` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
 
 --
 -- Filtros para la tabla `pedidos`

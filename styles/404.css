@@ -2,21 +2,16 @@
     font-family: Montserrat;
     src: url(../assets/fonts/Montserrat/Montserrat-Bold.ttf);
 }
-
-body {
-    height: 97.5vh;
-    font-family: Montserrat;
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-    background-color: #f0f0f0;
-    margin: 50px;
+@font-face {
+    font-family: Mulish;
+    src: url(../assets/fonts/Mulish.ttf);
 }
+
 
 .hit-the-floor {
     text-align: center;
-    color: rgba(75, 47, 27, 255);
-    font-size: 12em;
+    color: #f29400;
+    font-size: 10em;
     font-weight: bold;
     font-family: Montserrat;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9,
@@ -28,114 +23,48 @@ body {
 }
 
 /* LeftSide */
-.left-side {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+.container{
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
     height: 100%;
 }
 
-.err{
-    grid-row-start: 2;
-    grid-row-end: 3;
-    margin: 0;
-    color: #f29400;
-}
 
 #tuerca{
-    width: 200px;
-    height: 200px;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    width: 125px;
+    height: auto;
     margin: 0;
     animation: rotate 10s linear infinite;
 }
 
-.r{
-    grid-row-start: 2;
-    grid-row-end: 3;  
-    margin: 0;
-    color: #f29400;
-}
-
-#top-number{
-    grid-column-start: 2;
-    grid-column-end: 3;
-    margin: 0;
-    animation: wiggle 3s ease 0s infinite normal forwards;
+span{
     color: #0e3083;
-}
-
-#bottom-number{
-    grid-row-start: 3;
-    grid-row-end: 4;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    margin: 0;
-    animation: wiggle 3s ease 0s infinite normal forwards;
-    color: #0e3083;
-}
-
-
-
-/* RigthSide */
-
-.rigth-side {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+    white-space: nowrap;
 }
 
 
 .logo {
-    width: 600px;
-    animation: pulse 10s cubic-bezier(0, 0.55, 0.45, 1) 0s infinite normal forwards;
+    width: 400px;
+    transition: 0.3s ease-in-out;
 }
 
 .logo:hover {
     cursor: pointer;
+    transform: scale(1.1);
 }
 
 .texto {
-    text-align: center;
-    width: 100%;
-    flex-direction: column;
-    font-size: xx-large;
+    font-family: Mulish;
+    font-size: 3em;
+    color: #363636;
 }
 
-@keyframes pulse {
-    0% {
-        animation-timing-function: ease-out;
-        transform: scale(1);
-        transform-origin: center center;
-    }
-
-    10% {
-        animation-timing-function: ease-in;
-        transform: scale(0.91);
-    }
-
-    17% {
-        animation-timing-function: ease-out;
-        transform: scale(0.98);
-    }
-
-    33% {
-        animation-timing-function: ease-in;
-        transform: scale(0.87);
-    }
-
-    45% {
-        animation-timing-function: ease-out;
-        transform: scale(1);
-    }
-}
 
 @keyframes rotate {
     from {
@@ -147,46 +76,39 @@ body {
     }
 }
 
-
-@keyframes wiggle {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-        transform-origin: 50% 100%;
+@media screen  and (width < 901px){
+    .hit-the-floor{
+        font-size: 10em;
     }
 
-    10% {
-        transform: rotate(2deg);
+    .texto{
+        font-size: 3em;
     }
 
-    20%,
-    40%,
-    60% {
-        transform: rotate(-4deg);
+    #tuerca{
+        width: 125px;
+
+    }
+}
+    
+@media screen  and (width < 769px){
+    .hit-the-floor{
+        font-size: 8em;
     }
 
-    30%,
-    50%,
-    70% {
-        transform: rotate(4deg);
+    .texto{
+        font-size: 2em;
     }
 
-    80% {
-        transform: rotate(-2deg);
-    }
+    #tuerca{
+        width: 100px;
 
-    90% {
-        transform: rotate(2deg);
     }
 }
 
-@media screen and (width < 1220px){
-    .rigth-side{
-        grid-row-start: 2;
-        grid-row-end: 3;
-        grid-column-start: 1;
-        grid-column-end: 2;
+@media screen  and (width < 769px){
+    .logo{
+        width: 300px;
     }
 }
     
