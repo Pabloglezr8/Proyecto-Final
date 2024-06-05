@@ -17,12 +17,12 @@ function validateInput($data) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log(print_r($_POST, true));  // Registro de los datos POST recibidos para depuración
 
-        // Verificar si el carrito está vacío
-        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-            $response['message'] = 'El carrito está vacío. No se puede procesar el pedido.';
-            echo json_encode($response);
-            exit;
-        }
+    // Verificar si el carrito está vacío
+    if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+        $response['message'] = 'El carrito está vacío. No se puede procesar el pedido.';
+        echo json_encode($response);
+        exit;
+    }
 
     // Comprobación de los campos requeridos
     $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone', 'payment_method', 'shipment_method'];
@@ -34,31 +34,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validaciones
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {       
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['name'])) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {        
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['surname'])) {
         echo json_encode($response);
         exit;
     }
-    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {       
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {        
+    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {        
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {        
+    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {    
+    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {
         echo json_encode($response);
         exit;
     }
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Insertar pedido en la tabla pedidos
-        $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method, shipment_method) VALUES (?, ?, NOW(), ?,?)");
+        $stmt = $conn->prepare("INSERT INTO pedidos (id_usuario, total_price, date, payment_method, shipment_method) VALUES (?, ?, NOW(), ?, ?)");
         if (!$stmt->execute([$userId, $totalPrice, $paymentMethod, $shipmentMethod])) {
             throw new Exception('Error al insertar en la tabla pedidos.');
         }
@@ -129,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$stmt->execute([$pedidoId, $estadoInicial])) {
             throw new Exception('Error al insertar en la tabla estado_pedidos.');
         }
-        $estadoPedidoId = $conn->lastInsertId();
 
         // Insertar productos en la tabla pedidos_productos
         foreach ($_SESSION['cart'] as $productId => $quantity) {
@@ -148,6 +147,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Limpiar el carrito
         unset($_SESSION['cart']);
+
+        // Enviar correo electrónico de confirmación
+        $to = $email;
+        $subject = "Confirmación de Pedido";
+        $message = "Hola $name $surname,\n\nGracias por tu pedido. El ID de tu pedido es $pedidoId y el total es $totalPrice €.\n\nSaludos,\nTienda Online";
+        $headers = "From: no-reply@tu-tienda.com";
+
+        if (mail($to, $subject, $message, $headers)) {
+            error_log("Correo de confirmación enviado a $email");
+        } else {
+            error_log("Error al enviar el correo de confirmación a $email");
+        }
 
         $response['status'] = true;
         $response['message'] = 'Pedido realizado con éxito.';

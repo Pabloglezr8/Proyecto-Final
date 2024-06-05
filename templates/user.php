@@ -128,7 +128,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="E-mail" value="<?= htmlspecialchars($user['email']); ?>" >
             <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Contraseña" value="<?= htmlspecialchars($user['password']); ?>">
+            <input type="password" id="password" name="password" placeholder="Contraseña" value="<?= htmlspecialchars($user['password']); ?>" readonly>
             <label for="address">Dirección</label>
             <input type="text" id="address" name="address" placeholder="Dirección de envío" value="<?= htmlspecialchars($user['address']); ?>" >
             <div class="input-cont">
