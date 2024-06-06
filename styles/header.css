@@ -21,10 +21,6 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    img {
-        width: 100px;
-    }
 }
 
 #logo-completo {
@@ -255,6 +251,34 @@ header {
 }
 
 
+
+
+@media screen and (width < 1440px) {
+
+    body{
+        padding-top: 120px;
+        }
+
+    .header-top-container {
+        padding: 0;
+        padding-inline: 10px;
+    }
+
+    .user-menu {
+        top: 30px;
+    }
+
+    .navigation-menu {
+        padding-inline: 20px;
+        padding-block: 10px;
+    }
+
+    #logo{
+        width: 80px;
+    }
+
+}
+
 @media screen and (width < 1025px) {
     .menu-element {
         margin-left: 10px;
@@ -263,6 +287,10 @@ header {
 }
 
 @media screen and (width < 901px) {
+
+    .header-top-container {
+        padding: 10px;
+    }
     
     #logo {
         display: none;

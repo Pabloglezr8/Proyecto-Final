@@ -66,7 +66,7 @@ $cartProducts = getCartProducts($conn);
                                     <h4 class="product-title"><?= $producto['name'] ?></h4>
                                     <p class="product-price parragraf"><?= $producto['price'] ?> €</p>
                                 </a>
-                                <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>">Añadir al carrito</button>
+                                <button class="add-to-cart-btn" data-product-id="<?php echo $producto['id']; ?>"><img src="../assets/img/icons/add.png" alt=""></button>
                             </div>
                 <?php endforeach; ?>
             <?php else: ?>

@@ -1,3 +1,4 @@
+
 .page{
     position: relative;
 }
@@ -14,8 +15,8 @@
 .home-button img {
     position: absolute;
     left: 20px;
-    top: 50px;
-    width: 50px;
+    top: 60px;
+    width: 40px;
 }
 
 .product-container {

@@ -52,10 +52,10 @@ foreach ($cartProducts as $producto) {
                 <?php foreach($cartProducts as $producto): ?>
                     <div class="product-container">
                         <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
-                        <div class="product-element parragraf"><?= $producto['name'] ?></div>
-                        <div class="product-element parragraf"><?= $producto['price'] ?> €</div>
-                        <div class="product-element parragraf">x<?= $_SESSION['cart'][$producto['id']] ?></div>
-                        <div class="product-element parragraf">= <?= $_SESSION['cart'][$producto['id']] * $producto['price'] ?> €</div>
+                        <div class="product-element name parragraf"><?= $producto['name'] ?></div>
+                        <div class="product-element price parragraf"><?= $producto['price'] ?> €</div>
+                        <div class="product-element quantity parragraf">x<?= $_SESSION['cart'][$producto['id']] ?></div>
+                        <div class="product-element totla-price parragraf">= <?= $_SESSION['cart'][$producto['id']] * $producto['price'] ?> €</div>
                     </div>
                     <?php endforeach; ?>
                 </div>

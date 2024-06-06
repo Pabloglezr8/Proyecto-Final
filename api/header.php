@@ -163,7 +163,7 @@ foreach ($_SESSION['cart'] as $prod) {
                 </div>
                 <?php if($isLoggedIn): ?>
                     <div class="menu-element">
-                        <a class="my-account" href="/FerreteriaVegagrande/api/user.php">
+                        <a class="my-account" href="/FerreteriaVegagrande/templates/user.php">
                             <img src="/FerreteriaVegagrande/assets/img/icons/myaccountOrange.png" alt="">
                             <span class="user-name"><?php echo $_SESSION['name'];?></span>
                         </a>

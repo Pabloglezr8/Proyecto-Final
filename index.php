@@ -55,7 +55,7 @@ include("./api/header.php");
                     sido cuidadosamente seleccionado por su excelencia y durabilidad.
                 </p>
                 <p class="quality-text parragraf">
-                    Nuestro compromiso por abastecer al cliente von <strong>los mejores productos</strong> se refleja en
+                    Nuestro compromiso por abastecer al cliente con <strong>los mejores productos</strong> se refleja en
                     cada detalle: desde las
                     herramientas que resisten el paso del tiempo y hacen que cada tarea sea más fácil y eficiente,
                     hasta el menaje de cocina que aguanta el uso diario y sigue luciendo como nuevo, y las cerraduras

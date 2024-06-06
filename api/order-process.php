@@ -151,7 +151,141 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Enviar correo electrónico de confirmación
         $to = $email;
         $subject = "Confirmación de Pedido";
-        $message = "Hola $name $surname,\n\nGracias por tu pedido. El ID de tu pedido es $pedidoId y el total es $totalPrice €.\n\nSaludos,\nTienda Online";
+        $message = "
+        <html>
+        <head>
+            <title>Confirmación de pedido</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    color: #1c1c1c;
+                }
+                .container {
+                    width: 100%;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    background-color: #f9f9f9;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .header .logo {
+                    max-width: 200px;
+                    margin-bottom: 10px;
+                }
+                .header .title {
+                    font-size: 24px;
+                    color: #0e3083;
+                }
+                .saludo {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    color: #0e3083;
+                }
+                .details {
+                    margin: 20px 0;
+                    padding: 20px;
+                    background-color: #c1c1c1;
+                    border-radius: 10px;
+                }
+                .details p {
+                    margin: 5px 0;
+                }
+                table {
+                    width: 100%;
+                    margin-bottom: 20px;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #0e3083;
+                    color: #fff;
+                }
+                tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+                .total-price {
+                    text-align: center;
+                    margin: 20px 0;
+                    padding: 10px;
+                    background-color: #0e3083;
+                    color: #fff;
+                    border-radius: 10px;
+                }
+                .footer {
+                    text-align: center;
+                    padding: 10px;
+                    border-top: 2px solid #f29400;
+                    margin-top: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <img src='https://practicas.pagespeedwordpress.com/assets/img/logoCompleto.png' alt='Ferreteria Vegagrande' class='logo'/>
+                    <h1 class='title'>Gracias por tu compra</h1>
+                </div>
+                <div class='saludo'>
+                    <p><strong>Hola $name $surname,</strong></p>
+                    <p><strong>Aquí están los detalles de tu compra:</strong></p>
+                </div>
+                <div class='details'>
+                    <p><strong>Número de Pedido:</strong> $pedidoId</p>
+                    <p><strong>Fecha del Pedido:</strong> " . date('d-m-Y H:i:s') . "</p>
+                    <p><strong>Nombre:</strong> $name $surname</p>
+                    <p><strong>Dirección:</strong> $address, $postalCode, $location, $country</p>
+                    <p><strong>Método de Pago:</strong> $paymentMethod</p>
+                    <p><strong>Método de Envío:</strong> $shipmentMethod</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+        
+        // Generar filas de productos comprados
+        foreach ($_SESSION['cart'] as $productId => $quantity) {
+            $stmt = $conn->prepare("SELECT name, price FROM productos WHERE id = ?");
+            $stmt->execute([$productId]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            $productName = $product['name'];
+            $productPrice = $product['price'];
+            $productTotal = $productPrice * $quantity;
+        
+            $message .= "
+                        <tr>
+                            <td>$productName</td>
+                            <td>$quantity</td>
+                            <td>$productPrice €</td>
+                            <td>$productTotal €</td>
+                        </tr>";
+        }
+        
+        $message .= "
+                    </tbody>
+                </table>
+                <p class='total-price'><strong>Total del Pedido:</strong> $totalPrice €</p>
+                <div class='footer'>
+                    <p>Saludos,<br>Ferretería Vegagrande</p>
+                </div>
+            </div>
+        </body>
+        </html>";
+        
         $headers = "From: no-reply@tu-tienda.com";
 
         if (mail($to, $subject, $message, $headers)) {

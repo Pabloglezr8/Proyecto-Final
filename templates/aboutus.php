@@ -26,7 +26,7 @@ include("../api/header.php");
                         a nuestros clientes una experiencia de compra excepcional. Ya sea que estés buscando 
                         herramientas para un proyecto de bricolaje, accesorios para la cocina o soluciones para 
                         tareas de cerrajería doméstica, aquí encontrarás todo lo que necesitas y más.</p>
-                    <p class="parragraf">En Ferretería Barrio, valoramos la confianza y la lealtad de nuestros 
+                    <p class="parragraf">En Ferretería Vegagrande, valoramos la confianza y la lealtad de nuestros 
                         clientes por encima de todo. Nos esforzamos continuamente por superar tus expectativas y 
                         mantenernos como tu destino preferido para todas tus necesidades de ferretería y bricolaje.</p>
                 </div>
@@ -122,7 +122,7 @@ include("../api/header.php");
             </div>
     </div>
 <?php
-include("footer.php");
+include("../api/footer.php");
 ?>
 </div>
 </body>
