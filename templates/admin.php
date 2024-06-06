@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferretería Vegagrande</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/admin.css">
-    <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../scripts/admin.js"></script>
-    <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-</head>
-<body>
-<?php 
+<?php
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header('Location: error403.html');
+    exit();
+}
+
 include("../api/connectDB.php");
 
 $conn = connectDB();
-
-session_start();
 
 // Variable para almacenar mensajes
 $message = "";
@@ -25,27 +16,24 @@ $messageClass = ""; // Clase para el estilo del mensaje
 
 // Función para eliminar un producto por su ID
 function deleteProducto($conn, $id){
-    // Obtener el nombre de la imagen del producto a eliminar
     $query = $conn->prepare("SELECT img FROM productos WHERE id = :id");
     $query->bindParam(":id", $id);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
     $imgToDelete = $result['img'];
 
-    // Eliminar el producto de la base de datos
     $query = $conn->prepare("DELETE FROM productos WHERE id = :id");
     $query->bindParam(":id", $id);
     $deleted = $query->execute();
 
-    // Si se eliminó el producto de la base de datos, eliminar la imagen del servidor
     if ($deleted && !empty($imgToDelete)) {
         $filePath = "../assets/img/productos/" . $imgToDelete;
         if (file_exists($filePath)) {
-            unlink($filePath); // Eliminar el archivo de imagen
+            unlink($filePath);
         }
     }
 
-    return $deleted; // Retornar si se eliminó el producto correctamente o no
+    return $deleted;
 }
 
 // Función para obtener los detalles de un producto por su ID para editarlo
@@ -89,17 +77,14 @@ function getEstadoPedido($conn, $id_pedido) {
 
 // Función para actualizar el estado de un pedido
 function updateEstadoPedido($conn, $id_pedido, $estado) {
-    $fecha_actualizacion = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-    
+    $fecha_actualizacion = date("Y-m-d H:i:s");
     $query = $conn->prepare("UPDATE estado_pedidos SET estado = :estado, fecha_actualizacion = :fecha_actualizacion WHERE pedido_id = :id_pedido");
     $query->bindParam(":estado", $estado);
     $query->bindParam(":fecha_actualizacion", $fecha_actualizacion);
     $query->bindParam(":id_pedido", $id_pedido);
-    
     return $query->execute();
 }
 
-// Lógica para manejar el cambio de estado del pedido
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_estado'])) {
     $id_pedido = $_POST['id_pedido'];
     $estado = $_POST['estado'];
@@ -115,7 +100,7 @@ function listProducto($conn, &$message, &$messageClass){
             $id = $_POST['delete_id'];
             deleteProducto($conn, $id);
             $message = "Producto eliminado correctamente.";
-            $messageClass = "success"; // Clase para el estilo de mensaje de éxito
+            $messageClass = "success";
         } else if(isset($_POST['edit'])){
             $id = $_POST['edit_id'];
             editProducto($conn, $id);
@@ -124,24 +109,22 @@ function listProducto($conn, &$message, &$messageClass){
             $description = $_POST['description'];
             $price = $_POST['price'];
 
-            // Manejo de la imagen
             if(isset($_FILES['img']) && $_FILES['img']['error'] == 0){
                 $img = basename($_FILES['img']['name']);
                 $target_dir = "../assets/img/productos/";
                 $target_file = $target_dir . $img;
 
-                // Mueve el archivo a la carpeta de destino
                 if(move_uploaded_file($_FILES['img']['tmp_name'], $target_file)){
                     addProducto($conn, $name, $img, $description, $price);
                     $message = "Producto añadido correctamente.";
-                    $messageClass = "success"; // Clase para el estilo de mensaje de éxito
+                    $messageClass = "success";
                 } else {
                     $message = "Error al subir la imagen.";
-                    $messageClass = "error"; // Clase para el estilo de mensaje de error
+                    $messageClass = "error";
                 }
             } else {
                 $message = "Error al insertar el producto. Imagen no válida.";
-                $messageClass = "error"; // Clase para el estilo de mensaje de error
+                $messageClass = "error";
             }
         } else if(isset($_POST['update'])){
             $id = $_POST['id'];
@@ -149,27 +132,24 @@ function listProducto($conn, &$message, &$messageClass){
             $description = $_POST['description'];
             $price = $_POST['price'];
 
-            // Manejo de la imagen
             if(isset($_FILES['img']) && $_FILES['img']['error'] == 0){
                 $img = basename($_FILES['img']['name']);
                 $target_dir = "../assets/img/productos/";
                 $target_file = $target_dir . $img;
 
-                // Mueve el archivo a la carpeta de destino
                 if(move_uploaded_file($_FILES['img']['tmp_name'], $target_file)){
                     updateProducto($conn, $id, $name, $img, $description, $price);
                     $message = "Producto actualizado correctamente.";
-                    $messageClass = "success"; // Clase para el estilo de mensaje de éxito
+                    $messageClass = "success";
                 } else {
                     $message = "Error al subir la imagen.";
-                    $messageClass = "error"; // Clase para el estilo de mensaje de error
+                    $messageClass = "error";
                 }
             } else {
-                // Si no se ha subido una nueva imagen, usar la imagen actual
                 $img = $_POST['current_img'];
                 updateProducto($conn, $id, $name, $img, $description, $price);
                 $message = "Producto actualizado correctamente.";
-                $messageClass = "success"; // Clase para el estilo de mensaje de éxito
+                $messageClass = "success";
             }
         }
     }
@@ -185,6 +165,21 @@ function listProducto($conn, &$message, &$messageClass){
     }
 
     ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferretería Vegagrande</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/admin.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body>
    <div class="header">
     <div class="title-container">
         <a href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
@@ -212,7 +207,6 @@ function listProducto($conn, &$message, &$messageClass){
             <div class="form-element">
                 <button type="button" id="description-button" class="description-button">Descripción</button>
                 <?php 
-                // Ajusta el valor de la descripción para eliminar las etiquetas <p> duplicadas
                 $descripcion = ($productoToEdit ? htmlspecialchars($productoToEdit["description"]) : "");
                 $descripcion = preg_replace('#<p[^>]*>(.*?)<\/p>#is', '$1', $descripcion);
                 ?>
@@ -224,15 +218,13 @@ function listProducto($conn, &$message, &$messageClass){
         </div>
     </form>
 
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
+    <div id="myModal" class="text-editor-modal">
+        <div class="text-editor-modal-content">
             <textarea id="modal-editor"><?= $descripcion ?></textarea>
             <span class="close">&times;</span>
         </div>
     </div>
 
-    <!-- Mostrar mensaje si existe -->
     <?php if (!empty($message)): ?>
         <div id="message">
             <p class="message <?= $messageClass ?>"><?= $message ?></p>
@@ -274,7 +266,6 @@ function listProducto($conn, &$message, &$messageClass){
     </table>
 </div>
 
-
 <div id="pedido" style="display:none;">
     <div class="section-title"><h2>Pedidos</h2></div>
     <?php if (!empty($message)): ?>
@@ -294,42 +285,66 @@ function listProducto($conn, &$message, &$messageClass){
             </tr>
         </thead>
         <tbody class="parragraf">
-            <?php
-            $stmt = $conn->prepare("SELECT pedidos.id, pedidos.date, pedidos.total_price, usuarios.name, usuarios.surname FROM pedidos JOIN usuarios ON pedidos.id_usuario = usuarios.id");
-            $stmt->execute();
-            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($orders as $order):
-                $estado = getEstadoPedido($conn, $order['id']);
-            ?>
-            <tr>
-                <td><?= $order['id'] ?></td>
-                <td><?= $order['name'] ?> <?= $order['surname'] ?></td>
-                <td><?= $order['date'] ?></td>
-                <td><?= $order['total_price'] ?>€</td>
-                <td>
-                    <form id="estado-form" method='POST'>
-                        <input type='hidden' name='id_pedido' value='<?= htmlspecialchars($order['id']) ?>'>
-                        <select class="form-select" name='estado'>
-                            <option value='En Espera' <?= ($estado == 'En Espera' ? 'selected' : '') ?>>En espera</option>
-                            <option value='Procesando' <?= ($estado == 'Procesando' ? 'selected' : '') ?>>Procesando</option>
-                            <option value='Cancelado' <?= ($estado == 'Cancelado' ? 'selected' : '') ?>>Cancelado</option>
-                            <option value='Enviado' <?= ($estado == 'Enviado' ? 'selected' : '') ?>>Enviado</option>
-                        </select>
-                        <td><button type='submit' name='update_estado'>Actualizar</button></td>
-                    </form>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
-
     <?php
+    $stmt = $conn->prepare("SELECT pedidos.id AS pedido_id, pedidos.date AS fecha_pedido, pedidos.total_price AS costo_total, 
+    estado_pedidos.estado AS estado_actual, estado_pedidos.fecha_actualizacion AS fecha_actualizacion_estado, 
+    usuarios.name AS nombre_usuario, usuarios.surname AS apellido_usuario,
+    GROUP_CONCAT(productos.name SEPARATOR ', ') AS productos, GROUP_CONCAT(productos.price SEPARATOR ', ') AS precios, 
+    GROUP_CONCAT(pedidos_productos.quantity SEPARATOR ', ') AS cantidades, GROUP_CONCAT(productos.img SEPARATOR ', ') AS imagenes
+    FROM pedidos
+    JOIN usuarios ON pedidos.id_usuario = usuarios.id
+    LEFT JOIN pedidos_productos ON pedidos.id = pedidos_productos.pedido_id
+    LEFT JOIN productos ON pedidos_productos.product_id = productos.id
+    LEFT JOIN estado_pedidos ON pedidos.id = estado_pedidos.pedido_id
+    GROUP BY pedidos.id");
+    $stmt->execute();
+    $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($orders as $order):
+    $order_json = htmlspecialchars(json_encode($order), ENT_QUOTES, 'UTF-8');
+    ?>
+    <tr>
+        <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['pedido_id'] ?></button></td>
+        <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['nombre_usuario'] . ' ' . $order['apellido_usuario'] ?></button></td>
+        <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['fecha_pedido'] ?></button></td>
+        <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['costo_total'] ?>€</button></td>
+        <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['fecha_actualizacion_estado'] ?></button>
+            <form id="estado-form" method='POST'>
+                <input type='hidden' name='id_pedido' value='<?= htmlspecialchars($order['id']) ?>'>
+                <select class="form-select" name='estado'>
+                    <option value='En Espera' <?= ($order['estado_actual'] == 'En Espera' ? 'selected' : '') ?>>En espera</option>
+                    <option value='Procesando' <?= ($order['estado_actual'] == 'Procesando' ? 'selected' : '') ?>>Procesando</option>
+                    <option value='Cancelado' <?= ($order['estado_actual'] == 'Cancelado' ? 'selected' : '') ?>>Cancelado</option>
+                    <option value='Enviado' <?= ($order['estado_actual'] == 'Enviado' ? 'selected' : '') ?>>Enviado</option>
+                </select>
+                
+                <button type='submit' name='update_estado'>Actualizar</button>
+            </form>
+        </td>        
+<button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"></button>
+
+    <?php endforeach; ?>
+</tbody>
+
+       
+
+
+    </table>
+
+    <div id="modal-detalle-pedido" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Detalles del Pedido</h2>
+            <div id="detalle-pedido-content"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<?php
 }
 
 $conn = connectDB();
-
 listProducto($conn, $message, $messageClass);
 ?>
-</body>
-</html>

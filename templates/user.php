@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+
+if (!isset($_SESSION['id'])) {
+    header('Location: error403.html');
+    exit();
+}
+
 include("../api/connectDB.php");
 
 $conn = connectDB();
@@ -187,23 +194,22 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             $order_json = htmlspecialchars(json_encode($order), ENT_QUOTES, 'UTF-8');
             ?>
             <tr>
-            <td><?= $order['pedido_id'] ?></td>
-            <td><?= $order['date'] ?></td>
-            <td><?= $order['total_price'] ?>€</td>
-            <td><div><?= $order ['fecha_actualizacion']?></div> <?= $order['estado'] ?: 'En espera' ?></td>
-            <td><button onclick="showModal('<?= $order_json ?>')">Ver detalles</button></td>
+            <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['pedido_id'] ?></button></td>
+            <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['date'] ?></button></td>
+            <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><?= $order['total_price'] ?>€</button></td>
+            <td><button class="order-detail-btn" onclick="showModal('<?= $order_json ?>')"><div><?= $order ['fecha_actualizacion']?></div> <?= $order['estado'] ?: 'En espera' ?></button></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 
-            <div id="modal-detalle-pedido" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h2>Detalles del Pedido</h2>
-                    <div id="detalle-pedido-content"></div>
-                </div>
+<div id="modal-detalle-pedido" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Detalles del Pedido</h2>
+        <div id="detalle-pedido-content"></div>
+    </div>
 </div>
 
 </div>
