@@ -91,4 +91,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.delete-form').forEach((form) => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                this.submit(); // If the user confirms, submit the form
+            }
+        });
+    });
+});
     

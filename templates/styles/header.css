@@ -1,0 +1,382 @@
+@import url('./style.css');
+
+header {
+    background-color: #f0f0f0;
+    width: 98%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el header logo y titulo */
+.header-top-container {
+    padding: 10px;
+}
+
+.identity-container {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#logo-completo {
+    display: none;
+}
+
+.identity-title-container {
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.identity-title {
+    color: #f29400;
+    margin: 0;
+}
+
+
+
+.identity-subtitle {
+    color: #0e3083;
+    font-size: large;
+    margin-top: 0;
+}
+
+
+/* Estilos para menus de navegación y user */
+
+.navigation-menu-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.navigation-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #0e3083;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 1.3em;
+    color: #f29400;
+    margin: 0 auto;
+
+}
+
+.menu-element {
+    padding: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: transform 0.3s ease;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.menu-element:hover {
+    transform: scale(1.1);
+}
+
+.user-menu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.user-name {
+    color: #0e3083;
+}
+
+.cart-icon img {
+    width: 30px;
+    border-radius: 0;
+}
+
+
+.my-account{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #0e3083;
+
+}
+
+
+.my-account img{
+    width: 30px;
+    margin-inline: 5px;
+
+}
+
+.user-menu a {
+    color: #f29400;
+}
+
+
+
+/* Estilos para el botón hamburguesa */
+.menu-toggle {
+    z-index: 1000;
+    position: fixed;
+    width: 45px;
+    cursor: pointer;
+    margin: 20px;
+    display: none;
+    top: -5px;
+    right: 0px;
+    z-index: 1000;
+}
+
+.menu-toggle span {
+
+    text-align: center;
+    display: block;
+    width: 40px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: #f29400;
+    margin: 8px 0;
+    transition: 0.3s ease-in-out;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    background-color: #0e3083;
+    transform: rotate(-45deg) translate(-12px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    background-color: #0e3083;
+    transform: rotate(45deg) translate(-12px, -6px);
+}
+
+/* Estilos para el menú hamburguesa */
+.hamburger-container {
+    padding-top: 70px;
+    font-size: 1.3em;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 98%;
+    height: 0;
+    background-color: #f29400;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.hamburger-container.show {
+    height: 300px;
+}
+
+.burger-menu {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 20px;
+}
+
+
+.user-menu-burger {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 97%;
+    background-color: #0e3083;
+/*     color: #f29400; */
+    padding: 15px;
+    margin-bottom: 20px;
+
+    .user-name {
+        color: #f29400;
+    }
+
+}
+
+.navigation-menu-burger a {
+    margin-top: 40px;
+    color: #0e3083;
+}
+
+.message {
+    display: none;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: -60px;
+}
+
+#success-message p {
+    margin: 0;
+    display: inline-flex;
+    background-color: #f29400;
+    color: #0e3083;
+    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#error-message p {
+    margin: 0;
+    display: inline-flex;
+    color: #f29400;
+    background-color: #0e3083;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+
+
+@media screen and (width < 1440px) {
+
+    body{
+        padding-top: 120px;
+        }
+
+    .header-top-container {
+        padding: 0;
+        padding-inline: 10px;
+    }
+
+    .user-menu {
+        top: 30px;
+    }
+
+    .navigation-menu {
+        padding-inline: 20px;
+        padding-block: 10px;
+    }
+
+    #logo{
+        width: 80px;
+    }
+
+}
+
+@media screen and (width < 1025px) {
+    .menu-element {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (width < 901px) {
+
+    .header-top-container {
+        padding: 10px;
+    }
+    
+    #logo {
+        display: none;
+    }
+    
+    #logo-completo {
+        display: block;
+        width: 300px;
+    }
+    
+    .identity-title-container {
+        display: none;
+    }
+    
+    .header-top-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .my-account{
+        color: #f29400;
+    
+    }
+
+    .my-account img{
+        width: 25px;
+    }
+    
+    .logout{
+        border-radius: 0;
+        width: 25px;
+        
+    }
+    
+    .menu-toggle {
+        display: block;
+        z-index: 1000;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .navigation-menu-burger .menu-element {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (width < 470px) {
+    .user-menu-burger a{
+        font-size: 0.8em;
+    }
+
+    .cart-icon img{
+        width: 25px ;
+    }
+
+    .navigation-menu-burger a{
+        font-size: 0.8em;
+    }
+
+    .menu-toggle {
+        margin: 5px;
+        top: 15px;
+    }
+
+    .menu-toggle span {
+        width: 30px;
+        height: 3px;
+        border-radius: 2px;
+        margin: 7px 0;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        background-color: #0e3083;
+        transform: rotate(-45deg) translate(-11px, 3px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        background-color: #0e3083;
+        transform: rotate(45deg) translate(-10px, -3px);
+    }
+    
+
+}

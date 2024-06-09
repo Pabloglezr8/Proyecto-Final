@@ -1,0 +1,60 @@
+
+.container{
+    margin: 80px auto;
+    width: 80%;
+}
+
+.aboutus-data, .offer-data{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+.aboutus-text, .offer-text, .brand-text{
+    margin: 0 auto;}
+
+.aboutus-data img, .offer-data img{
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 80%;
+}
+
+.brand-carousel {
+    background-color: white;
+    margin-top: 50px;
+    overflow: hidden;
+    border-radius: 20px;
+    width:100%;
+}
+
+.logos{
+    display: flex;
+    align-items: center;
+    animation: scroll 15s linear alternate infinite;
+    
+}
+
+.logos div:first-child{
+    margin-left: 20px;
+}
+
+.logo{
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    margin-right: 80px;
+    img{
+            border-radius: 10px;
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-170px * 8.5));
+    }
+}

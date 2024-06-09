@@ -255,10 +255,6 @@ header {
 
 @media screen and (width < 1440px) {
 
-    body{
-        padding-top: 120px;
-        }
-
     .header-top-container {
         padding: 0;
         padding-inline: 10px;

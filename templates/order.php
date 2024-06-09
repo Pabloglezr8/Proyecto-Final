@@ -1,7 +1,6 @@
 <?php
 include("../api/header.php");
 
-
 // Establecer la conexión a la base de datos
 $conn = connectDB();
 
@@ -15,20 +14,20 @@ function getCartProducts($pdo) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
 // Verificar si la conexión a la base de datos fue exitosa
 if (!$conn) {
     echo "Error al conectar a la base de datos";
     exit();
 }
 
-
-
 $cartProducts = getCartProducts($conn);
 $totalPrice = 0;
 foreach ($cartProducts as $producto) {
     $totalPrice += $producto['price'] * $_SESSION['cart'][$producto['id']];
 }
+
+// Formatear el precio total con dos decimales
+$formattedTotalPrice = number_format($totalPrice, 2, '.', '.');
 ?>
 
 <!DOCTYPE html>
@@ -53,9 +52,9 @@ foreach ($cartProducts as $producto) {
                     <div class="product-container">
                         <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
                         <div class="product-element name parragraf"><?= $producto['name'] ?></div>
-                        <div class="product-element price parragraf"><?= $producto['price'] ?> €</div>
+                        <div class="product-element price parragraf"><?= number_format($producto['price'], 2, '.', '.') ?> €</div>
                         <div class="product-element quantity parragraf">x<?= $_SESSION['cart'][$producto['id']] ?></div>
-                        <div class="product-element totla-price parragraf">= <?= $_SESSION['cart'][$producto['id']] * $producto['price'] ?> €</div>
+                        <div class="product-element totla-price parragraf">= <?= number_format($_SESSION['cart'][$producto['id']] * $producto['price'], 2, '.', '.') ?> €</div>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -160,7 +159,7 @@ foreach ($cartProducts as $producto) {
                     <p><strong>IBAN:</strong>&nbsp;&nbsp;&nbsp; ES00 0000 0000 0000 0000</p>
                     <p>*Asegúrese de incluir su nombre y el ID del pedido en la referencia de la transferencia.</p>
                 </div>
-                <div class="total-price parragraf" data-total-price="<?= $totalPrice ?>">Coste del pedido= <?= $totalPrice ?> €</div>
+                <div class="total-price parragraf" data-total-price="<?= $formattedTotalPrice ?>">Coste del pedido= <?= $formattedTotalPrice ?> €</div>
                 <div id="order-message"></div>
                 <button type="submit" id="place-order-btn">Realizar Pedido</button>
             </form>

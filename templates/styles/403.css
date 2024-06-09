@@ -1,0 +1,243 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../assets/fonts/Montserrat/Montserrat-Bold.ttf);
+}
+
+
+.top-container {
+    font-family: Montserrat;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.acceso {
+    position: relative;
+    font-size: 50px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0 auto;
+    color: rgb(13, 48, 130);
+}
+
+.bloqueado {
+    position: relative;
+    margin: 0 auto;
+    font-size: 50px;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    color: rgb(13, 48, 130);
+}
+
+.tools {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    width: 150px;
+    margin: 0 auto;
+}
+
+h1::first-letter {
+    font-size: 150px;
+    color: #f29400;
+}
+
+.line-acceso {
+    position: absolute;
+    z-index: 1;
+    width: 315px;
+    height: 17.5px;
+    background-color: rgb(242, 148, 0);
+    top: 11rem;
+    left: 6rem;
+
+    animation: tachar 1.5s 1;
+}
+
+.line-bloqueado {
+    position: absolute;
+    z-index: 1;
+    width: 510px;
+    height: 17.5px;
+    background-color: rgb(242, 148, 0);
+    top: 11rem;
+    left: 6rem;
+
+    animation: tachar2 1.5s 1;
+}
+
+
+.bottom-container {
+    margin: 20px auto;
+    width: 60%;
+}
+
+.bottom-container button {
+    width: 100%;
+    padding: 10px;
+    font-family: Mulish;
+    font-weight: bolder;
+    font-size: 1.3em;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #0e3083;
+    color: #f29400;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.bottom-container button:hover {
+    background-color: #f29400;
+    color: #0e3083;
+    transform: scale(1.05);
+}
+
+@keyframes tachar {
+    from {
+        width: 0ch;
+    }
+
+    to {
+        width: 315px;
+    }
+}
+
+@keyframes tachar2 {
+    from {
+        width: 0ch;
+    }
+
+    to {
+        width: 510px;
+    }
+}
+
+@media screen and (width < 901px) {
+    .top-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .bloqueado {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+}
+
+@media screen and (width < 470px) {
+
+    .acceso {
+        font-size: 2em;
+
+    }
+
+    .bloqueado {
+        font-size: 2em;
+
+    }
+
+    h1::first-letter {
+        font-size: 2.3em;
+
+    }
+
+    .line-acceso {
+        width: 205px;
+        height: 9.5px;
+        top: 10.2rem;
+    
+        animation: tachar 1.5s 1;
+    }
+
+    @keyframes tachar {
+        from {
+            width: 0ch;
+        }
+    
+        to {
+            width: 205px;
+        }
+    }
+    
+    
+    .line-bloqueado {
+        width: 329px;
+        height: 9.5px;
+        top: 10.2rem;
+    
+        animation: tachar2 1.5s 1;
+    }
+
+    @keyframes tachar2 {
+        from {
+            width: 0ch;
+        }
+    
+        to {
+            width: 329px;
+        }
+    }
+    
+}
+
+@media screen and (width < 470px) {
+
+    .acceso {
+        font-size: 1.5em;
+    }
+
+    .bloqueado {
+        font-size: 1.5em;
+
+    }
+
+    h1::first-letter {
+        font-size: 2em;
+        color: #f29400;
+    }
+
+    .line-acceso {
+        width: 152px;
+        height: 6.5px;
+        top: 6.8rem;
+        left: 4rem;  
+        
+        animation: tachar 1.5s 1;
+    }
+
+    @keyframes tachar {
+        from {
+            width: 0ch;
+        }
+    
+        to {
+            width: 152px;
+        }
+    }
+    
+    
+    .line-bloqueado {
+        width: 244px;
+        height: 6.5px;
+        top: 6.75rem;
+        left: 4rem;
+    
+        animation: tachar2 1.5s 1;
+    }
+
+    @keyframes tachar2 {
+        from {
+            width: 0ch;
+        }
+    
+        to {
+            width: 244px;
+        }
+    }
+    
+}

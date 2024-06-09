@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Mulish;
+    src: url(../assets/fonts/Mulish.ttf);
+}
+
+body{
+    margin: 0 auto;
+    font-family: Mulish;
+    color: #f29400;
+}

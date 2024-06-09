@@ -1,0 +1,264 @@
+body {
+    padding-top: 100px;
+}
+
+.header {
+    background-color: #f0f0f0;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    color: #f29400;
+    background-color: #0e3083;
+    align-items: center;
+
+
+    h1 {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.title-container img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+}
+
+.section-title{
+    margin-top: 20px;
+    text-align: center;
+    border-top: 2px solid #f29400;
+}
+
+#orderForm {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#userForm{
+    width: 70%;
+    margin: 0 auto;
+}
+
+.user-form {
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.user-form .input-cont {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+}
+
+.name-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%
+}
+
+.surname-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%
+}
+
+.pcode-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%;
+
+    label {
+        white-space: nowrap;
+    }
+}
+
+.location-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%;
+}
+
+.country-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%;
+}
+
+.phone-cont {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%;
+}
+
+.parragraf{
+    font-size: 1em;
+}
+
+
+#pedidos table {
+    margin: 0 auto;
+    width: 80%;
+    border-radius: 20px;
+    border-collapse: collapse;
+    text-align: center;
+
+    th {
+        color: #f29400;
+        background-color: #0e3083;
+    }
+}
+
+#pedidos tr:nth-child(even) {
+    background-color: #0e2f8383;
+}
+
+#pedidos td {
+    padding: 20px;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(242, 148, 0, 0.4);
+    padding-top: 60px;
+    text-align: center;
+}
+
+.modal-content {
+    background-color: #f0f0f0;
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid #0e3083;
+    width: 80%;
+    height: 75vh;
+    overflow-y: auto;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+    border-radius: 10px;
+    color: #0e3083;
+    background-color: #f29400;
+    width: 30px;
+    height: 30px;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease-in-out;
+}
+
+.close:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.modal table {
+    margin: 20px auto;
+    width: 90%;
+    border-radius: 20px;
+    border-collapse: collapse;
+
+    th {
+        color: #f29400;
+        background-color: #0e3083;
+        font-size: 1.2em;
+    }
+}
+
+.modal tr:nth-child(even) {
+    border-radius: 20px;
+    background-color: #0e2f8383;
+}
+
+.modal td {
+    padding: 10px;
+}
+
+.order-detail-btn{
+    background: none;
+    color: #1c1c1c;
+}
+
+.order-detail-btn:hover{
+    transform: none;
+    background: none;
+    color: #1c1c1c;
+}
+
+
+@media screen and (width < 1441px) {
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+    }
+}
+
+@media screen and (width < 1025px) {
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+    }
+
+
+}
+
+@media screen and (width < 901px) {
+
+    .parragraf {
+        font-size: 0.8em;
+    }
+
+}
+
+@media screen and (width < 769px) {
+    .modal td:last-child {
+        display: none;
+    }
+
+    .product-table th:last-child {
+        display: none;
+    }
+}

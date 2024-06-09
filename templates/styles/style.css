@@ -1,0 +1,282 @@
+@font-face {
+    font-family: Mulish;
+    src: url(../assets/fonts/Mulish.ttf);
+}
+
+body {
+    font-family: Mulish;
+    background-color: #f0f0f0;
+    width: 98%;
+    margin: 0 auto;
+    padding-top: 150px;
+
+}
+
+.page {
+    width: 97%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid transparent;
+    margin: 0 auto;
+
+}
+
+h1 {
+    color: #f29400;
+    font-size: 2em;
+}
+
+h2 {
+    color: #f29400;
+    font-size: 1.7em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+.parragraf {
+    color: #1c1c1c;
+    font-size: 1.3em;
+}
+
+img {
+    width: 100px;
+    border-radius: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+a {
+    color: #f29400;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+a:visited {
+    color:#f29400;
+}
+
+button {
+    font-family: Mulish;
+    font-size: 1.3em;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #0e3083;
+    color: #f29400;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #f29400;
+    color: #0e3083;
+    transform: scale(1.05);
+}
+
+.success,
+.error {
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    padding: 5px;
+}
+
+.success {
+    background-color:  rgba(0, 128, 0, 0.356);
+    color: green;
+    border-radius: 10px;
+}
+.error {
+    background-color:  #cf252571;
+    color: #cf2525;
+    border-radius: 10px;
+}
+
+label{
+    color: #0e3083;
+    margin:0;
+}
+
+input {
+    font-family: Mulish;
+    color: #f29400;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: 20px;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+
+}
+
+
+input::placeholder {
+    color: #f29400;
+}
+
+input:focus {
+    color: #0e3083;
+    border: 1px solid #f29400;
+    outline: none;
+}
+
+#input-file {
+    color: #0e3083;
+    border: none;
+}
+
+#input-file:hover {
+    color: #f29400;
+    border: none;
+}
+
+input::-webkit-file-upload-button {
+    font-family: Mulish;
+
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f29400;
+    color: #0e3083;
+    transition: 0.5s ease-in-out;
+}
+
+input::-webkit-file-upload-button:hover {
+    transform: scale(1.05);
+    color: #f29400;
+    background-color: #0e3083;
+    cursor: pointer;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    background-color: white;
+    align-items: center;
+    border-radius: 20px;
+}
+
+@media screen and (width < 1441px) {
+
+    h1 {
+        color: #f29400;
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+
+    h4 {
+        font-size: 1em;
+    }
+
+
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+    }
+
+}
+
+@media screen and (width < 1025px) {
+    .home-button img {
+        width: 40px;
+    }
+
+    h1 {
+        color: #f29400;
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    h4 {
+        font-size: 0.9em;
+    }
+
+    .parragraf {
+        color: #1c1c1c;
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+    }
+
+}
+
+@media screen and (width < 901px) {
+    body {
+        padding-top: 70px;
+        
+    }
+    
+    h1 {
+        color: #f29400;
+        font-size: 1.4em;
+    }
+    
+    h2 {
+        font-size: 1.1em;
+    }
+    
+    h3 {
+        font-size: 0.9em;
+    }
+    
+    h4 {
+        font-size: 0.7em;
+    }
+    
+    .parragraf {
+        font-size: 0.8em;
+    }
+    
+    button {
+        font-size: 0.8em;
+    }
+    
+    input {
+        
+        font-size: 0.9em;
+    }
+
+    .success,
+.error {
+    font-size: 0.8em;
+}
+}
+
+
+@media screen and (width < 769px) {
+    .home-button img {
+        width: 30px;
+    }
+
+    input {
+        margin: 10px;
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}

@@ -164,6 +164,10 @@ input::-webkit-file-upload-button:hover {
 
 @media screen and (width < 1441px) {
 
+body {
+    padding-top: 120px;
+}
+
     h1 {
         color: #f29400;
         font-size: 1.8em;
@@ -228,7 +232,7 @@ input::-webkit-file-upload-button:hover {
 
 @media screen and (width < 901px) {
     body {
-        padding-top: 70px;
+        padding-top: 40px;
         
     }
     

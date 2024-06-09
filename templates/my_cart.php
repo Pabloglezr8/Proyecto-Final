@@ -26,6 +26,9 @@ $totalPrice = 0;
 foreach ($cartProducts as $producto) {
     $totalPrice += $producto['price'] * $_SESSION['cart'][$producto['id']];
 }
+
+// Formatear el precio total con dos decimales
+$formattedTotalPrice = number_format($totalPrice, 2, ',', '.');
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@ foreach ($cartProducts as $producto) {
                     <img src="../assets/img/productos/<?= $producto['img'] ?>" alt="<?= $producto['name'] ?>">
                     <div class="product-text">
                         <div class="product-name parragraf"><?= $producto['name'] ?></div>
-                        <div class="product-price parragraf"><?= $producto['price'] ?> €</div>
+                        <div class="product-price parragraf"><?= number_format($producto['price'], 2, ',', '.') ?> €</div>
                     </div>
                     <div class="product-quantity">
                     <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
@@ -62,7 +65,7 @@ foreach ($cartProducts as $producto) {
             <?php endforeach; ?>
             <div class="cart-total">
                 <button id="clear-cart-btn">Vaciar Cesta</button>
-                <h3 id="total-price">Total: <?= $totalPrice ?>€</h3>
+                <h3 id="total-price">Total: <?= $formattedTotalPrice ?>€</h3>
                 <a href="order.php">
                     <button id="checkout-btn">Realizar Pedido</button>
                 </a>

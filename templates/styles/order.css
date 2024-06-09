@@ -1,0 +1,334 @@
+.page {
+    position: relative;
+}
+
+.identity-subtitle {
+    border: none;
+}
+
+.home-button img {
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    width: 50px;
+}
+
+.title {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.order-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-gap: 40px;
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+.order-details {
+    border-radius: 20px;
+    height: 100vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.total-price {
+    white-space: nowrap;
+    margin: 0 auto;
+    width: 40%;
+    padding: 10px;
+    margin-top: 20px;
+    color: #0e3083;
+    border-radius: 10px;
+    border: 2px solid #f29400;
+    text-align: center;
+}
+
+.product-container {
+    width: 90%;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.product-container img {
+    width: 100px;
+}
+
+.product-element {
+    text-align: center;
+    white-space: nowrap;
+    margin: 20px;
+}
+
+.name{
+    white-space: unset;
+}
+
+.order-form-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.empty-cart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-cart h2{
+    color: #0e3083;
+    border-bottom: none;
+}
+
+h2{
+    text-align: center;
+    border-bottom: 2px solid #f29400;
+}
+
+
+#mostrarFormulario{
+    font-size: 1em;
+}
+#loginMessage {
+    display: none;
+    text-align: center;
+    color: #cf2525;
+    padding: 20px;
+}
+
+#loginForm {
+    display: none;
+    width: 100%;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+#orderForm{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-form{
+    margin-top: 20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.user-form .input-cont{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+}
+
+.name-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%
+}
+
+.surname-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%
+}
+
+.pcode-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%;
+    label{
+        white-space: nowrap;
+    }
+}
+
+.location-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%;
+}
+
+.country-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    width: 50%;
+}
+
+.phone-cont{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 50%;
+}
+
+.add-form{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.payment-form{
+    margin: 5px;
+    width: 50%;
+    text-align: center;
+}
+
+.shipment-form{
+    margin: 5px;
+    width: 50%;
+    text-align: center;
+}
+
+#payment-method {
+    width: 80%;
+    font-family: Mulish;
+    color: #f29400;
+    font-size: 1em;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+}
+
+#payment-method:focus {
+    color: #0e3083;
+    border: 1px solid #f29400;
+    outline: none;
+}
+
+#shipment-method {
+    width: 80%;
+    font-family: Mulish;
+    color: #f29400;
+    font-size: 1em;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #0e3083;
+    border-radius: 10px;
+}
+
+#shipment-method:focus {
+    color: #0e3083;
+    border: 1px solid #f29400;
+    outline: none;
+}
+
+.payment-method:hover {
+    cursor: pointer;
+}
+
+#bank-transfer-instructions {
+    margin-top: 20px;
+    display: none;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 2px solid #0e3083;
+    background-color: white;
+    padding: 10px;
+}
+
+
+#bank-transfer-instructions p:last-child {
+    text-align: center;
+}
+
+
+#bank-transfer-instructions strong {
+    font-size: 1.2em;
+    color: #f29400;
+}
+
+#place-order-btn {
+    margin-block: 20px;
+}
+
+.success,
+.error {
+    margin-top: 10px;
+
+    strong{
+        font-size: 1.1em;
+    }
+}
+
+
+@media screen and (width < 1025px) {
+    
+    .home-button img {
+        width: 40px;
+    }
+}
+
+
+@media screen and (width < 769px) {
+    .home-button img {
+        width: 30px;
+    }
+
+    .error strong{
+            font-size: 1.1em;
+    }
+
+    #payment-method {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    #shipment-method {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (width < 470px) {
+
+    .order-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 40px;
+        width: 90%;
+        margin: 0 auto;
+
+    }
+
+    .total-price {
+        width: 50%;
+    }
+
+    .product-container {
+        width: 50%;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .product-container img {
+        width: 80px;
+    }
+
+    #loginForm {
+        flex-direction: column;
+    }
+
+}
