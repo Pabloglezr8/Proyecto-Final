@@ -56,9 +56,9 @@ $formattedTotalPrice = number_format($totalPrice, 2, ',', '.');
                         <div class="product-price parragraf"><?= number_format($producto['price'], 2, ',', '.') ?> €</div>
                     </div>
                     <div class="product-quantity">
-                    <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
-                            <span class="cart-quantity" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
                         <button class="remove-from-cart-btn" data-product-id="<?= $producto['id'] ?>">-</button>
+                            <span class="cart-quantity" data-product-id="<?= $producto['id'] ?>"><?= $_SESSION['cart'][$producto['id']] ?></span>
+                    <button class="increase-quantity-btn" id="add-quantity" data-product-id="<?= $producto['id'] ?>">+</button>
                     </div>
                 </div>
             </div>

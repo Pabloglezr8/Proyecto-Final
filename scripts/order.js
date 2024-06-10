@@ -68,7 +68,7 @@ $(document).ready(function() {
             type: 'POST',
             data: formData,
             success: function(response) {
-                $('#order-message').html("<p class='error'>" + response.message + "</p>");
+                /*$('#order-message').html("<p class='error'>" + response.message + "</p>");*/
                 if (response.status) {
                     // Redirigir a una página de confirmación
                     window.location.href = '../templates/order-confirmation.php?order_id=' + response.order_id;

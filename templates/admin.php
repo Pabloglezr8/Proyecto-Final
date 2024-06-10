@@ -176,11 +176,11 @@ function listProducto($conn, &$message, &$messageClass){
     <title>Ferretería Vegagrande</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/admin.css">
-    <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/admin.js"></script>
     <script src="../scripts/user.js"></script>
-    <script src="https://cdn.tiny.cloud/1/lpkru3bwlph0n9ix1g4arbvlm1i9l03nrofm1pm6v1njqqva/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/fizcb6unxwb4kzc9elhnv9ny7im3f15bzd59wu9waibmaufq/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
     <div class="header">
@@ -253,10 +253,10 @@ function listProducto($conn, &$message, &$messageClass){
                         <td class="precio"><p class="parraf" id="price"><?= $product["price"]?> €</p></p></td>
                         <td class="actions">
                             <div class="button-container">
-                            <form method='post'>
-                                <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
-                                <button type='submit' name='delete' id="delete-btn">Eliminar</button>
-                            </form>
+                                <form method='post'>
+                                    <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
+                                    <button type='submit' name='delete' id="delete-btn">Eliminar</button>
+                                </form>
                                 <form method='post'>
                                     <input type='hidden' name='edit_id' value='<?= $product["id"] ?>'>
                                     <button class='btn' type='submit' name='edit' id='edit-btn'>Editar</button>

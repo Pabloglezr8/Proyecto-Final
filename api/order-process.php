@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Limpiar el carrito
         unset($_SESSION['cart']);
 
-        // Enviar correo electrónico de confirmación
+        /* // Enviar correo electrónico de confirmación
         $to = $email;
         $subject = "Confirmación de Pedido";
         $message = "
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <style>
                 body {
                     font-family: Arial, sans-serif;
-                    color: #1c1c1c;
+                    color: black;
                 }
                 .container {
                     width: 100%;
@@ -199,6 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     width: 100%;
                     margin-bottom: 20px;
                     border-collapse: collapse;
+                    tex-align:center;
                 }
                 th, td {
                     border: 1px solid #ccc;
@@ -209,6 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     background-color: #0e3083;
                     color: #fff;
                 }
+                
                 tr:nth-child(even) {
                     background-color: #f2f2f2;
                 }
@@ -231,7 +233,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <body>
             <div class='container'>
                 <div class='header'>
-                    <img src='https://practicas.pagespeedwordpress.com/assets/img/logoCompleto.png' alt='Ferreteria Vegagrande' class='logo'/>
                     <h1 class='title'>Gracias por tu compra</h1>
                 </div>
                 <div class='saludo'>
@@ -257,21 +258,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </thead>
                     <tbody>";
         
-        // Generar filas de productos comprados
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
-            $stmt = $conn->prepare("SELECT name, price FROM productos WHERE id = ?");
-            $stmt->execute([$productId]);
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            $productName = $product['name'];
-            $productPrice = $product['price'];
-            $productTotal = $productPrice * $quantity;
+                    $stmt = $conn->prepare("SELECT p.name, pp.quantity, pp.price FROM pedidos_productos pp JOIN productos p ON pp.product_id = p.id WHERE pp.pedido_id = ?");
+                    $stmt->execute([$pedidoId]);
+                    $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                    foreach ($productos as $producto) {
+                    $productName = $producto['name'];
+                    $quantity = $producto['quantity'];
+                    $productPrice = $producto['price'];
+                    $productTotal = $productPrice * $quantity;
         
             $message .= "
                         <tr>
                             <td>$productName</td>
                             <td>$quantity</td>
-                            <td>$productPrice €</td>
-                            <td>$productTotal €</td>
+                            <td style='white-space: nowrap;'>$productPrice €</td>
+                            <td style='white-space: nowrap;'>$productTotal €</td>
                         </tr>";
         }
         
@@ -286,13 +288,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </body>
         </html>";
         
-        $headers = "From: no-reply@tu-tienda.com";
+        $headers = "From: ferreteriavegagrande@practicas.pagespeedwordpress.com\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
         if (mail($to, $subject, $message, $headers)) {
             error_log("Correo de confirmación enviado a $email");
         } else {
             error_log("Error al enviar el correo de confirmación a $email");
-        }
+        } */
 
         $response['status'] = true;
         $response['message'] = 'Pedido realizado con éxito.';

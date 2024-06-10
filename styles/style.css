@@ -56,7 +56,7 @@ a {
 }
 
 a:visited {
-    color: #f29400;
+    color:#f29400;
 }
 
 button {
@@ -86,20 +86,19 @@ button:hover {
 }
 
 .success {
-    background-color: rgba(0, 128, 0, 0.356);
+    background-color:  rgba(0, 128, 0, 0.356);
     color: green;
     border-radius: 10px;
 }
-
 .error {
-    background-color: #cf252571;
+    background-color:  #cf252571;
     color: #cf2525;
     border-radius: 10px;
 }
 
-label {
+label{
     color: #0e3083;
-    margin: 0;
+    margin:0;
 }
 
 input {
@@ -164,7 +163,6 @@ input::-webkit-file-upload-button:hover {
 }
 
 @media screen and (width < 1441px) {
-
     body {
         padding-top: 120px;
     }
@@ -234,42 +232,43 @@ input::-webkit-file-upload-button:hover {
 @media screen and (width < 901px) {
     body {
         padding-top: 40px;
+        
     }
-
+    
     h1 {
         color: #f29400;
         font-size: 1.4em;
     }
-
+    
     h2 {
         font-size: 1.1em;
     }
-
+    
     h3 {
         font-size: 0.9em;
     }
-
+    
     h4 {
         font-size: 0.7em;
     }
-
+    
     .parragraf {
         font-size: 0.8em;
     }
-
+    
     button {
         font-size: 0.8em;
     }
-
+    
     input {
-
+        
         font-size: 0.9em;
     }
 
     .success,
-    .error {
-        font-size: 0.8em;
-    }
+.error {
+    font-size: 0.8em;
+}
 }
 
 

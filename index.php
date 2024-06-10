@@ -40,7 +40,7 @@ include("./api/header.php");
                     de soluciones para tus proyectos, desde el menaje más práctico hasta las herramientas de
                     bricolaje básico que necesitas para llevar a cabo cualquier tarea.
                 </p>
-                <a href="./templates/contact.php"><button>Localízanos</button></a>
+                <a href="templates/contact.php"><button>Localízanos</button></a>
             </div>
         </div>
     </section>
@@ -71,7 +71,7 @@ include("./api/header.php");
                     <p>En nuestra ferretería, la calidad es más que una promesa, es nuestra garantía de satisfacción.
                     </p>
                 </div>
-                <a href="./templates/aboutus.php"><button>Conócenos</button></a>
+                <a href="templates/aboutus.php"><button>Conócenos</button></a>
             </div>
             <div class="quality-right section-right">
                 <div class="gallery quality-right section-right">

@@ -168,7 +168,7 @@ foreach ($_SESSION['cart'] as $prod) {
                             <span class="user-name"><?php echo $_SESSION['name'];?></span>
                         </a>
                     </div>
-                <div class="menu-element"><a href="/FerreteriaVegagrande/api/logout-process.php"><img class="logout" src="/FerreteriaVegagrande/assets/img/icons/logout.png" alt=""></a></div>
+                <div class="menu-element"><a href="/FerreteriaVegagrande/api/logout-process.php"><img class="logout" src="/assets/img/icons/logout.png" alt=""></a></div>
                 <?php else: ?>
                 <div class="menu-element"><a href="/FerreteriaVegagrande/templates/login.php">LogIn</a></div>
                 <?php endif; ?>

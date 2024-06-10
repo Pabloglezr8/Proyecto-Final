@@ -113,12 +113,12 @@ img {
     text-align: center;
 }
 
-.delete-btn {
+#delete-btn {
     color: #cf2525;
     background: none;
 }
 
-.delete-btn:hover {
+#delete-btn:hover {
     color: white;
     background-color: #cf2525;
 }

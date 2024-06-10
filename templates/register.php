@@ -137,11 +137,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-<div class="logo"><a href="/FerreteriaVegagrande/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
+<div class="logo"><a href="/FerreteriaVegagrande2/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
 <div class="container">
     <div class="title-container">
         <a class="home-button" href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
-        <h1 class="title">Registrate</h1>
+        <h1 class="title">Regístrate</h1>
     </div>
     <div class="register-form-container">
         <form id="register-form" method="post" action="">

@@ -104,16 +104,16 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferretería Vegagrande</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/user.css">
-    <link rel="shortcut icon" href="/FerreteriaVegagrande/favicon.ico" type="image/x-icon">
-    <script src="../scripts/user.js" defer></script>
+    <link rel="stylesheet" href="/FerreteriaVegagrande/styles/style.css">
+    <link rel="stylesheet" href="/FerreteriaVegagrande/styles/user.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script src="/FerreteriaVegagrande/scripts/user.js" defer></script>
 </head>
 <body>
 
 <div class="header">
     <div class="title-container">
-        <a href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
+        <a href="../index.php"><img src="/FerreteriaVegagrande/assets/img/icons/goBack.png" alt="home"></a>
         <h1 class='title'><?= htmlspecialchars($user['name']); ?> <?= htmlspecialchars($user['surname']); ?></h1>
     </div>
 </div>

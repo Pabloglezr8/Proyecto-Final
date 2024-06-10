@@ -138,8 +138,8 @@ $formattedTotalPrice = number_format($totalPrice, 2, '.', '.');
                         <h2>Metodo de Pago</h2>
                         <select class="form-select" id="payment-method" name="payment_method" >
                             <option value="">Selecciona Método Pago</option>
-                            <option value="contrareembolso">Contra Reembolso</option>
-                            <option value="transferencia">Transferencia Bancaria</option>
+                            <option value="Contra Reembolso">Contra Reembolso</option>
+                            <option value="Transferencia">Transferencia Bancaria</option>
                         </select> <br>
                     </div>
 

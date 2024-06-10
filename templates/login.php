@@ -10,7 +10,7 @@
     <script src="../scripts/login.js"></script>
 </head>
 <body >
-<div class="logo"><a href="/FerreteriaVegagrande/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
+<div class="logo"><a href="/FerreteriaVegagrande2/index.php"><img src="../assets/img/LogoCompleto.png" alt="Ferretería Vegagrande"></a></div>
     <div class="container">
         <div class="title-container">
             <a class="home-button" href="../index.php"><img src="../assets/img/icons/goBack.png" alt="home"></a>
