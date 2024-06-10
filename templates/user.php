@@ -15,7 +15,7 @@ $response = ['success' => false, 'message' => ''];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax'])) {
     // Comprobación de los campos requeridos
-    $required_fields = ['name', 'surname', 'email', 'password', 'address', 'postal_code', 'location', 'country', 'phone'];
+    $required_fields = ['name', 'surname', 'email', 'password',];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             $response['message'] = "El campo $field es obligatorio.";
@@ -40,22 +40,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax'])) {
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^\d{5}$/", $_POST['postal_code'])) {
+    if (!preg_match("/^(\d{5})?$/", $_POST['postal_code'])) {
         $response['message'] = 'Código postal no válido.';
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['location'])) {
+    if (!preg_match("/^[\p{L}\s]*$/u", $_POST['location'])) {
         $response['message'] = 'Localidad no válida.';
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[\p{L}\s]+$/u", $_POST['country'])) {
+    if (!preg_match("/^[\p{L}\s]*$/u", $_POST['country'])) {
         $response['message'] = 'País no válido.';
         echo json_encode($response);
         exit;
     }
-    if (!preg_match("/^[0-9]{9}$/", $_POST['phone'])) {
+    if (!preg_match("/^(\d{9})?$/", $_POST['phone'])) {
         $response['message'] = 'Número de teléfono no válido';
         echo json_encode($response);
         exit;

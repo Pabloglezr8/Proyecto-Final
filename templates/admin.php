@@ -253,10 +253,10 @@ function listProducto($conn, &$message, &$messageClass){
                         <td class="precio"><p class="parraf" id="price"><?= $product["price"]?> €</p></p></td>
                         <td class="actions">
                             <div class="button-container">
-                                <form method='post' class="delete-form">
-                                    <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
-                                    <button type='submit' name='delete' class="delete-btn">Eliminar</button>
-                                </form>
+                            <form method='post'>
+                                <input type='hidden' name='delete_id' value='<?= $product["id"] ?>'>
+                                <button type='submit' name='delete' id="delete-btn">Eliminar</button>
+                            </form>
                                 <form method='post'>
                                     <input type='hidden' name='edit_id' value='<?= $product["id"] ?>'>
                                     <button class='btn' type='submit' name='edit' id='edit-btn'>Editar</button>
